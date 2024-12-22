@@ -174,7 +174,7 @@ const Navbar = () => {
             >
             Inventory Reports
             </Link>
-            <ul className="absolute left-0 hidden mt-2 w-80 bg-white text-black shadow-lg group-hover:block">
+            <ul className="absolute left-0 hidden mt-2 w-96 bg-white text-black shadow-lg group-hover:block">
             {[
                 { path: "/inventoryreports/suboption1", label: "Item Search" },
                 { path: "/inventoryreports/suboption2", label: "Inventory Item List" },
