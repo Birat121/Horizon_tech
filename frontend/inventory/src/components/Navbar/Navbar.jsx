@@ -57,7 +57,7 @@ const Navbar = () => {
             >
               Transaction
             </Link>
-            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+            <ul className="absolute left-0 hidden mt-2 w-56 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/master/suboption1">Journal Voucher</Link>
               </li>
@@ -120,7 +120,7 @@ const Navbar = () => {
             >
               Account Reports
             </Link>
-            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+            <ul className="absolute left-0 hidden mt-2 w-64 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/master/suboption1">Print Preview Voucher</Link>
               </li>
@@ -174,7 +174,7 @@ const Navbar = () => {
             >
             Inventory Reports
             </Link>
-            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+            <ul className="absolute left-0 hidden mt-2 w-80 bg-white text-black shadow-lg group-hover:block">
             {[
                 { path: "/inventoryreports/suboption1", label: "Item Search" },
                 { path: "/inventoryreports/suboption2", label: "Inventory Item List" },
@@ -219,7 +219,7 @@ const Navbar = () => {
             >
               System Security
             </Link>
-            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+            <ul className="absolute left-0 hidden mt-2 w-80 bg-white text-black shadow-lg group-hover:block">
             {[
               {path:"/systemsecurity/suboptions1",label:"Menu Access"},
               {path:"/systemsecurity/suboptions2",label:"Backup Data"},
