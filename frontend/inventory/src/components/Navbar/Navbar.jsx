@@ -167,16 +167,51 @@ const Navbar = () => {
 
             </ul>
           </li>
-          <li>
+            <li className="group relative">
             <Link
-              to="/inventoryreports"
-              className="hover:text-gray-300 transition duration-300"
+                to="/inventoryreports"
+                className="text-xl hover:text-gray-300 transition duration-300"
             >
-              Inventory Reports
+            Inventory Reports
             </Link>
-          </li>
-
-
+            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+            {[
+                { path: "/inventoryreports/suboption1", label: "Item Search" },
+                { path: "/inventoryreports/suboption2", label: "Inventory Item List" },
+                {
+                  path: "/inventoryreports/suboption3",
+                  label: "Print Preview Purchase, Sales and Return Bill",
+                },
+                { path: "/inventoryreports/suboptions4", label: "Purchase / Sales / Issue Book" },
+                { path: "/inventoryreports/suboption5", label: "Purchase / Sales Book (Annex-13)" },
+                { path: "/inventoryreports/suboptions6", label: "Product Wise - Profitability Reports" },
+                {
+                  path: "/inventoryreports/suboptions7",
+                  label: "Vendor Purchase / Return Detailed Invoice Wise",
+                },
+                { path: "/inventoryreports/suboptions8", label: "Vendor Purchase / Return Category Wise" },
+                { path: "/inventoryreports/suboptions9", label: "Purchase Landed Cost Report" },
+                { path: "/inventoryreports/suboptions11", label: "Item Purchase / Return In Detail" },
+                { path: "/inventoryreports/suboptions12", label: "CBMS Related Report" },
+                { path: "/inventoryreports/suboptions13", label: "Customer Sales / Return Detail Invoice Wise" },
+                { path: "/inventoryreports/suboptions14", label: "Customer Sales / Return Category Wise" },
+                { path: "/inventoryreports/suboptions15", label: "Item Sales / Return In Detail" },
+                { path: "/inventoryreports/suboptions16", label: "Item Sales (Area / Salesman) Wise" },
+                { path: "/inventoryreports/suboptions17", label: "Production / Consumptions Report" },
+                { path:"/inventoryreports/suboptions18",label:"Inventory Item Stock Report"},
+                { path: "/inventoryreports/suboptions19", label: "Item Stock In Detail" },
+                { path: "/inventoryreports/suboptions20", label: "Purchase And Sales More Than One Lakh" },
+                { path:"/inventoryreports/suboptions21",label:"VAT Ledger of Purchase And Sales"},
+                { path: "/inventoryreports/suboptions22", label: "No Sales From Last Purchase" },
+                { path: "/inventoryreports/suboptions23", label: "No Purchase Since Date But Stock Avi"},
+                { path:"/inventoryreports/suboptions24",label:"Bonus Received From Vendor"},
+                ].map((item, index) => (
+                <li key={index} className="px-4 py-2 hover:bg-gray-100">
+                <Link to={item.path}>{item.label}</Link>
+            </li>
+          ))}
+        </ul>
+        </li>
           <li className="group relative">
             <Link
               to="/systemsecurity"
