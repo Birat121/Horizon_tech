@@ -4,97 +4,183 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="bg-blue-900 text-white px-4 py-3 shadow-md">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-6 my-4 flex items-center justify-between">
         {/* Logo Section */}
-        <h1 className="text-3xl font-bold">Horizon Tech</h1>
+        <Link to="/">
+              <h1 className="text-3xl font-bold hover:text-gray-400">Horizon Tech</h1>
+            </Link>
         
         {/* Navigation Links */}
         <ul className="flex space-x-6">
           <li className="group relative">
             <Link
               to="/master"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               Master
             </Link>
             {/* Dropdown Example */}
             <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/master/suboption1">Sub Option 1</Link>
+                <Link to="/master/suboption1">Create Account Ledger</Link>
               </li>
               <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/master/suboption2">Sub Option 2</Link>
+                <Link to="/master/suboption2">Sub Ledger Master</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption3">Additional Expenses Ledger Mapping</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption4">Change Account Type</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption5">Account Re-Grouping</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption6">Inventory Master</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption7">Department Master</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption8">Counter Setting</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption9">Point Collection Setting</Link>
               </li>
             </ul>
           </li>
-          <li>
+          <li className='group relative'>
             <Link
               to="/transaction"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               Transaction
             </Link>
+            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption1">Journal Voucher</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Receipt Voucher</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Payment Voucher</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Purchase</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Sales</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">PDC Entry</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">BG Entry</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Price Change</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Invoice Generate</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Material Issue</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Goods Receipt By Product</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Issue Return</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Barcode Label Print</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Barcode Print With Expire Date</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Opening Balance Entry</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Opening Stock Entry</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Import Data From Excel</Link>
+              </li>
+
+            </ul>
           </li>
-          <li>
+          
+          <li className='group relative'>
             <Link
               to="/accountreports"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               Account Reports
             </Link>
-          </li>
-          <li className="group relative">
-             <Link
-                 to="/inventoryreports"
-                className="hover:text-gray-300 transition duration-300"
-               >
-                Inventory Reports
-               </Link>
-                <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
-                  {[
-                    { path: "/inventoryreports/suboption1", label: "Item Search" },
-                    { path: "/inventoryreports/suboption2", label: "Inventory Item List" },
-                    {
-                      path: "/inventoryreports/suboption3",
-                      label: "Print Preview Purchase, Sales and Return Bill",
-                    },
-                    { path: "/inventoryreports/suboptions4", label: "Purchase / Sales / Issue Book" },
-                    { path: "/inventoryreports/suboption5", label: "Purchase / Sales Book (Annex-13)" },
-                    { path: "/inventoryreports/suboptions6", label: "Product Wise - Profitability Reports" },
-                    {
-                        path: "/inventoryreports/suboptions7",
-                        label: "Vendor Purchase / Return Detailed Invoice Wise",
-                    },
-                    { path: "/inventoryreports/suboptions8", label: "Vendor Purchase / Return Category Wise" },
-                    { path: "/inventoryreports/suboptions9", label: "Purchase Landed Cost Report" },
-                    { path: "/inventoryreports/suboptions10", label: "Item Purchase / Return In Detail"},
-                    { path: "/inventoryreports/suboptions11", label: "CBMS Related Report"},
-                    { path: "/inventoryreports/suboptions12",label:"Customer Sales / Return Detail Invoice Wise"},
-                    { path: "/inventoryreports/suboptions13",label:"Customer Sales / Return Category Wise"},
-                    { path:"/inventoryreports/suboptions14",label:"Item Sales / Return In Detail"},
-                    { path:"/inventoryreports/suboptions15",label:"Item Sale (Area / Salesman) Wise"},
-                    { path:"/inventoryreports/suboptions16",label:"Production / Consumption Report"},
-                    { path:"/inventoryreports/suboptions17",label:"Inventory Item Stock Report"},
-                    { path:"/inventoryreports/suboptions18",label:"Item Stock In Detail"},
-                    { path:"/inventoryreports/suboptions19",label:"Purchase and Sales More Than On lakh"},
-                    { path:"/inventoryreports/suboptions20",label:"VAT Ledger of Purchase And Sales"},
-                    { path:"/inventoryreports/suboptions21",label:"No Sales From Last Purchase"},
-                    { path:"/inventoryreports/suboptions22",label:"No Purchase Since Date But Stock Avl"},
-                    { path:"/inventoryreports/suboptions23",label:"Bonus Received From Vendor"},
-                  ].map((item, index) => ( 
-                  <li key={index} className="px-4 py-2 hover:bg-gray-100">
-                  <Link to={item.path}>{item.label}</Link>
-                  
-                  </li>
-                  ))}
+            <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption1">Print Preview Voucher</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Day Book</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Trial Balance</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Balance Sheet</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Profit And Loss</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">User Base Collection</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Price Change Detail </Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Balance Confirmation(Vendor / Customer)</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">General Ledger Detail</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">General Ledger With Product Detail</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Receivable / Payable Summary Report</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Ageing analysis Reports</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Invoice Wise Ageing Analysis</Link>
+              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">
+                <Link to="/master/suboption2">Chart Of Accounts</Link>
+              </li>
+              
+
             </ul>
+          </li>
+          <li>
+            <Link
+              to="/inventoryreports"
+              className="hover:text-gray-300 transition duration-300"
+            >
+              Inventory Reports
+            </Link>
           </li>
 
 
           <li className="group relative">
             <Link
               to="/systemsecurity"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               System Security
             </Link>
@@ -136,7 +222,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/about"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               About Software
             </Link>
@@ -144,7 +230,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/exit"
-              className="hover:text-gray-300 transition duration-300"
+              className="text-xl hover:text-gray-300 transition duration-300"
             >
               Exit
             </Link>
