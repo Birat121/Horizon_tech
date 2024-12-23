@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useLocation} from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
 
@@ -8,9 +8,15 @@ import 'font-awesome/css/font-awesome.min.css';
 
 const Navbar = () => {
 
-  const[isOpen, setIsOpen] = useState(false);
+  const[isOpen, setIsOpen] = useState(false); //Use Mobile Menu
+  const [activeDropdown, setActiveDropdown] = useState(null); // Active dropdown state
+
   const toggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleDropdown = (menuName) => {
+    setActiveDropdown(activeDropdown === menuName ? null : menuName);
   };
 
   return (
@@ -34,13 +40,14 @@ const Navbar = () => {
           className={`lg:flex flex-col lg:flex-row  lg:space-x-6 ${isOpen ? 'block' : 'hidden'} lg:block`}
         >
           <li className="group relative">
-            <Link
-              to="/master"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('master')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               Master
-            </Link>
+            </button>
             {/* Dropdown Example */}
+            {activeDropdown === 'master' && (           
             <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/master/suboption1">Create Account Ledger</Link>
@@ -70,14 +77,16 @@ const Navbar = () => {
                 <Link to="/master/suboption9">Point Collection Setting</Link>
               </li>
             </ul>
+            )}
           </li>
           <li className='group relative'>
-            <Link
-              to="/transaction"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('transaction')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               Transaction
-            </Link>
+            </button>
+            {activeDropdown === 'transaction' && (
             <ul className="absolute left-0 hidden mt-2 w-56 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/master/suboption1">Journal Voucher</Link>
@@ -132,15 +141,17 @@ const Navbar = () => {
               </li>
 
             </ul>
+            )}
           </li>
           
           <li className='group relative'>
-            <Link
-              to="/accountreports"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('activereports')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               Account Reports
-            </Link>
+            </button>
+            {activeDropdown === 'activereports' && (
             <ul className="absolute left-0 hidden mt-2 w-64 bg-white text-black shadow-lg group-hover:block">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/master/suboption1">Print Preview Voucher</Link>
@@ -187,14 +198,16 @@ const Navbar = () => {
               
 
             </ul>
+            )}
           </li>
             <li className="group relative">
-            <Link
-                to="/inventoryreports"
-                className="text-xl hover:text-gray-300 transition duration-300"
+            <button
+              onClick={() => toggleDropdown('inventoryreport')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
-            Inventory Reports
-            </Link>
+              Inventory Reports
+            </button>
+            {activeDropdown === 'inventoryreport' && (
             <ul className="absolute left-0 hidden mt-2 w-96 bg-white text-black shadow-lg group-hover:block">
             {[
                 { path: "/inventoryreports/suboption1", label: "Item Search" },
@@ -232,14 +245,16 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+         )}
         </li>
           <li className="group relative">
-            <Link
-              to="/systemsecurity"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('systemsecurity')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               System Security
-            </Link>
+            </button>
+            {activeDropdown === 'systemsecurity' && (
             <ul className="absolute left-0 hidden mt-2 w-80 bg-white text-black shadow-lg group-hover:block">
             {[
               {path:"/systemsecurity/suboptions1",label:"Menu Access"},
@@ -272,24 +287,25 @@ const Navbar = () => {
               </li>
             ))}
             </ul>
+            )}
           </li>
           
           
           <li>
-            <Link
-              to="/about"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('aboutsoftware')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               About Software
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/exit"
-              className="text-xl hover:text-gray-300 transition duration-300"
+          <button
+              onClick={() => toggleDropdown('exit')}
+              className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               Exit
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
