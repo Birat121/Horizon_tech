@@ -1,17 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import 'font-awesome/css/font-awesome.min.css';
+
+
+
 
 const Navbar = () => {
+
+  const[isOpen, setIsOpen] = useState(false);
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <nav className="bg-blue-900 text-white px-4 py-3 shadow-md">
       <div className="container mx-6 my-4 flex items-center justify-between">
         {/* Logo Section */}
         <Link to="/">
-              <h1 className="text-3xl font-bold hover:text-gray-400">Horizon Tech</h1>
+              <h1 className="text-3xl  font-bold hover:text-gray-400">Horizon Tech</h1>
             </Link>
+
+        {/* Hamburger Menu */}
+        
+          <button onClick={toggle} className="text-2xl lg:hidden focus:outline-none" aria-label='Toggle navigation'>
+            <i className={`fa ${isOpen ? 'fa-times' : 'fa-bars'}`} aria-hidden="true"></i>
+          </button>
+       
+
         
         {/* Navigation Links */}
-        <ul className="flex space-x-6">
+        <ul
+          className={`lg:flex flex-col lg:flex-row  lg:space-x-6 ${isOpen ? 'block' : 'hidden'} lg:block`}
+        >
           <li className="group relative">
             <Link
               to="/master"
@@ -235,11 +256,11 @@ const Navbar = () => {
                 ],
               },
             ].map((item,index)=>(
-              <li key={index} className="px-4 py-2 hover:bg-gray-100">
+              <li key={index} className="px-4 py-2 hover:bg-gray-100 relative group">
                   <Link to={item.path}>{item.label}</Link>    
                 {/* Only show suboptions on hover of 'IRD Setup' */}
                     {item.label === "IRD Setup" && item.subOptions && (
-                        <ul className="absolute left-full top-0 hidden mt-0 w-48 bg-white text-black shadow-lg group-hover:block">
+                        <ul className="absolute left-full top-0 mt-0 ml-2 w-72 bg-white text-black shadow-lg hidden group-hover:block">
                         {item.subOptions.map((subItem, subIndex) => (
                           <li key={subIndex} className="px-4 py-2 hover:bg-gray-100">
                             <Link to={subItem.path}>{subItem.label}</Link>

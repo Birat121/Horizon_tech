@@ -10,6 +10,7 @@ import Exit from './components/Exit/Exit'
 import InventoryReports from './components/Inventory Reports/InventoryReports'
 import SystemSecurity from './components/System Security/SystemSecurity'
 import About from './components/About Software/About'
+import Footer from './components/Footer/Footer'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/about" element={<About/>}/>
       <Route path="/exit" element={<Exit/>}/>
     </Routes>
+    <Footer/>
 
       </>
   )
