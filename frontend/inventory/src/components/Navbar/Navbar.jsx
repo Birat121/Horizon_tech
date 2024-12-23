@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-900 text-white px-4 py-3 shadow-md">
-      <div className="container mx-6 my-4 flex items-center justify-between">
+      <div className="container mx-6 my-4 flex items-center justify-between ">
         {/* Logo Section */}
         <Link to="/">
               <h1 className="text-3xl  font-bold hover:text-gray-400">Horizon Tech</h1>
@@ -40,12 +40,14 @@ const Navbar = () => {
           className={`lg:flex flex-col lg:flex-row  lg:space-x-6 ${isOpen ? 'block' : 'hidden'} lg:block`}
         >
           <li className="group relative">
+            <Link to="/master" >
           <button
               onClick={() => toggleDropdown('master')}
               className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               Master
             </button>
+            </Link>
             {/* Dropdown Example */}
             {activeDropdown === 'master' && (           
             <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg group-hover:block">
@@ -292,12 +294,14 @@ const Navbar = () => {
           
           
           <li>
+            <Link to="/about" >
           <button
               onClick={() => toggleDropdown('aboutsoftware')}
               className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
             >
               About Software
             </button>
+            </Link>
           </li>
           <li>
           <button
