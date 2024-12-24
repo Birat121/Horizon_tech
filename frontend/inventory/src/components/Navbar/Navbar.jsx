@@ -46,17 +46,15 @@ const Navbar = () => {
           } lg:block`}
         >
           <li className="group relative">
-            {/* <Link to="/master"> */}
               <button
                 onClick={() => toggleDropdown("master")}
                 className="text-xl hover:text-gray-300 transition duration-300 focus:outline-none"
               >
                 Master
               </button>
-            {/* </Link> */}
             {/* Dropdown Example */}
             {activeDropdown === "master" && (
-              <ul className="absolute left-0 hidden mt-2 w-48 bg-white text-black shadow-lg ">
+              <ul className={`absolute left-0 mt-2 w-48 bg-white text-black shadow-lg ${activeDropdown === "master" ? "block" : "hidden"}`}>
                 {menus
                   .find((menu) => menu.name === "Master") // Locate the 'Transaction' menu
                   ?.items.map((item, index) => (
@@ -95,7 +93,8 @@ const Navbar = () => {
             </button>
 
             {activeDropdown === "transaction" && (
-              <ul className="absolute left-0 mt-2 w-56 bg-white text-black shadow-lg">
+              <ul className={`absolute left-0 mt-2 w-48 bg-white text-black shadow-lg ${activeDropdown === "transaction" ? "block" : "hidden"}`}>
+              
                 {menus
                   .find((menu) => menu.name === "Transaction") // Locate the 'Transaction' menu
                   ?.items.map((item, index) => (
@@ -134,7 +133,8 @@ const Navbar = () => {
               Account Reports
             </button>
             {activeDropdown === "activereports" && (
-              <ul className="absolute left-0 hidden mt-2 w-64 bg-white text-black shadow-lg group-hover:block">
+              <ul className={`absolute left-0 mt-2 w-48 bg-white text-black shadow-lg ${activeDropdown === "activereports" ? "block" : "hidden"}`}>
+              
                 {menus
                   .find((menu) => menu.name === "Account Reports") // Locate the specific menu
                   ?.items.map((item, index) => (
@@ -172,7 +172,8 @@ const Navbar = () => {
               Inventory Reports
             </button>
             {activeDropdown === "inventoryreport" && (
-              <ul className="absolute left-0 hidden mt-2 w-96 bg-white text-black shadow-lg group-hover:block">
+              <ul className={`absolute left-0 mt-2 w-48 bg-white text-black shadow-lg ${activeDropdown === "inventoryreport" ? "block" : "hidden"}`}>
+              
                 {menus
                   .find((menu) => menu.name === "Inventory Reports") // Locate the specific menu
                   ?.items.map((item, index) => (
@@ -210,7 +211,8 @@ const Navbar = () => {
               System Security
             </button>
             {activeDropdown === "systemsecurity" && (
-              <ul className="absolute left-0 mt-2 w-80 bg-white text-black shadow-lg">
+              <ul className={`absolute left-0 mt-2 w-48 bg-white text-black shadow-lg ${activeDropdown === "systemsecurity" ? "block" : "hidden"}`}>
+              
                 {/* Find the "System Security" menu */}
                 {menus
                   .find((menu) => menu.name === "System Security") // Locate the specific menu
