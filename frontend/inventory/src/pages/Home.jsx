@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../components/Footer/Footer";
+
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
           Horizon Technology pvt. ltd.
         </h1>
       </div>
-      <Footer />
+      
     </>
   );
 };
