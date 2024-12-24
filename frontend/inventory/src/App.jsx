@@ -13,7 +13,7 @@ import About from "./components/About Software/About";
 
 function App() {
   return (
-    <div className='bg-zinc-300 min-h-screen'>
+    <div className='min-h-screen'>
       {/* Sidebar */}
       
       

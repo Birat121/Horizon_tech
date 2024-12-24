@@ -22,5 +22,6 @@
 
 
 body{
-  background-color: rgba(222, 234, 236, 0.158);
+  background: linear-gradient(to bottom right, #3b82f6, #8b5cf6);
+
 }
