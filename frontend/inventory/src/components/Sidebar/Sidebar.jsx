@@ -21,11 +21,13 @@ const Sidebar = () => {
       <div
         className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0`}
+        } transition-transform duration-700 lg:translate-x-0`}
       >
         {/* Sidebar Header */}
         <div className="p-6 flex justify-between items-center border-b border-zinc-500">
+          <Link to="/">
           <h1 className="text-3xl font-bold">Horizon Tech</h1>
+          </Link>
           <button
             onClick={toggleSidebar}
             className="lg:hidden text-black text-2xl focus:outline-none"
@@ -83,7 +85,7 @@ const Sidebar = () => {
           <li>
             <Link
               to="/about"
-              className="block px-4 py-2 hover:bg-yellow-300 transition-colors"
+              className="block px-4 py-2 hover:bg-yellow-300 transition-colors "
             >
               About Software
             </Link>
