@@ -19,6 +19,8 @@ const Navbar = () => {
     setActiveDropdown(activeDropdown === menuName ? null : menuName);
   };
 
+  
+
   return (
     <nav className="bg-blue-900 text-white px-4 py-3 shadow-md">
       <div className="container mx-6 my-4 flex items-center justify-between ">
