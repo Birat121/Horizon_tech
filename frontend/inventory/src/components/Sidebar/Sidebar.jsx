@@ -22,7 +22,7 @@ const Sidebar = () => {
       <div
         className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-700 lg:translate-x-0`}
+        } transition-transform duration-700 lg:translate-x-0 overflow-y-auto  h-screen z-50`}
       >
         {/* Sidebar Header */}
         <div className="p-6 flex justify-between items-center border-b border-zinc-500">
