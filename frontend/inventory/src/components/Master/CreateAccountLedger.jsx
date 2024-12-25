@@ -63,8 +63,10 @@ function CreateAccountLedger() {
             <label className="text-gray-600 font-medium">Account Type:</label>
             <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
               <option value="">Select Account Type</option>
-              <option value="Type1">Type 1</option>
-              <option value="Type2">Type 2</option>
+              <option value="Type1">Assets</option>
+              <option value="Type2">Liabilities</option>
+              <option value="Type2">Income</option>
+              <option value="Type2">Expenses</option>
             </select>
           </div>
         </div>
