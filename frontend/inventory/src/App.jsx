@@ -23,6 +23,8 @@ import InventoryItemList from "./components/Inventory Reports/InventoryItemList"
 import ChangePassword from "./components/System Security/ChangePassword";
 import SignUpUser from "./components/System Security/SignUpUser";
 import MenuAccess from "./components/System Security/MenuAccess";
+import BackupData from "./components/System Security/BackupData";
+import PrinterSetup from "./components/System Security/PrinterSetup";
 {/* System Security */}
 
 
@@ -55,8 +57,10 @@ function App() {
 
           {/*System Security */}
           <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />
+          <Route path="/systemsecurity/suboptions2" element={<BackupData />} />
           <Route path="/systemsecurity/suboptions3" element={<ChangePassword/>} />
           <Route path="/systemsecurity/suboptions4" element={<SignUpUser />} />
+          <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
           {/*System Security */}
         </Routes>
       </div>
