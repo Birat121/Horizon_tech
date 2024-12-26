@@ -26,6 +26,8 @@ import SignUpUser from "./components/System Security/SignUpUser";
 import MenuAccess from "./components/System Security/MenuAccess";
 import InvoiceGreetingNote from "./components/System Security/InvoiceGreetingNote";
 import EndOfDay from "./components/System Security/EndOfDay";
+import BackupData from "./components/System Security/BackupData";
+import PrinterSetup from "./components/System Security/PrinterSetup";
 {/* System Security */}
 
 
@@ -59,10 +61,12 @@ function App() {
 
           {/*System Security */}
           <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />
+          <Route path="/systemsecurity/suboptions2" element={<BackupData />} />
           <Route path="/systemsecurity/suboptions3" element={<ChangePassword/>} />
           <Route path="/systemsecurity/suboptions4" element={<SignUpUser />} />
           <Route path="/systemsecurity/suboptions6" element={<InvoiceGreetingNote />} />
           <Route path="/systemsecurity/suboptions8" element={<EndOfDay/>} />
+          <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
           {/*System Security */}
         </Routes>
       </div>
