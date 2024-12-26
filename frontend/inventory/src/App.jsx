@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home";
 import Exit from "./components/Exit/Exit";
 import About from "./components/About Software/About";
+import LoginPage from "./pages/Login";
 
 {/* Master Options */}
 import CreateAccountLedger from "./components/Master/CreateAccountLedger";
@@ -23,6 +24,8 @@ import InventoryItemList from "./components/Inventory Reports/InventoryItemList"
 import ChangePassword from "./components/System Security/ChangePassword";
 import SignUpUser from "./components/System Security/SignUpUser";
 import MenuAccess from "./components/System Security/MenuAccess";
+import InvoiceGreetingNote from "./components/System Security/InvoiceGreetingNote";
+import EndOfDay from "./components/System Security/EndOfDay";
 {/* System Security */}
 
 
@@ -37,6 +40,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/exit" element={<Exit />} />
+        <Route path="/login" element={<LoginPage />} />
 
           {/*Master Options*/}
           <Route path="/master/suboption1" element={<CreateAccountLedger />} />
@@ -57,6 +61,8 @@ function App() {
           <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />
           <Route path="/systemsecurity/suboptions3" element={<ChangePassword/>} />
           <Route path="/systemsecurity/suboptions4" element={<SignUpUser />} />
+          <Route path="/systemsecurity/suboptions6" element={<InvoiceGreetingNote />} />
+          <Route path="/systemsecurity/suboptions8" element={<EndOfDay/>} />
           {/*System Security */}
         </Routes>
       </div>
