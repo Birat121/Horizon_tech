@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const JournalVoucher = () => {
   return (
-    <div className="min-h-screen  p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6">
+    <div className="flex items-center justify-center min-h-screen  p-4">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl">
         {/* Header Section */}
         <div className="flex flex-wrap items-center justify-between mb-4">
           <h1 className="text-xl font-bold">Journal Voucher Entry</h1>
@@ -27,7 +27,6 @@ const JournalVoucher = () => {
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
               value="JV81-8200154"
-              readOnly
             />
           </div>
           <div>
@@ -65,16 +64,17 @@ const JournalVoucher = () => {
 
         {/* Footer Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-          <div>
-            <label className="block text-sm font-medium">File Path</label>
-            <input
-              type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-            />
-          </div>
+        <div>
+  <label className="block text-sm font-medium">File</label>
+  <input
+    type="file"
+    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+  />
+</div>
+
           <div className="col-span-2 flex justify-end items-center gap-4">
             <span className="text-sm font-medium">Difference: </span>
-            <span className="text-red-600 text-lg font-bold">0.00</span>
+            <span className="text-red-600 text-lg font-bold rounded-md border-solid border-2 border-slate-500 w-20 text-center">0.00</span>
           </div>
         </div>
 

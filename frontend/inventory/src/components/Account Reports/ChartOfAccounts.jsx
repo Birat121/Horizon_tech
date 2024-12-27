@@ -11,9 +11,6 @@ const ChartOfAccounts = () => {
       setIsWithSubCategoryChecked(false); // Uncheck and disable the checkbox
     }
   };
-
-  
-
   return (
     <div className="flex flex-col h-[90vh] rounded-lg overflow-hidden">
       <div className="flex flex-1">
@@ -65,7 +62,7 @@ const ChartOfAccounts = () => {
           
 
           {/* Buttons */}
-          <div className="space-y-4 mt-auto">
+          <div className="space-y-4 mt-20">
             <button className="w-full flex items-center justify-center p-3 bg-gray-300 rounded shadow">
               <i className="fa fa-search mr-2"></i> Preview
             </button>

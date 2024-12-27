@@ -26,6 +26,7 @@ import InventoryItemList from "./components/Inventory Reports/InventoryItemList"
 
 {/* Account Reports */}
 import GeneralLedgerProductDetail from "./components/Account Reports/GeneralLedgerProductDetail";
+import PrintPreviewVoucher from "./components/Account Reports/PrintPreviewVoucher";
 {/* Account Reports */}
 
 {/* System Security */}
@@ -82,7 +83,8 @@ function App() {
 
           {/*Account Reports */}
           <Route path="//accountreports/suboption10" element={<GeneralLedgerProductDetail/>} />
-          (*/*Account Reports *)
+          <Route path="/accountreports/suboption1" element={<PrintPreviewVoucher/>} />
+          {/*Account Reports */}
 
           {/*System Security */}
           <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />

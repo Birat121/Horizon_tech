@@ -17,46 +17,57 @@ const GeneralLedgerProductDetail = () => {
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300 ">
 
-          {/* Select Date Section */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+{/* Select Date Section */}
+<div className="mb-6">
+  <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
 
-            {/* First Date Picker */}
-            <div className="flex items-center space-x-2 mb-2 ">
-              <label className="font-medium">F:</label>
-              <input
-                type="date"
-                className="border p-2 rounded w-full"
-                value={fromDate1}
-                onChange={(e) => setFromDate1(e.target.value)}
-              />
-              <label className="font-medium">To:</label>
-              <input
-                type="date"
-                className="border p-2 rounded w-full"
-                value={toDate1}
-                onChange={(e) => setToDate1(e.target.value)}
-              />
-            </div>
+  {/* First Date Picker */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+    <div className="flex flex-col">
+      <label className="font-medium mb-1">From:</label>
+      <input
+        type="date"
+        className="border p-2 rounded w-full"
+        value={fromDate1}
+        onChange={(e) => setFromDate1(e.target.value)}
+      />
+    </div>
+    <div className="flex flex-col">
+      <label className="font-medium mb-1">To:</label>
+      <input
+        type="date"
+        className="border p-2 rounded w-full"
+        value={toDate1}
+        onChange={(e) => setToDate1(e.target.value)}
+      />
+    </div>
+  </div>
 
-            {/* Second Date Picker */}
-            <div className="flex items-center space-x-2">
-              <label className="font-medium">F:</label>
-              <input
-                type="date"
-                className="border p-2 rounded w-full"
-                value={fromDate2}
-                onChange={(e) => setFromDate2(e.target.value)}
-              />
-              <label className="font-medium">To:</label>
-              <input
-                type="date"
-                className="border p-2 rounded w-full"
-                value={toDate2}
-                onChange={(e) => setToDate2(e.target.value)}
-              />
-            </div>
-          </div>
+  {/* Second Date Picker */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="flex flex-col">
+      <label className="font-medium mb-1">From:</label>
+      <input
+        type="date"
+        className="border p-2 rounded w-full"
+        value={fromDate2}
+        onChange={(e) => setFromDate2(e.target.value)}
+      />
+    </div>
+    <div className="flex flex-col">
+      <label className="font-medium mb-1">To:</label>
+      <input
+        type="date"
+        className="border p-2 rounded w-full"
+        value={toDate2}
+        onChange={(e) => setToDate2(e.target.value)}
+      />
+    </div>
+  </div>
+</div>
+
+
+
 
           {/* Radio Buttons */}
           <div className="mb-4">
