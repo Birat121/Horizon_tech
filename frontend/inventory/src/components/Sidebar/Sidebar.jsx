@@ -4,9 +4,9 @@ import "font-awesome/css/font-awesome.min.css";
 import { menus } from "../../reusable inputs/menus";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // Toggle sidebar visibility
-  const [activeDropdown, setActiveDropdown] = useState(null); // Track active dropdown menu
-  const location = useLocation(); // Get current path
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -21,14 +21,21 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen fixed w-full">
+    <>
+      {/* Sidebar Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={closeSidebar}
+        ></div>
+      )}
+
       {/* Sidebar Container */}
       <div
         className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-500 overflow-y-auto h-screen z-50`}
       >
-        {/* Sidebar Header */}
         <div className="p-6 flex justify-between items-center border-b border-zinc-500">
           <Link to="/" onClick={closeSidebar}>
             <h1 className="text-3xl font-bold">Horizon Tech</h1>
@@ -54,7 +61,6 @@ const Sidebar = () => {
                 {menu.name}
               </button>
 
-              {/* Dropdown Menu */}
               {activeDropdown === menu.name && (
                 <ul className="ml-4 mt-2 space-y-1">
                   {menu.items.map((item, index) => (
@@ -70,8 +76,6 @@ const Sidebar = () => {
                       >
                         {item.label}
                       </Link>
-
-                      {/* Nested Sub-options */}
                       {item.subOptions && (
                         <ul className="ml-4 mt-1 space-y-1">
                           {item.subOptions.map((subItem, subIndex) => (
@@ -97,8 +101,6 @@ const Sidebar = () => {
               )}
             </li>
           ))}
-
-          {/* Static Links */}
           <li>
             <Link
               to="/about"
@@ -116,7 +118,7 @@ const Sidebar = () => {
             <button
               onClick={() => {
                 closeSidebar();
-                console.log("Exiting..."); // Add exit logic here if needed
+                console.log("Exiting...");
               }}
               className="block w-full text-left px-4 py-2 hover:bg-yellow-300"
             >
@@ -135,7 +137,7 @@ const Sidebar = () => {
           <i className={`fa ${isOpen ? "fa-times" : "fa-bars"}`}></i>
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
