@@ -29,7 +29,7 @@ function MenuAccess() {
               className="w-full bg-gray-50 border border-gray-300 rounded-md px-3 py-2 flex justify-between items-center cursor-pointer"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              <span>{selectedUser || "Select a user"}</span> 
+              <span>{selectedUser || "Select a user"}</span>
             </div>
 
             {/* Dropdown Menu */}
@@ -76,11 +76,14 @@ function MenuAccess() {
           <button className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition">
             Select All
           </button>
-          <button className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition">
+          <button
+            className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition"
+            onClick={() => {
+              setSelectedUser(""); // Reset the selected user to default
+              setSearchTerm(""); // Clear the search term
+            }}
+          >
             Clear All
-          </button>
-          <button className="flex-1 py-2 bg-red-600 hover:bg-red-500 text-white font-medium rounded-md shadow transition">
-            Close
           </button>
         </div>
       </div>

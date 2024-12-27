@@ -17,6 +17,7 @@ import ChangeAccountType from "./components/Master/ChangeAccountType";
 {/* Master Options */}
 
 {/* Transaction */}
+import JournalVoucher from "./components/Transaction/JournalVoucher";
 
 
 
@@ -27,6 +28,10 @@ import InventoryItemList from "./components/Inventory Reports/InventoryItemList"
 {/* Account Reports */}
 import GeneralLedgerProductDetail from "./components/Account Reports/GeneralLedgerProductDetail";
 import PrintPreviewVoucher from "./components/Account Reports/PrintPreviewVoucher";
+import BalanceConfirmation from "./components/Account Reports/BalanceConfirmation";
+import ChartOfAccounts from "./components/Account Reports/ChartOfAccounts";
+import ProfitAndLoss from "./components/Account Reports/ProfitAndLoss";
+import DayBook from "./components/Account Reports/DayBook";
 {/* Account Reports */}
 
 {/* System Security */}
@@ -38,10 +43,6 @@ import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
-import ChartOfAccounts from "./components/Account Reports/ChartOfAccounts";
-import ProfitAndLoss from "./components/Account Reports/ProfitAndLoss";
-import DayBook from "./components/Account Reports/DayBook";
-import JournalVoucher from "./components/Transaction/JournalVoucher";
 {/* System Security */}
 
 
@@ -76,6 +77,7 @@ function App() {
           <Route path="/accountreports/suboption14" element={<ChartOfAccounts/>} />
           <Route path="/accountreports/suboption5" element={<ProfitAndLoss/>} />
           <Route path="/accountreports/suboption2" element={<DayBook/>} />
+          <Route path="/accountreports/suboption8" element={<BalanceConfirmation/>} />
 
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
