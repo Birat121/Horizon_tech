@@ -24,6 +24,10 @@ import ChangeAccountType from "./components/Master/ChangeAccountType";
 import InventoryItemList from "./components/Inventory Reports/InventoryItemList";
 {/* Inventory Reports */}
 
+{/* Account Reports */}
+import GeneralLedgerProductDetail from "./components/Account Reports/GeneralLedgerProductDetail";
+{/* Account Reports */}
+
 {/* System Security */}
 import ChangePassword from "./components/System Security/ChangePassword";
 import SignUpUser from "./components/System Security/SignUpUser";
@@ -75,6 +79,10 @@ function App() {
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
           {/*Inventory Reports */}
+
+          {/*Account Reports */}
+          <Route path="//accountreports/suboption10" element={<GeneralLedgerProductDetail/>} />
+          (*/*Account Reports *)
 
           {/*System Security */}
           <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />
