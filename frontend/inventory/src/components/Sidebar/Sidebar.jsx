@@ -12,26 +12,30 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeSidebar = () => {
+    setIsOpen(false);
+  };
+
   const toggleDropdown = (menuName) => {
     setActiveDropdown(activeDropdown === menuName ? null : menuName);
   };
 
   return (
-    <div className="flex h-screen fixed">
+    <div className="flex h-screen fixed w-full">
       {/* Sidebar Container */}
       <div
         className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-700 lg:translate-x-0 overflow-y-auto  h-screen z-50`}
+        } transition-transform duration-500 overflow-y-auto h-screen z-50`}
       >
         {/* Sidebar Header */}
         <div className="p-6 flex justify-between items-center border-b border-zinc-500">
-          <Link to="/">
+          <Link to="/" onClick={closeSidebar}>
             <h1 className="text-3xl font-bold">Horizon Tech</h1>
           </Link>
           <button
             onClick={toggleSidebar}
-            className="lg:hidden text-black text-2xl focus:outline-none"
+            className="text-black text-2xl focus:outline-none"
           >
             <i className="fa fa-times"></i>
           </button>
@@ -57,6 +61,7 @@ const Sidebar = () => {
                     <li key={index} className="relative group">
                       <Link
                         to={item.path}
+                        onClick={closeSidebar}
                         className={`block px-4 py-2 ${
                           location.pathname === item.path
                             ? "bg-yellow-500 text-white"
@@ -73,10 +78,11 @@ const Sidebar = () => {
                             <li key={subIndex}>
                               <Link
                                 to={subItem.path}
+                                onClick={closeSidebar}
                                 className={`block px-4 py-2 ${
                                   location.pathname === subItem.path
-                                    ? "bg-blue-500 text-white"
-                                    : "hover:bg-blue-500"
+                                    ? "bg-yellow-500 text-white"
+                                    : "hover:bg-yellow-300"
                                 }`}
                               >
                                 {subItem.label}
@@ -96,6 +102,7 @@ const Sidebar = () => {
           <li>
             <Link
               to="/about"
+              onClick={closeSidebar}
               className={`block px-4 py-2 ${
                 location.pathname === "/about"
                   ? "bg-yellow-500 text-white"
@@ -106,7 +113,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <button className="block w-full text-left px-4 py-2 hover:bg-yellow-300">
+            <button
+              onClick={() => {
+                closeSidebar();
+                console.log("Exiting..."); // Add exit logic here if needed
+              }}
+              className="block w-full text-left px-4 py-2 hover:bg-yellow-300"
+            >
               Exit
             </button>
           </li>
@@ -114,7 +127,7 @@ const Sidebar = () => {
       </div>
 
       {/* Hamburger Menu */}
-      <div className="lg:hidden p-4">
+      <div className="p-4">
         <button
           onClick={toggleSidebar}
           className="text-blue-900 text-2xl focus:outline-none"

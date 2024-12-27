@@ -16,6 +16,10 @@ import PointCollectionSetting from "./components/Master/PointCollectionSetting";
 import ChangeAccountType from "./components/Master/ChangeAccountType";
 {/* Master Options */}
 
+{/* Transaction */}
+
+
+
 {/* Inventory Reports */}
 import InventoryItemList from "./components/Inventory Reports/InventoryItemList";
 {/* Inventory Reports */}
@@ -32,6 +36,11 @@ import InvoiceGreetingNote from "./components/System Security/InvoiceGreetingNot
 import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
+import RID from "./components/System Security/IRDSetup/RID";
+import ChartOfAccounts from "./components/Account Reports/ChartOfAccounts";
+import ProfitAndLoss from "./components/Account Reports/ProfitAndLoss";
+import DayBook from "./components/Account Reports/DayBook";
+import JournalVoucher from "./components/Transaction/JournalVoucher";
 {/* System Security */}
 
 
@@ -59,6 +68,14 @@ function App() {
           <Route path="/master/suboption9" element={<PointCollectionSetting />} />
           {/*Master Options*/}
 
+          {/*Transaction */}
+          <Route path="/transaction/suboption1" element={<JournalVoucher/>} />
+
+          {/*Account Reports */}
+          <Route path="/accountreports/suboption14" element={<ChartOfAccounts/>} />
+          <Route path="/accountreports/suboption5" element={<ProfitAndLoss/>} />
+          <Route path="/accountreports/suboption2" element={<DayBook/>} />
+
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
           {/*Inventory Reports */}
@@ -75,6 +92,7 @@ function App() {
           <Route path="/systemsecurity/suboptions6" element={<InvoiceGreetingNote />} />
           <Route path="/systemsecurity/suboptions8" element={<EndOfDay/>} />
           <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
+          <Route path="/systemsecurity/suboptions9/suboption1" element={<RID/>} />
           {/*System Security */}
         </Routes>
       </div>
