@@ -15,7 +15,9 @@ const JournalVoucher = () => {
         {/* Form Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-medium">Transaction Date</label>
+            <label className="block text-sm font-medium">
+              Transaction Date
+            </label>
             <input
               type="date"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
@@ -64,17 +66,19 @@ const JournalVoucher = () => {
 
         {/* Footer Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-        <div>
-  <label className="block text-sm font-medium">File</label>
-  <input
-    type="file"
-    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-  />
-</div>
+          <div>
+            <label className="block text-sm font-medium">File</label>
+            <input
+              type="file"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+            />
+          </div>
 
           <div className="col-span-2 flex justify-end items-center gap-4">
             <span className="text-sm font-medium">Difference: </span>
-            <span className="text-red-600 text-lg font-bold rounded-md border-solid border-2 border-slate-500 w-20 text-center">0.00</span>
+            <span className="text-red-600 text-lg font-bold rounded-md border-solid border-2 border-slate-500 w-20 text-center">
+              0.00
+            </span>
           </div>
         </div>
 

@@ -18,6 +18,7 @@ import ChangeAccountType from "./components/Master/ChangeAccountType";
 
 {/* Transaction */}
 import JournalVoucher from "./components/Transaction/JournalVoucher";
+import ReceiptVoucher from "./components/Transaction/ReceiptVoucher";
 
 
 
@@ -50,6 +51,7 @@ import RID from "./components/System Security/IRDSetup/RID";
 import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisReports";
 import BalanceSheet from "./components/Account Reports/BalanceSheet";
 import TrialBalance from "./components/Account Reports/TrialBalance";
+import PaymentVoucher from "./components/Transaction/PaymentVoucher";
 {/* System Security */}
 
 function App() {
@@ -78,6 +80,8 @@ function App() {
 
           {/*Transaction */}
           <Route path="/transaction/suboption1" element={<JournalVoucher/>} />
+          <Route path="/transaction/suboption2" element={<ReceiptVoucher/>} />
+          <Route path="/transaction/suboption3" element={<PaymentVoucher/>} />
 
           {/*Account Reports */}
           <Route path="/accountreports/suboption2" element={<DayBook/>} />
