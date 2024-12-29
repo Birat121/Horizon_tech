@@ -32,6 +32,10 @@ import BalanceConfirmation from "./components/Account Reports/BalanceConfirmatio
 import ChartOfAccounts from "./components/Account Reports/ChartOfAccounts";
 import ProfitAndLoss from "./components/Account Reports/ProfitAndLoss";
 import DayBook from "./components/Account Reports/DayBook";
+import InvoiceWiseAgeingAnalysis from "./components/Account Reports/InvoiceWiseAgeingAnalysis";
+import GeneralLedgerDetail from "./components/Account Reports/GeneralLedgerDetail"
+import PriceChangeDetail from "./components/Account Reports/PriceChangeDetail";
+import UserBaseCollection from "./components/Account Reports/UserBaseCollection";
 {/* Account Reports */}
 
 {/* System Security */}
@@ -47,7 +51,6 @@ import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisRe
 import BalanceSheet from "./components/Account Reports/BalanceSheet";
 import TrialBalance from "./components/Account Reports/TrialBalance";
 {/* System Security */}
-
 
 function App() {
   return (
@@ -77,21 +80,26 @@ function App() {
           <Route path="/transaction/suboption1" element={<JournalVoucher/>} />
 
           {/*Account Reports */}
-          <Route path="/accountreports/suboption14" element={<ChartOfAccounts/>} />
-          <Route path="/accountreports/suboption5" element={<ProfitAndLoss/>} />
           <Route path="/accountreports/suboption2" element={<DayBook/>} />
+          <Route path="/accountreports/suboption5" element={<ProfitAndLoss/>} />
+          <Route path="/accountreports/suboption6" element={<UserBaseCollection/>} />
           <Route path="/accountreports/suboption8" element={<BalanceConfirmation/>} />
           <Route path="/accountreports/suboption12" element={<AgeingAnalysisReports/>} />
           <Route path="/accountreports/suboption4" element={<BalanceSheet/>} />
           <Route path="/accountreports/suboption3" element={<TrialBalance/>} />
+          <Route path="/accountreports/suboption13" element={<InvoiceWiseAgeingAnalysis/>} />
+          <Route path="/accountreports/suboption14" element={<ChartOfAccounts/>} />
+          
 
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}
-          <Route path="//accountreports/suboption10" element={<GeneralLedgerProductDetail/>} />
           <Route path="/accountreports/suboption1" element={<PrintPreviewVoucher/>} />
+          <Route path="/accountreports/suboption7" element={<PriceChangeDetail/>} />
+          <Route path="/accountreports/suboption9" element={<GeneralLedgerDetail/>} />
+          <Route path="//accountreports/suboption10" element={<GeneralLedgerProductDetail/>} />
           {/*Account Reports */}
 
           {/*System Security */}
@@ -99,9 +107,9 @@ function App() {
           <Route path="/systemsecurity/suboptions2" element={<BackupData />} />
           <Route path="/systemsecurity/suboptions3" element={<ChangePassword/>} />
           <Route path="/systemsecurity/suboptions4" element={<SignUpUser />} />
+          <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
           <Route path="/systemsecurity/suboptions6" element={<InvoiceGreetingNote />} />
           <Route path="/systemsecurity/suboptions8" element={<EndOfDay/>} />
-          <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
           <Route path="/systemsecurity/suboptions9/suboption1" element={<RID/>} />
           {/*System Security */}
         </Routes>
