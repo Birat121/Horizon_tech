@@ -43,6 +43,9 @@ import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
+import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisReports";
+import BalanceSheet from "./components/Account Reports/BalanceSheet";
+import TrialBalance from "./components/Account Reports/TrialBalance";
 {/* System Security */}
 
 
@@ -78,6 +81,9 @@ function App() {
           <Route path="/accountreports/suboption5" element={<ProfitAndLoss/>} />
           <Route path="/accountreports/suboption2" element={<DayBook/>} />
           <Route path="/accountreports/suboption8" element={<BalanceConfirmation/>} />
+          <Route path="/accountreports/suboption12" element={<AgeingAnalysisReports/>} />
+          <Route path="/accountreports/suboption4" element={<BalanceSheet/>} />
+          <Route path="/accountreports/suboption3" element={<TrialBalance/>} />
 
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
