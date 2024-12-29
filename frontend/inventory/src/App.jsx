@@ -19,6 +19,8 @@ import ChangeAccountType from "./components/Master/ChangeAccountType";
 {/* Transaction */}
 import JournalVoucher from "./components/Transaction/JournalVoucher";
 import ReceiptVoucher from "./components/Transaction/ReceiptVoucher";
+import OpeningBalanceEntry from "./components/Transaction/OpeningBalanceEntry";
+import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
 
 
 
@@ -82,6 +84,8 @@ function App() {
           <Route path="/transaction/suboption1" element={<JournalVoucher/>} />
           <Route path="/transaction/suboption2" element={<ReceiptVoucher/>} />
           <Route path="/transaction/suboption3" element={<PaymentVoucher/>} />
+          <Route path="/transaction/suboption15" element={<OpeningBalanceEntry/>} />
+          <Route path="/transaction/suboption16" element={<OpeningStockEntry/>} />
 
           {/*Account Reports */}
           <Route path="/accountreports/suboption2" element={<DayBook/>} />
