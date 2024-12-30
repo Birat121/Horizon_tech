@@ -22,7 +22,6 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Sidebar Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-10 z-40"
@@ -30,7 +29,6 @@ const Sidebar = () => {
         ></div>
       )}
 
-      {/* Sidebar Container */}
       <div
         className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -48,7 +46,6 @@ const Sidebar = () => {
           </button>
         </div>
 
-        {/* Sidebar Links */}
         <ul className="mt-4 space-y-2">
           {menus.map((menu) => (
             <li key={menu.name} className="relative group">
@@ -67,9 +64,11 @@ const Sidebar = () => {
                     <li key={index} className="relative group">
                       <Link
                         to={item.path}
-                        onClick={closeSidebar}
+                        onClick={!item.disabled ? closeSidebar : undefined}
                         className={`block px-4 py-2 ${
-                          location.pathname === item.path
+                          item.disabled
+                            ? "opacity-50 pointer-events-none"
+                            : location.pathname === item.path
                             ? "bg-yellow-500 text-white"
                             : "hover:bg-yellow-300"
                         }`}
@@ -82,9 +81,11 @@ const Sidebar = () => {
                             <li key={subIndex}>
                               <Link
                                 to={subItem.path}
-                                onClick={closeSidebar}
+                                onClick={!subItem.disabled ? closeSidebar : undefined}
                                 className={`block px-4 py-2 ${
-                                  location.pathname === subItem.path
+                                  subItem.disabled
+                                    ? "opacity-50 pointer-events-none"
+                                    : location.pathname === subItem.path
                                     ? "bg-yellow-500 text-white"
                                     : "hover:bg-yellow-300"
                                 }`}
@@ -128,7 +129,6 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      {/* Hamburger Menu */}
       <div className="p-4">
         <button
           onClick={toggleSidebar}

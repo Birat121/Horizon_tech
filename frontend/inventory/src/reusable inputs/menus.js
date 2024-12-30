@@ -7,13 +7,16 @@ export const menus = [
       {
         path: "/master/suboption3",
         label: "Additional Expenses Ledger Mapping",
+        disabled: true,
       },
       { path: "/master/suboption4", label: "Change Account Type" },
       { path: "/master/suboption5", label: "Account Re-Grouping" },
       { path: "/master/suboption6", label: "Inventory Master" },
       { path: "/master/suboption7", label: "Department Master" },
       { path: "/master/suboption8", label: "Counter Setting" },
-      { path: "/master/suboption9", label: "Point Collection Setting" },
+      { path: "/master/suboption9", label: "Point Collection Setting",
+        disabled: true,
+       },
     ],
   },
   {
@@ -35,6 +38,7 @@ export const menus = [
       {
         path: "/transaction/suboption14",
         label: "Barcode Print With Expire Date",
+        disabled: true,
       },
       { path: "/transaction/suboption15", label: "Opening Balance Entry" },
       { path: "/transaction/suboption16", label: "Opening Stock Entry" },
@@ -63,6 +67,7 @@ export const menus = [
       {
         path: "/accountreports/suboption11",
         label: "Receivable / Payable Summary Report",
+        disabled: true,
       },
       { path: "/accountreports/suboption12", label: "Ageing analysis Reports" },
       {
@@ -166,7 +171,9 @@ export const menus = [
       { path: "/systemsecurity/suboptions4", label: "Sign Up User" },
       { path: "/systemsecurity/suboptions5", label: "Printer Setup" },
       { path: "/systemsecurity/suboptions6", label: "Invoice Greeting Note" },
-      { path: "/systemsecurity/suboptions7", label: "Current Users" },
+      { path: "/systemsecurity/suboptions7", label: "Current Users" ,
+        disabled: true
+      },
       { path: "/systemsecurity/suboptions8", label: "End Of Day" },
       {
         path: "/systemsecurity/suboptions9",

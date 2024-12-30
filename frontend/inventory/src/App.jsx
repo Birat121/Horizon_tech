@@ -21,11 +21,15 @@ import JournalVoucher from "./components/Transaction/JournalVoucher";
 import ReceiptVoucher from "./components/Transaction/ReceiptVoucher";
 import OpeningBalanceEntry from "./components/Transaction/OpeningBalanceEntry";
 import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
+import PaymentVoucher from "./components/Transaction/PaymentVoucher";
+{/* Transaction */}
 
 
 
 {/* Inventory Reports */}
 import InventoryItemList from "./components/Inventory Reports/InventoryItemList";
+import BonusReceivedFromVendor from "./components/Inventory Reports/BonusReceivedFromVendor";
+import NoPurchaseSinceDateButStockAvi from "./components/Inventory Reports/NoPurchaseSinceDateButStockAvi";
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -39,6 +43,9 @@ import InvoiceWiseAgeingAnalysis from "./components/Account Reports/InvoiceWiseA
 import GeneralLedgerDetail from "./components/Account Reports/GeneralLedgerDetail"
 import PriceChangeDetail from "./components/Account Reports/PriceChangeDetail";
 import UserBaseCollection from "./components/Account Reports/UserBaseCollection";
+import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisReports";
+import BalanceSheet from "./components/Account Reports/BalanceSheet";
+import TrialBalance from "./components/Account Reports/TrialBalance";
 {/* Account Reports */}
 
 {/* System Security */}
@@ -50,10 +57,7 @@ import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
-import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisReports";
-import BalanceSheet from "./components/Account Reports/BalanceSheet";
-import TrialBalance from "./components/Account Reports/TrialBalance";
-import PaymentVoucher from "./components/Transaction/PaymentVoucher";
+
 {/* System Security */}
 
 function App() {
@@ -101,6 +105,8 @@ function App() {
 
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
+          <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
+          <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}
