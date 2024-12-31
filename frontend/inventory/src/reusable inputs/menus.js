@@ -114,7 +114,32 @@ export const menus = [
         path: "/inventoryreports/suboptions11",
         label: "Item Purchase / Return In Detail",
       },
-      { path: "/inventoryreports/suboptions12", label: "CBMS Related Report" },
+      { path: "/inventoryreports/suboptions12", label: "CBMS Related Report",
+        subOptions: [
+          {
+            path: "/inventoryreports/suboptions12/suboption1",
+            label: "Materialized Views Report",
+          },
+          {
+            path: "/inventoryreports/suboptions12/suboption2",
+            label:"Electronic Payment Detail- Annex - 8 "
+          },
+          {
+            path: "/inventoryreports/suboptions12/suboption3",
+            label:"User Log Activities"
+          },
+          {
+            path: "/inventoryreports/suboptions12/suboption4",
+            label:"Audit Activity Log Report"
+          },
+          {
+            path: "/inventoryreports/suboptions12/suboption5",
+            label:"Purchase And Sales Book - Annex - 23"
+
+          }
+        ],
+       },
+      
       {
         path: "/inventoryreports/suboptions13",
         label: "Customer Sales / Return Detail Invoice Wise",
@@ -138,6 +163,17 @@ export const menus = [
       {
         path: "/inventoryreports/suboptions18",
         label: "Inventory Item Stock Report",
+        subOptions: [
+          {
+            path: "/inventoryreports/suboptions18/suboption1",
+            label: "Inventory Item Stock(New)",
+          },
+          {
+            path: "/inventoryreports/suboptions18/suboption2",
+            label: "Inventory Item Stock(Old)",
+          }
+          
+        ]
       },
       { path: "/inventoryreports/suboptions19", label: "Item Stock In Detail" },
       {

@@ -57,6 +57,7 @@ import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
+import NoSalesFromLastPurchase from "./components/Inventory Reports/NoSalesFromLastPurchase";
 
 {/* System Security */}
 
@@ -107,6 +108,7 @@ function App() {
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
           <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
           <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
+          <Route path="/inventoryreports/suboptions22" element={<NoSalesFromLastPurchase/>} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}
