@@ -28,6 +28,8 @@ import PaymentVoucher from "./components/Transaction/PaymentVoucher";
 
 {/* Inventory Reports */}
 import InventoryItemList from "./components/Inventory Reports/InventoryItemList";
+import ItemSalesAreaSalesmanWise from "./components/Inventory Reports/ItemSalesAreaSalesmanWise";
+import ProductionConsumptionReport from "./components/Inventory Reports/ProductionConsumptionReport";
 import BonusReceivedFromVendor from "./components/Inventory Reports/BonusReceivedFromVendor";
 import NoPurchaseSinceDateButStockAvi from "./components/Inventory Reports/NoPurchaseSinceDateButStockAvi";
 {/* Inventory Reports */}
@@ -105,10 +107,13 @@ function App() {
           
 
           {/*Inventory Reports */}
-          <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
-          <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
-          <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
+          <Route path="/inventoryreports/suboptions2" element={<InventoryItemList />} />
+          <Route path="/inventoryreports/suboptions16" element={<ItemSalesAreaSalesmanWise />} />
+          <Route path="/inventoryreports/suboptions17" element={<ProductionConsumptionReport />} />
           <Route path="/inventoryreports/suboptions22" element={<NoSalesFromLastPurchase/>} />
+          <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
+          <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
+          
           {/*Inventory Reports */}
 
           {/*Account Reports */}
