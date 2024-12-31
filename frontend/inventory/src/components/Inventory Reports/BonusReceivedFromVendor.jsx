@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const BonusReceivedFromVendor = () => {
-  
-  const [selectedVendorType, setSelectedVendorType] = useState(""); // "allVendor" or "particularvendor"
+  const [selectedVendorType, setSelectedVendorType] = useState(""); // Tracks selected vendor type
+  const [selectedPurchaseDateType, setSelectedPurchaseDateType] = useState(""); // Tracks selected purchase date type
   const [fromDate1, setFromDate1] = useState(""); // First "From" date
   const [toDate1, setToDate1] = useState(""); // First "To" date
   const [fromDate2, setFromDate2] = useState(""); // Second "From" date
@@ -10,9 +10,12 @@ const BonusReceivedFromVendor = () => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
-  
   const handleVendorTypeChange = (type) => {
     setSelectedVendorType(type);
+  };
+
+  const handlePurchaseDateChange = (type) => {
+    setSelectedPurchaseDateType(type);
   };
 
   return (
@@ -20,77 +23,91 @@ const BonusReceivedFromVendor = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-          {/* Date Pickers */}
+          {/* Till Purchase Date */}
           <div className="mb-2">
             <label className="block font-semibold mb-2">As On Date</label>
-            <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+            <label className="flex items-center">
               <input
-                type="date"
-                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
+                type="radio"
+                name="purchaseDate"
+                value="tillPurchaseDate"
+                className="mr-2"
+                onChange={() => handlePurchaseDateChange("tillPurchaseDate")}
+                checked={selectedPurchaseDateType === "tillPurchaseDate"}
               />
-              <input
-                type="date"
-                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-              />
-            </div>
+              Till Purchase Date
+            </label>
+            {selectedPurchaseDateType === "tillPurchaseDate" && (
+              <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+                <input
+                  type="date"
+                  className="border p-2 w-full"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+                <input
+                  type="date"
+                  className="border p-2 w-full"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </div>
+            )}
           </div>
 
-          {/* First Date Picker */}
+          {/* Selected Purchase Date */}
           <div className="mb-2">
             <h3 className="text-md font-semibold mb-2">Select Purchase Date Here..</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col">
-                <label className="font-medium mb-1">From:</label>
-                <input
-                  type="date"
-                  className="border p-2 rounded w-full"
-                  value={fromDate1}
-                  onChange={(e) => setFromDate1(e.target.value)}
-                />
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="purchaseDate"
+                value="selectedPurchaseDate"
+                className="mr-2"
+                onChange={() => handlePurchaseDateChange("selectedPurchaseDate")}
+                checked={selectedPurchaseDateType === "selectedPurchaseDate"}
+              />
+              Selected Purchase Date
+            </label>
+            {selectedPurchaseDateType === "selectedPurchaseDate" && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label className="font-medium mb-1">From:</label>
+                  <input
+                    type="date"
+                    className="border p-2 rounded w-full"
+                    value={fromDate1}
+                    onChange={(e) => setFromDate1(e.target.value)}
+                  />
+                  <label className="font-medium mb-1">From:</label>
+                  <input
+                    type="date"
+                    className="border p-2 rounded w-full"
+                    value={fromDate2}
+                    onChange={(e) => setToDate2(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-medium mb-1">To:</label>
+                  <input
+                    type="date"
+                    className="border p-2 rounded w-full"
+                    value={toDate1}
+                    onChange={(e) => setToDate1(e.target.value)}
+                  />
+                  <label className="font-medium mb-1">To:</label>
+                  <input
+                    type="date"
+                    className="border p-2 rounded w-full"
+                    value={toDate2}
+                    onChange={(e) => setFromDate2(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col">
-                <label className="font-medium mb-1">To:</label>
-                <input
-                  type="date"
-                  className="border p-2 rounded w-full"
-                  value={toDate1}
-                  onChange={(e) => setToDate1(e.target.value)}
-                />
-              </div>
-            </div>
+            )}
           </div>
 
-          {/* Second Date Picker */}
-          <div className="mb-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col">
-                <label className="font-medium mb-1">From:</label>
-                <input
-                  type="date"
-                  className="border p-2 rounded w-full"
-                  value={fromDate2}
-                  onChange={(e) => setFromDate2(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-medium mb-1">To:</label>
-                <input
-                  type="date"
-                  className="border p-2 rounded w-full"
-                  value={toDate2}
-                  onChange={(e) => setToDate2(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-
-          
-
-          {/* Account Type Radio Group */}
+          {/* Vendor Type Radio Group */}
           <div className="mb-4">
             <h2 className="text-lg font-bold mb-2">Select Vendor Type here...</h2>
             <label className="block">
@@ -117,17 +134,18 @@ const BonusReceivedFromVendor = () => {
             </label>
           </div>
 
-          {/* Dropdown for Particulars Category */}
-          {selectedVendorType === "particularVendor" && (
-            <div className="mb-4">
-              <select className="w-full p-2 border border-gray-400 rounded mb-2">
-                <option>Select Category</option>
-                <option>Category 1</option>
-                <option>Category 2</option>
-                <option>Category 3</option>
-              </select>
-            </div>
-          )}
+          {/* Dropdown for Particular Vendor */}
+          <div className="mb-4">
+            <select
+              className="w-full p-2 border border-gray-400 rounded mb-2"
+              disabled={selectedVendorType !== "particularVendor"}
+            >
+              <option>Select Category</option>
+              <option>Category 1</option>
+              <option>Category 2</option>
+              <option>Category 3</option>
+            </select>
+          </div>
 
           {/* Buttons */}
           <div className="space-y-4 mt-10">
