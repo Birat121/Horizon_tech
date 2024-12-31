@@ -60,6 +60,14 @@ import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
 import NoSalesFromLastPurchase from "./components/Inventory Reports/NoSalesFromLastPurchase";
+import PurchaseAndSalesMoreThanOneLakh from "./components/Inventory Reports/PurchaseAndSalesMoreThanOneLakh";
+import ItemStockInDetail from "./components/Inventory Reports/ItemStockInDetail";
+import CustomerSalesReturnDetailInvoiceWise from "./components/Inventory Reports/CustomerSalesReturnDetailInvoiceWise";
+import CustomerSalesReturnCategoryWise from "./components/Inventory Reports/CustomerSalesReturnCategoryWise";
+import ItemPurchaseReturnInDetail from "./components/Inventory Reports/ItemPurchaseReturnInDetail";
+import ItemSalesReturnInDetail from "./components/Inventory Reports/ItemSalesReturnInDetail";
+import VendorPurchaseReturnDetailInvoiceWise from "./components/Inventory Reports/VendorPurchaseReturnDetailInvoiceWise";
+import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Reports/PrintPreviewPurchaseSalesandReturnBill";
 
 {/* System Security */}
 
@@ -114,6 +122,14 @@ function App() {
           <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
           <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
           
+          <Route path="/inventoryreports/suboptions20" element={<PurchaseAndSalesMoreThanOneLakh/>} /> 
+          <Route path="/inventoryreports/suboptions19" element={<ItemStockInDetail/>} /> 
+          <Route path="/inventoryreports/suboptions13" element={<CustomerSalesReturnDetailInvoiceWise/>} />
+          <Route path="/inventoryreports/suboptions14" element={<CustomerSalesReturnCategoryWise/>} />
+          <Route path="/inventoryreports/suboptions11" element={<ItemPurchaseReturnInDetail/>} />
+          <Route path="/inventoryreports/suboptions15" element={<ItemSalesReturnInDetail/>} />
+          <Route path="/inventoryreports/suboptions7" element={<VendorPurchaseReturnDetailInvoiceWise/>} />
+          <Route path="/inventoryreports/suboption3" element={<PrintPreviewPurchaseSalesandReturnBill/>} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}
