@@ -18,11 +18,14 @@ const CustomerSalesReturnDetailInvoiceWise = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Customer Sales / Sales Return Invoice Wise
+          </div>
           {/* Voucher Type Radio Buttons */}
-          <fieldset className="flex flex-col mb-6">
-            <legend className="text-lg font-bold mb-4">
-              Select Transaction Type here...
-            </legend>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Transaction Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -45,13 +48,13 @@ const CustomerSalesReturnDetailInvoiceWise = () => {
               />
               Sales Return Invoice
             </label>
-          </fieldset>
+          </div>
 
           {/* Report Type Radio Buttons */}
-          <fieldset className="mb-4">
-            <legend className="text-lg font-bold mb-4">
-              Select Customer Type here...
-            </legend>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Customer Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -74,11 +77,9 @@ const CustomerSalesReturnDetailInvoiceWise = () => {
               />
               Particular Customer
             </label>
-          </fieldset>
-
           {/* Dropdown for Particulars */}
           {selectedCustomerType === "particulars" && (
-            <div className="mb-4">
+            <div className="mb-4 mt-4">
               <select className="w-full p-2 border border-gray-400 rounded">
                 <option>Select Category</option>
                 <option>Category 1</option>
@@ -87,12 +88,13 @@ const CustomerSalesReturnDetailInvoiceWise = () => {
               </select>
             </div>
           )}
+          </div>
 
           {/* Report Type Selection */}
-          <fieldset className="flex flex-col mb-6">
-            <legend className="text-lg font-bold mb-4">
-              Select Report Type here...
-            </legend>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Report Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -115,11 +117,13 @@ const CustomerSalesReturnDetailInvoiceWise = () => {
               />
               Summary Only
             </label>
-          </fieldset>
+          </div>
 
           {/* Date Selection */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Date Here
+            </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="flex flex-col">
                 <label className="font-medium mb-1">From:</label>

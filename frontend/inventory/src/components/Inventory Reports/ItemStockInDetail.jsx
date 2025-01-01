@@ -8,7 +8,6 @@ const ItemStockInDetail = () => {
   const [toDate1, setToDate1] = useState(""); // First "To" date
   const [fromDate2, setFromDate2] = useState(""); // Second "From" date
   const [toDate2, setToDate2] = useState(""); // Second "To" date
-  
 
   const handleBranchTypeChange = (type) => {
     setSelectedBranchType(type);
@@ -20,17 +19,21 @@ const ItemStockInDetail = () => {
 
   const handleProductTypeChange = (type) => {
     setSelectedProductName(type);
-    };
+  };
 
   return (
     <div className="flex flex-col h-[90vh] rounded-lg overflow-y-auto bg-gray-50">
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-          
+          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Item Stock In Detail
+          </div>
 
-        <div className="mb-4">
-            <h2 className="text-lg font-bold mb-2">Select Product Name here...</h2>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Product Name Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -42,13 +45,9 @@ const ItemStockInDetail = () => {
               />
               Particular Product
             </label>
-            </div>
           {/* Dropdown for Particular Vendor */}
-          <div className="mb-4">
-            <select
-              className="w-full p-2 border border-gray-400 rounded mb-2"
-              
-            >
+          <div className="mb-2 mt-5">
+            <select className="w-full p-2 border border-gray-400 rounded mb-2">
               <option>Select Category</option>
               <option>Category 1</option>
               <option>Category 2</option>
@@ -56,11 +55,12 @@ const ItemStockInDetail = () => {
             </select>
           </div>
 
+          </div>
 
-
-
-        <div className="mb-4">
-            <h2 className="text-lg font-bold mb-2">Select Branch Type here...</h2>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Branch Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -81,19 +81,21 @@ const ItemStockInDetail = () => {
                 onChange={() => handleBranchTypeChange("particularsBranch")}
                 checked={selectedBranchType === "particularsBranch"}
               />
-             Particulars Branch
+              Particulars Branch
             </label>
-            </div>
+          </div>
           {/* Selected Purchase Date */}
-          <div className="mb-2">
-            <h3 className="text-md font-semibold mb-2">Select Date Here..</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">Select Date Here</label>
             <label className="flex items-center">
               <input
                 type="radio"
                 name="purchaseDate"
                 value="selectedPurchaseDate"
                 className="mr-2"
-                onChange={() => handlePurchaseDateChange("selectedPurchaseDate")}
+                onChange={() =>
+                  handlePurchaseDateChange("selectedPurchaseDate")
+                }
                 checked={selectedPurchaseDateType === "selectedPurchaseDate"}
               />
               Selected Purchase Date
@@ -135,7 +137,6 @@ const ItemStockInDetail = () => {
               </div>
             )}
           </div>
-
 
           {/* Buttons */}
           <div className="space-y-4 mt-10">
