@@ -16,62 +16,59 @@ const GeneralLedgerProductDetail = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300 ">
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">Ledger Wtth Product Detail</div>
+          {/* Select Date Section */}
+          <div className="bg-white shadow-md rounded-md p-4">
+            <label className="block font-semibold mb-2">Select Date Here</label>
 
-{/* Select Date Section */}
-<div className="mb-6">
-  <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+            {/* First Date Picker */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">From:</label>
+                <input
+                  type="date"
+                  className="border p-2 rounded w-full"
+                  value={fromDate1}
+                  onChange={(e) => setFromDate1(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">To:</label>
+                <input
+                  type="date"
+                  className="border p-2 rounded w-full"
+                  value={toDate1}
+                  onChange={(e) => setToDate1(e.target.value)}
+                />
+              </div>
+            </div>
 
-  {/* First Date Picker */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-    <div className="flex flex-col">
-      <label className="font-medium mb-1">From:</label>
-      <input
-        type="date"
-        className="border p-2 rounded w-full"
-        value={fromDate1}
-        onChange={(e) => setFromDate1(e.target.value)}
-      />
-    </div>
-    <div className="flex flex-col">
-      <label className="font-medium mb-1">To:</label>
-      <input
-        type="date"
-        className="border p-2 rounded w-full"
-        value={toDate1}
-        onChange={(e) => setToDate1(e.target.value)}
-      />
-    </div>
-  </div>
-
-  {/* Second Date Picker */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <div className="flex flex-col">
-      <label className="font-medium mb-1">From:</label>
-      <input
-        type="date"
-        className="border p-2 rounded w-full"
-        value={fromDate2}
-        onChange={(e) => setFromDate2(e.target.value)}
-      />
-    </div>
-    <div className="flex flex-col">
-      <label className="font-medium mb-1">To:</label>
-      <input
-        type="date"
-        className="border p-2 rounded w-full"
-        value={toDate2}
-        onChange={(e) => setToDate2(e.target.value)}
-      />
-    </div>
-  </div>
-</div>
-
-
-
+            {/* Second Date Picker */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">From:</label>
+                <input
+                  type="date"
+                  className="border p-2 rounded w-full"
+                  value={fromDate2}
+                  onChange={(e) => setFromDate2(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium mb-1">To:</label>
+                <input
+                  type="date"
+                  className="border p-2 rounded w-full"
+                  value={toDate2}
+                  onChange={(e) => setToDate2(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
 
           {/* Radio Buttons */}
-          <div className="mb-4">
-          <h2 className="text-lg font-bold mb-4">Select Account Type here.....</h2>
+          <div className="bg-white shadow-md rounded-md p-4 mt-4">
+           <label className="block font-semibold mb-2">Select Account Type Here</label>
             <label className="block">
               <input
                 type="radio"
@@ -83,11 +80,9 @@ const GeneralLedgerProductDetail = () => {
               />
               Select Ledger
             </label>
-          </div>
-
           {/* Dropdown for Particulars Category */}
           {selectedProductType === "particulars" && (
-            <div className="mb-4">
+            <div className="mb-2 mt-4">
               <select className="w-full p-2 border border-gray-400 rounded mb-2">
                 <option>Select Category</option>
                 <option>Category 1</option>
@@ -96,6 +91,7 @@ const GeneralLedgerProductDetail = () => {
               </select>
             </div>
           )}
+          </div>
 
           {/* Buttons */}
           <div className="space-y-4 mt-6">

@@ -11,32 +11,31 @@ const BalanceSheet = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300 flex flex-col">
-          <h2 className="text-lg font-bold mb-4">Balance Sheet</h2>
-
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          Balance Sheet
+        </div>
           {/* Date Selection */}
-<div className="mb-6">
-  <label className="block font-medium mb-2">On Date</label>
-  <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
-    <input
-      type="date"
-      className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-      value={fromDate}
-      onChange={(e) => setFromDate(e.target.value)}
-    />
-    <input
-      type="date"
-      className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
-      value={toDate}
-      onChange={(e) => setToDate(e.target.value)}
-    />
-  </div>
-</div>
-
-
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-medium mb-2">On Date</label>
+            <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+              <input
+                type="date"
+                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+              <input
+                type="date"
+                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+            </div>
+          </div>
 
           {/* Report Type Selection */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Report Type</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mt-32 mb-4">
+            <h3 className="text-md font-semibold mb-2">Select Report Type Here</h3>
             <div className="flex flex-col space-y-2">
               <label className="flex items-center">
                 <input
@@ -64,8 +63,8 @@ const BalanceSheet = () => {
           </div>
 
           {/* Detail Type Selection */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Detail Type</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-medium mb-2">Select Report Type Here</label>
             <div className="flex flex-col space-y-2">
               <label className="flex items-center">
                 <input
@@ -93,12 +92,9 @@ const BalanceSheet = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-auto flex justify-between">
+          <div className="mt-auto flex justify-end">
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
               Preview
-            </button>
-            <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-              Close
             </button>
           </div>
         </div>
@@ -109,11 +105,6 @@ const BalanceSheet = () => {
             Report Viewer Placeholder
           </div>
         </div>
-      </div>
-
-      {/* Footer */}
-      <div className="w-full border-t border-gray-300 text-center text-gray-600 text-sm py-2">
-        Current Page No.: 1 | Total Page No.: 10 | Zoom Factor: 100%
       </div>
     </div>
   );

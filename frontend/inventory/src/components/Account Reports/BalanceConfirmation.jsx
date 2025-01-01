@@ -20,18 +20,18 @@ const BalanceConfirmation = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300">
-          <h2 className="text-lg font-bold mb-4">Balance Confirmation</h2>
+          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Balance Confirmation (Debitors / Creditors)
+          </div>
 
           {/* Label */}
-          <h3 className="text-md font-semibold mb-2">Select Vendors/Customer Here</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4 mt-4">
+            <label className="block font-semibold mb-2">
+              Select Vendor/Customer
+            </label>
 
-          {/* Dropdown */}
-          <div className="mb-4">
-            {loading ? (
-              <div className="text-gray-500 text-sm">Loading...</div>
-            ) : error ? (
-              <div className="text-red-500 text-sm">Error loading data</div>
-            ) : (
+            {/* Dropdown */}
+            <div className="mb-2">
               <select
                 className="w-full p-2 border border-gray-400 rounded mb-2"
                 value={selectedVendor}
@@ -44,7 +44,7 @@ const BalanceConfirmation = () => {
                   </option>
                 ))}
               </select>
-            )}
+            </div>
           </div>
 
           {/* Buttons */}
@@ -58,7 +58,6 @@ const BalanceConfirmation = () => {
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );

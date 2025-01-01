@@ -3,7 +3,8 @@ import React, { useState } from "react";
 const InventoryItemList = () => {
   // State to track selected product type and checkbox status
   const [selectedProductType, setSelectedProductType] = useState(""); // "all" or "particulars"
-  const [isWithSubCategoryChecked, setIsWithSubCategoryChecked] = useState(false);
+  const [isWithSubCategoryChecked, setIsWithSubCategoryChecked] =
+    useState(false);
 
   const handleProductTypeChange = (type) => {
     setSelectedProductType(type);
@@ -21,75 +22,84 @@ const InventoryItemList = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300">
-          {/* Header */}
-          <h2 className="text-lg font-bold mb-4">Select Product Type here.....</h2>
-
-          {/* Radio Buttons */}
-          <div className="mb-4">
-            <label className="block mb-2">
-              <input
-                type="radio"
-                name="productType"
-                value="all"
-                className="mr-2"
-                onChange={() => handleProductTypeChange("all")}
-                checked={selectedProductType === "all"}
-              />
-              ALL Product
-            </label>
-            <label className="block">
-              <input
-                type="radio"
-                name="productType"
-                value="particulars"
-                className="mr-2"
-                onChange={() => handleProductTypeChange("particulars")}
-                checked={selectedProductType === "particulars"}
-              />
-              Particulars Category
-            </label>
+          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Inventory Item List
           </div>
+          {/* Header */}
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Product Here
+            </label>
 
-          {/* Dropdown for Particulars Category */}
-          {selectedProductType === "particulars" && (
+            {/* Radio Buttons */}
             <div className="mb-4">
-              <select className="w-full p-2 border border-gray-400 rounded mb-2">
+              <label className="block mb-2">
+                <input
+                  type="radio"
+                  name="productType"
+                  value="all"
+                  className="mr-2"
+                  onChange={() => handleProductTypeChange("all")}
+                  checked={selectedProductType === "all"}
+                />
+                ALL Product
+              </label>
+              <label className="block">
+                <input
+                  type="radio"
+                  name="productType"
+                  value="particulars"
+                  className="mr-2"
+                  onChange={() => handleProductTypeChange("particulars")}
+                  checked={selectedProductType === "particulars"}
+                />
+                Particulars Category
+              </label>
+            </div>
+
+            {/* Dropdown for Particulars Category */}
+            {selectedProductType === "particulars" && (
+              <div className="mb-4">
+                <select className="w-full p-2 border border-gray-400 rounded mb-2">
+                  <option>Select Category</option>
+                  <option>Category 1</option>
+                  <option>Category 2</option>
+                  <option>Category 3</option>
+                </select>
+              </div>
+            )}
+
+            {/* Checkbox */}
+            <div className="mb-4">
+              <label>
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  onChange={handleSubCategoryCheckboxChange}
+                  checked={isWithSubCategoryChecked}
+                  disabled={selectedProductType !== "particulars"}
+                />
+                With Sub Category
+              </label>
+            </div>
+
+            {/* Dropdown for With Sub Category */}
+            <div className="mb-4">
+              <select
+                className={`w-full p-2 border border-gray-400 rounded ${
+                  selectedProductType === "particulars"
+                    ? ""
+                    : "bg-gray-200 cursor-not-allowed"
+                }`}
+                disabled={selectedProductType !== "particulars"}
+              >
                 <option>Select Category</option>
-                <option>Category 1</option>
-                <option>Category 2</option>
-                <option>Category 3</option>
+                <option>Finished Goods</option>
+                <option>Live Stock</option>
+                <option>Packing Materials</option>
+                <option>Raw Materials</option>
               </select>
             </div>
-          )}
-
-          {/* Checkbox */}
-          <div className="mb-4">
-            <label>
-              <input
-                type="checkbox"
-                className="mr-2"
-                onChange={handleSubCategoryCheckboxChange}
-                checked={isWithSubCategoryChecked}
-                disabled={selectedProductType !== "particulars"}
-              />
-              With Sub Category
-            </label>
-          </div>
-
-          {/* Dropdown for With Sub Category */}
-          <div className="mb-4">
-            <select
-              className={`w-full p-2 border border-gray-400 rounded ${
-                selectedProductType === "particulars" ? "" : "bg-gray-200 cursor-not-allowed"
-              }`}
-              disabled={selectedProductType !== "particulars"}
-            >
-              <option>Select Category</option>
-              <option>Finished Goods</option>
-              <option>Live Stock</option>
-              <option>Packing Materials</option>
-              <option>Raw Materials</option>
-            </select>
           </div>
 
           {/* Buttons */}

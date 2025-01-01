@@ -47,9 +47,10 @@ const PriceChangeDetail = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">Price Change Detail</div>
           {/* Select Date Section */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4 mt-4">
+            <label className="block font-semibold mb-2">Select Date Range Here</label>
             {/* First Date Picker */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="flex flex-col">
@@ -95,8 +96,8 @@ const PriceChangeDetail = () => {
           </div>
 
           {/* Radio Buttons */}
-          <div className="mb-4">
-            <h2 className="text-lg font-bold mb-4">Select Report Type Here</h2>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">Select Report Type Here</label>
             <label className="block">
               <input
                 type="radio"
@@ -108,8 +109,6 @@ const PriceChangeDetail = () => {
               />
               All Users
             </label>
-          </div>
-          <div className="mb-4">
             <label className="block">
               <input
                 type="radio"
@@ -121,8 +120,6 @@ const PriceChangeDetail = () => {
               />
               Particular Users
             </label>
-          </div>
-
           {/* Dropdown menu */}
           {selectedProductType === "particulars" && (
             <div className="mb-4">
@@ -138,6 +135,7 @@ const PriceChangeDetail = () => {
               </select>
             </div>
           )}
+          </div>
 
           {/* Buttons */}
           <div className="space-y-4 mt-6">
@@ -166,7 +164,9 @@ const PriceChangeDetail = () => {
               <p className="text-gray-500 text-center">No data available.</p>
             )
           ) : (
-            <p className="text-gray-500 text-center">Click 'Preview' to view data.</p>
+            <p className="text-gray-500 text-center">
+              Click 'Preview' to view data.
+            </p>
           )}
         </div>
       </div>
