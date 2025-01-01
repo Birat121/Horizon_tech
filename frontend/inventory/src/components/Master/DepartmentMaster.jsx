@@ -38,13 +38,16 @@ const DepartmentMaster = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="flex items-center justify-center h-screen rounded-lg">
       <div className="w-[500px] bg-white border rounded shadow-md p-6">
-        <div className="text-xl font-semibold text-black mb-4">
-          Create/Modify Department
-        </div>
+      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Department Master
+      </div>
 
-        <div className="space-y-4">
+      <div className="bg-white shadow-md rounded-b-md p-4 mb-4">
+      <div className="bg-indigo-950 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Create / Modify Department
+        </div>
           {/* Department Dropdown */}
           <div className="flex items-center">
             <label htmlFor="department" className="w-40 text-black">

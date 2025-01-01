@@ -6,13 +6,13 @@ function CreateAccountLedger() {
   return (
     <div className="flex items-center justify-center min-h-screen ">
       <div className="p-8 bg-white border shadow-lg rounded-lg w-[600px]">
-        <h1 className="text-2xl font-bold text-gray-800 border-b pb-4">
-          Create New Account Ledger
-        </h1>
+      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Create New Account Ledger
+          </div>
 
         {/* Account Type Selector */}
-        <div className="my-6">
-          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+        <div className="bg-white shadow-md rounded-md p-4 mb-4">
+          <h2 className="text-lg  font-semibold text-gray-700 mb-2">
             Select Group / Child Account
           </h2>
           <div className="flex space-x-6">
@@ -40,8 +40,8 @@ function CreateAccountLedger() {
         </div>
 
         {/* Group Account Section */}
-        <div className="space-y-6">
-          <h2 className="text-lg font-semibold text-purple-600">
+        <div className="bg-white shadow-md rounded-md p-4 mb-4">
+          <h2 className="text-lg font-semibold text-black">
             Group Account
           </h2>
           <div className="grid grid-cols-3 gap-4 items-center">
@@ -72,7 +72,7 @@ function CreateAccountLedger() {
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-end space-x-3 mt-8">
+        <div className="flex justify-center space-x-3 mt-8">
           <button className="px-4 py-2 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
             Add New
           </button>
@@ -84,9 +84,6 @@ function CreateAccountLedger() {
           </button>
           <button className="px-4 py-2 bg-red-500 text-white border rounded-lg shadow hover:bg-red-600">
             Cancel
-          </button>
-          <button className="px-4 py-2 bg-gray-700 text-white border rounded-lg shadow hover:bg-gray-800">
-            Exit
           </button>
         </div>
       </div>

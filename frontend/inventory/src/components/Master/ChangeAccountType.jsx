@@ -4,9 +4,11 @@ const ChangeAccountType = () => {
   return (
     <div className='h-screen flex items-center justify-center'>
       <div className='p-6 bg-white shadow-md rounded-lg w-full max-w-md' >
-        <h2 className='text-xl font-semibold mb-4 text-center'>Change Account Type</h2>
-        <h2 className='text-lg font-semibold mb-4'>Select Account</h2>
-
+      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Change Account Type
+        </div>
+        <div className="bg-white shadow-md rounded-md p-4 mb-4">
+        <label className="block font-semibold mb-2">Select Account </label>
         <form className='space-y-4'>
           <div className='mb-4'>
             <label className='block mb-2'>Group Code:</label>
@@ -27,10 +29,12 @@ const ChangeAccountType = () => {
             </select>
           </div>
         </form>
+        </div>
         <div className='flex justify-between mt-4'>
           <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit">Save</button>
           <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' type="button">Cancel</button>
         </div>
+
       </div>
     </div>
   )

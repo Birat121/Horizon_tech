@@ -39,10 +39,13 @@ const CounterSetting = () => {
   return (
     <div className="flex items-center justify-center h-screen ">
       <div className="w-[500px] bg-white border rounded shadow-md p-6">
+      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-10">
+            Counter Setting
+      </div>
         <div className="text-xl font-semibold text-black mb-4">
           Counter Details
         </div>
-
+        <div className="bg-white shadow-md rounded-b-md p-4 mb-4">
         <div className="space-y-3">
           {/* Counter# */}
           <div className="flex items-center">
@@ -91,6 +94,7 @@ const CounterSetting = () => {
               className="flex-1 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
+        </div>
         </div>
 
         {/* Save Button */}
