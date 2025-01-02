@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "font-awesome": "^4.7.0",
     "inventory": "file:",
     "papaparse": "^5.4.1",
