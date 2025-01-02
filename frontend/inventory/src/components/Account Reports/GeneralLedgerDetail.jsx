@@ -38,16 +38,17 @@ const GeneralLedgerDetail = () => {
     }
   };
 
-
   return (
     <div className="flex flex-col h-[90vh] rounded-lg overflow-hidden bg-gray-50">
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300 ">
+          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            General Ledger Detail
+          </div>
           {/* Select Date Section */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
-
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">Select Date Here</label>
             {/* First Date Picker */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div className="flex flex-col">
@@ -94,10 +95,8 @@ const GeneralLedgerDetail = () => {
           </div>
 
           {/* Radio Buttons */}
-          <div className="mb-4">
-            <h2 className="text-lg font-bold mb-4">
-              Select Account Type here.....
-            </h2>
+          <div className="bg-white shadow-md rounded-md p-4 mb-20 mt-32"> 
+            <label className="block font-semibold mb-2">Select Account Type Here</label>
             <label className="block">
               <input
                 type="radio"
@@ -109,8 +108,6 @@ const GeneralLedgerDetail = () => {
               />
               Ledger Acount
             </label>
-          </div>
-
           {/* Dropdown for Particulars Category */}
           {selectedProductType === "particulars" && (
             <div className="mb-4">
@@ -146,16 +143,21 @@ const GeneralLedgerDetail = () => {
               </select>
             </div>
           )}
+          </div>
 
           {/* Buttons */}
-          
+
           <div className="space-y-4 mt-6">
-            <button className="w-full flex items-center justify-center p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={() => setIsGridVisible(true)}>
+            <button
+              className="w-full flex items-center justify-center p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => setIsGridVisible(true)}
+            >
               <i className="fa fa-search mr-2"></i> On Grid
             </button>
-            <button className="w-full flex items-center justify-center p-3 bg-green-500 text-white rounded hover:bg-green-600"
-            onClick={fetchPreviewData}>
+            <button
+              className="w-full flex items-center justify-center p-3 bg-green-500 text-white rounded hover:bg-green-600"
+              onClick={fetchPreviewData}
+            >
               <i className="fa fa-search mr-2"></i> Preview
             </button>
           </div>
@@ -174,9 +176,15 @@ const GeneralLedgerDetail = () => {
               <tbody>
                 {gridData.map((row, index) => (
                   <tr key={index}>
-                    <td className="border border-gray-300 p-2">{row.column1}</td>
-                    <td className="border border-gray-300 p-2">{row.column2}</td>
-                    <td className="border border-gray-300 p-2">{row.column3}</td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column1}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column2}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column3}
+                    </td>
                   </tr>
                 ))}
               </tbody>

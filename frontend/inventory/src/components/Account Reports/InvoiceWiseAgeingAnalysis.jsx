@@ -43,9 +43,10 @@ const InvoiceWiseAgeingAnalysis = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">Invoice Ageing Report</div>
           {/* Select Date Section */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+          <div className="bg-white shadow-md rounded-md p-4">
+            <label className="block font-semibold mb-2">Select Date Here</label>
 
             {/* First Date Picker */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -93,8 +94,8 @@ const InvoiceWiseAgeingAnalysis = () => {
           </div>
 
           {/* Radio Buttons */}
-          <div className="mb-4">
-            <h2 className="text-lg font-bold mb-4">Select Vendor / Customer here.....</h2>
+          <div className="bg-white shadow-md rounded-md p-4 mt-4">
+            <label className="block font-semibold mb-2">Select Vendor / Customer Here</label>
             <label className="block">
               <input
                 type="radio"
@@ -104,13 +105,12 @@ const InvoiceWiseAgeingAnalysis = () => {
                 onChange={() => handleProductTypeChange("particulars")}
                 checked={selectedProductType === "particulars"}
               />
-              Select Ledger
+              Ledger Name 
             </label>
-          </div>
 
           {/* Dropdown for Particulars Category */}
           {selectedProductType === "particulars" && (
-            <div className="mb-4">
+            <div className="mb-4 mt-4">
               <select className="w-full p-2 border border-gray-400 rounded mb-2">
                 <option>Select Category</option>
                 <option>Category 1</option>
@@ -119,6 +119,7 @@ const InvoiceWiseAgeingAnalysis = () => {
               </select>
             </div>
           )}
+          </div>
 
           {/* Buttons */}
           <div className="space-y-4 mt-6">
@@ -151,9 +152,15 @@ const InvoiceWiseAgeingAnalysis = () => {
               <tbody>
                 {gridData.map((row, index) => (
                   <tr key={index}>
-                    <td className="border border-gray-300 p-2">{row.column1}</td>
-                    <td className="border border-gray-300 p-2">{row.column2}</td>
-                    <td className="border border-gray-300 p-2">{row.column3}</td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column1}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column2}
+                    </td>
+                    <td className="border border-gray-300 p-2">
+                      {row.column3}
+                    </td>
                   </tr>
                 ))}
               </tbody>
