@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 
 const VendorPurchaseReturnCategoryWise = () => {
-  const [transactionType, setTransactionType] = useState("Purchase"); // Voucher type state
-  const [categoryType, setCategoryType] = useState("All Category"); // Report type state
-
-  const [fromDate1, setFromDate1] = useState(""); // First "From" date
-  const [toDate1, setToDate1] = useState(""); // First "To" date
-  const [fromDate2, setFromDate2] = useState(""); // Second "From" date
-  const [toDate2, setToDate2] = useState(""); // Second "To" date
+  const [transactionType, setTransactionType] = useState("Purchase");
+  const [categoryType, setCategoryType] = useState("All Category");
+  const [fromDate1, setFromDate1] = useState("");
+  const [toDate1, setToDate1] = useState("");
+  const [fromDate2, setFromDate2] = useState("");
+  const [toDate2, setToDate2] = useState("");
   const [vendorType, setVendorType] = useState("All Vendors");
 
-  const handleVendorTypeChange = (type) => {
-    setVendorType(type);
-  };
-
-  const handleCategoryTypeChange = (type) => {
-    setCategoryType(type);
-  };
+  const handleVendorTypeChange = (type) => setVendorType(type);
+  const handleCategoryTypeChange = (type) => setCategoryType(type);
 
   return (
     <div className="flex flex-col h-[90vh] rounded-lg overflow-y-auto bg-gray-50">
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-          {/* Voucher Type Radio Buttons */}
-          {/* Transaction Type Radio Buttons */}
-          <fieldset className="flex flex-col mb-6">
-            <legend className="text-lg font-bold mb-4">
-              Select Transaction Type here...
-            </legend>
+          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Vendor Purchase / Return Category Wise
+          </div>
+
+          {/* Transaction Type */}
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Transaction Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
@@ -46,27 +43,26 @@ const VendorPurchaseReturnCategoryWise = () => {
                 name="transactionType"
                 value="Purchase Return"
                 checked={transactionType === "Purchase Return"}
-                onChange={(e) => {
-                  setTransactionType(e.target.value);
-                }}
+                onChange={(e) => setTransactionType(e.target.value)}
                 className="mr-2"
               />
               Purchase Return
             </label>
-          </fieldset>
+          </div>
 
-          <fieldset className="mb-4">
-            <legend className="text-lg font-bold mb-4">
-              Select Vendor Type here...
-            </legend>
+          {/* Vendor Type */}
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Vendor Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
                 name="vendorType"
                 value="All Vendors"
-                className="mr-2"
                 onChange={() => handleVendorTypeChange("All Vendors")}
-                checked={vendorType === "All Vendors"} // Corrected comparison
+                checked={vendorType === "All Vendors"}
+                className="mr-2"
               />
               All Vendors
             </label>
@@ -75,71 +71,64 @@ const VendorPurchaseReturnCategoryWise = () => {
                 type="radio"
                 name="vendorType"
                 value="Particular Vendor"
-                className="mr-2"
                 onChange={() => handleVendorTypeChange("Particular Vendor")}
-                checked={vendorType === "Particular Vendor"} // Corrected comparison
+                checked={vendorType === "Particular Vendor"}
+                className="mr-2"
               />
               Particular Vendor
             </label>
-          </fieldset>
-
-          {/* Dropdown for Particulars */}
-          {vendorType === "Particular Vendor" && (
-            <div className="mb-4">
-              <select className="w-full p-2 border border-gray-400 rounded">
-                <option>Select Category</option>
-                <option>Category 1</option>
-                <option>Category 2</option>
-                <option>Category 3</option>
+            {vendorType === "Particular Vendor" && (
+              <select className="w-full p-2 border border-gray-400 rounded mt-2">
+                <option>Select Vendor</option>
+                <option>Vendor 1</option>
+                <option>Vendor 2</option>
+                <option>Vendor 3</option>
               </select>
-            </div>
-          )}
+            )}
+          </div>
 
-          <fieldset className="mb-4">
-            <legend className="text-lg font-bold mb-4">
-              Select Category Type here...
-            </legend>
+          {/* Category Type */}
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">
+              Select Category Type Here
+            </label>
             <label className="block">
               <input
                 type="radio"
                 name="categoryType"
                 value="All Category"
-                className="mr-2"
                 onChange={() => handleCategoryTypeChange("All Category")}
-                checked={categoryType === "All Category"} // Corrected comparison
+                checked={categoryType === "All Category"}
+                className="mr-2"
               />
-              All Category
+              All Categories
             </label>
             <label className="block">
               <input
                 type="radio"
                 name="categoryType"
                 value="Particular Category"
-                className="mr-2"
                 onChange={() => handleCategoryTypeChange("Particular Category")}
-                checked={categoryType === "Particular Category"} // Corrected comparison
+                checked={categoryType === "Particular Category"}
+                className="mr-2"
               />
               Particular Category
             </label>
-          </fieldset>
-
-          {/* Dropdown for Particulars */}
-          {categoryType === "Particular Category" && (
-            <div className="mb-4">
-              <select className="w-full p-2 border border-gray-400 rounded">
+            {categoryType === "Particular Category" && (
+              <select className="w-full p-2 border border-gray-400 rounded mt-2">
                 <option>Select Category</option>
                 <option>Category 1</option>
                 <option>Category 2</option>
                 <option>Category 3</option>
               </select>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Date Selection */}
-          <div className="mb-6">
-            <h3 className="text-md font-semibold mb-2">Select Date here...</h3>
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <label className="block font-semibold mb-2">Select Date Here</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div className="flex flex-col">
+              <div>
                 <label className="font-medium mb-1">From:</label>
                 <input
                   type="date"
@@ -148,7 +137,7 @@ const VendorPurchaseReturnCategoryWise = () => {
                   onChange={(e) => setFromDate1(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col">
+              <div>
                 <label className="font-medium mb-1">To:</label>
                 <input
                   type="date"
@@ -159,7 +148,7 @@ const VendorPurchaseReturnCategoryWise = () => {
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col">
+              <div>
                 <label className="font-medium mb-1">From:</label>
                 <input
                   type="date"
@@ -168,7 +157,7 @@ const VendorPurchaseReturnCategoryWise = () => {
                   onChange={(e) => setFromDate2(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col">
+              <div>
                 <label className="font-medium mb-1">To:</label>
                 <input
                   type="date"
