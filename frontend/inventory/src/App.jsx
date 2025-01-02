@@ -32,6 +32,7 @@ import ItemSalesAreaSalesmanWise from "./components/Inventory Reports/ItemSalesA
 import ProductionConsumptionReport from "./components/Inventory Reports/ProductionConsumptionReport";
 import BonusReceivedFromVendor from "./components/Inventory Reports/BonusReceivedFromVendor";
 import NoPurchaseSinceDateButStockAvi from "./components/Inventory Reports/NoPurchaseSinceDateButStockAvi";
+import VATLedgerOfPurchaseAndSales from "./components/Inventory Reports/VATLedgerOfPurchaseAndSales";
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -117,21 +118,21 @@ function App() {
 
           {/*Inventory Reports */}
           <Route path="/inventoryreports/suboption2" element={<InventoryItemList />} />
-          <Route path="/inventoryreports/suboptions16" element={<ItemSalesAreaSalesmanWise />} />
-          <Route path="/inventoryreports/suboptions17" element={<ProductionConsumptionReport />} />
-          <Route path="/inventoryreports/suboptions22" element={<NoSalesFromLastPurchase/>} />
-          <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
-          <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} />
-          
-          <Route path="/inventoryreports/suboptions20" element={<PurchaseAndSalesMoreThanOneLakh/>} /> 
-          <Route path="/inventoryreports/suboptions19" element={<ItemStockInDetail/>} /> 
+          <Route path="/inventoryreports/suboption3" element={<PrintPreviewPurchaseSalesandReturnBill/>} />
+          <Route path="/inventoryreports/suboptions7" element={<VendorPurchaseReturnDetailInvoiceWise/>} />
+          <Route path="/inventoryreports/suboptions8" element={<VendorPurchaseReturnCategoryWise/>} />
+          <Route path="/inventoryreports/suboptions11" element={<ItemPurchaseReturnInDetail/>} />
           <Route path="/inventoryreports/suboptions13" element={<CustomerSalesReturnDetailInvoiceWise/>} />
           <Route path="/inventoryreports/suboptions14" element={<CustomerSalesReturnCategoryWise/>} />
-          <Route path="/inventoryreports/suboptions11" element={<ItemPurchaseReturnInDetail/>} />
           <Route path="/inventoryreports/suboptions15" element={<ItemSalesReturnInDetail/>} />
-          <Route path="/inventoryreports/suboptions7" element={<VendorPurchaseReturnDetailInvoiceWise/>} />
-          <Route path="/inventoryreports/suboption3" element={<PrintPreviewPurchaseSalesandReturnBill/>} />
-          <Route path="/inventoryreports/suboptions8" element={<VendorPurchaseReturnCategoryWise/>} />
+          <Route path="/inventoryreports/suboptions16" element={<ItemSalesAreaSalesmanWise />} />
+          <Route path="/inventoryreports/suboptions17" element={<ProductionConsumptionReport />} />
+          <Route path="/inventoryreports/suboptions19" element={<ItemStockInDetail/>} /> 
+          <Route path="/inventoryreports/suboptions20" element={<PurchaseAndSalesMoreThanOneLakh/>} /> 
+          <Route path="/inventoryreports/suboptions21" element={<VATLedgerOfPurchaseAndSales/>} />
+          <Route path="/inventoryreports/suboptions22" element={<NoSalesFromLastPurchase/>} />
+          <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
+          <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} /> 
           {/*Inventory Reports */}
 
           {/*Account Reports */}
