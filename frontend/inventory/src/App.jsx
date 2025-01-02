@@ -70,6 +70,7 @@ import ItemSalesReturnInDetail from "./components/Inventory Reports/ItemSalesRet
 import VendorPurchaseReturnDetailInvoiceWise from "./components/Inventory Reports/VendorPurchaseReturnDetailInvoiceWise";
 import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Reports/PrintPreviewPurchaseSalesandReturnBill";
 import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/VendorPurchaseReturnCategoryWise";
+import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
 
 {/* System Security */}
 
@@ -133,6 +134,10 @@ function App() {
           <Route path="/inventoryreports/suboptions22" element={<NoSalesFromLastPurchase/>} />
           <Route path="/inventoryreports/suboptions23" element={<NoPurchaseSinceDateButStockAvi />} />
           <Route path="/inventoryreports/suboptions24" element={<BonusReceivedFromVendor />} /> 
+          <Route path="/inventoryreports/suboptions7" element={<VendorPurchaseReturnDetailInvoiceWise/>} />
+          <Route path="/inventoryreports/suboption3" element={<PrintPreviewPurchaseSalesandReturnBill/>} />
+          <Route path="/inventoryreports/suboptions8" element={<VendorPurchaseReturnCategoryWise/>} />
+          <Route path="/inventoryreports/suboptions4" element={<PurchaseSalesIssueBook/>} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}
