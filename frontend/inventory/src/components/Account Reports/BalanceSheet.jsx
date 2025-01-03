@@ -20,13 +20,13 @@ const BalanceSheet = () => {
             <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
               <input
                 type="date"
-                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
+                className="p-2 border border-gray-300 rounded w-full "
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
               />
               <input
                 type="date"
-                className="p-2 border border-gray-300 rounded w-full sm:w-3/4 md:w-1/2 lg:w-1/3"
+                className="p-2 border border-gray-300 rounded w-full "
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
               />

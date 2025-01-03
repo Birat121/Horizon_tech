@@ -8,7 +8,6 @@ const DayBook = () => {
   const [toDate2, setToDate2] = useState(""); // Second "To" date
   const [selectedUser, setSelectedUser] = useState(""); // Selected user for "particulars"
   const [gridData, setGridData] = useState([]); // Data fetched from backend
-  const [orderBy, setOrderBy] = useState(""); // Order By criteria
   const [isPreviewVisible, setIsPreviewVisible] = useState(false); // Toggle preview visibility
 
   const fetchPreviewData = async () => {
