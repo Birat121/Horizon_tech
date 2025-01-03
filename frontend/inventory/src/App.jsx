@@ -33,6 +33,19 @@ import ProductionConsumptionReport from "./components/Inventory Reports/Producti
 import BonusReceivedFromVendor from "./components/Inventory Reports/BonusReceivedFromVendor";
 import NoPurchaseSinceDateButStockAvi from "./components/Inventory Reports/NoPurchaseSinceDateButStockAvi";
 import VATLedgerOfPurchaseAndSales from "./components/Inventory Reports/VATLedgerOfPurchaseAndSales";
+import NoSalesFromLastPurchase from "./components/Inventory Reports/NoSalesFromLastPurchase";
+import PurchaseAndSalesMoreThanOneLakh from "./components/Inventory Reports/PurchaseAndSalesMoreThanOneLakh";
+import ItemStockInDetail from "./components/Inventory Reports/ItemStockInDetail";
+import CustomerSalesReturnDetailInvoiceWise from "./components/Inventory Reports/CustomerSalesReturnDetailInvoiceWise";
+import CustomerSalesReturnCategoryWise from "./components/Inventory Reports/CustomerSalesReturnCategoryWise";
+import ItemPurchaseReturnInDetail from "./components/Inventory Reports/ItemPurchaseReturnInDetail";
+import ItemSalesReturnInDetail from "./components/Inventory Reports/ItemSalesReturnInDetail";
+import VendorPurchaseReturnDetailInvoiceWise from "./components/Inventory Reports/VendorPurchaseReturnDetailInvoiceWise";
+import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Reports/PrintPreviewPurchaseSalesandReturnBill";
+import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/VendorPurchaseReturnCategoryWise";
+import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
+import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
+
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -60,17 +73,18 @@ import EndOfDay from "./components/System Security/EndOfDay";
 import BackupData from "./components/System Security/BackupData";
 import PrinterSetup from "./components/System Security/PrinterSetup";
 import RID from "./components/System Security/IRDSetup/RID";
-import NoSalesFromLastPurchase from "./components/Inventory Reports/NoSalesFromLastPurchase";
-import PurchaseAndSalesMoreThanOneLakh from "./components/Inventory Reports/PurchaseAndSalesMoreThanOneLakh";
-import ItemStockInDetail from "./components/Inventory Reports/ItemStockInDetail";
-import CustomerSalesReturnDetailInvoiceWise from "./components/Inventory Reports/CustomerSalesReturnDetailInvoiceWise";
-import CustomerSalesReturnCategoryWise from "./components/Inventory Reports/CustomerSalesReturnCategoryWise";
-import ItemPurchaseReturnInDetail from "./components/Inventory Reports/ItemPurchaseReturnInDetail";
-import ItemSalesReturnInDetail from "./components/Inventory Reports/ItemSalesReturnInDetail";
-import VendorPurchaseReturnDetailInvoiceWise from "./components/Inventory Reports/VendorPurchaseReturnDetailInvoiceWise";
-import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Reports/PrintPreviewPurchaseSalesandReturnBill";
-import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/VendorPurchaseReturnCategoryWise";
-import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
+import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related Report/ElectronicPaymentDetail";
+import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
+import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
+import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
+import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
+import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
+import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
+import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
+import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
+import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
+import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
+
 
 {/* System Security */}
 
@@ -96,6 +110,13 @@ function App() {
           <Route path="/master/suboption7" element={<DepartmentMaster />} />
           <Route path="/master/suboption8" element={<CounterSetting />} />
           <Route path="/master/suboption9" element={<PointCollectionSetting />} />
+          <Route path="/master/suboption6/suboption5" element={<CategoryMaster/>} />
+          <Route path="/master/suboption6/suboption6" element={<SubCategoryMaster/>} />
+          <Route path="/master/suboption6/suboption7" element={<UnitOfMeasurement/>} />
+          <Route path="/master/suboption6/suboption8" element={<CreditorAccountMaster />} />
+          <Route path="/master/suboption6/suboption9" element={<DebitorAccountMaster/>} />
+          <Route path="/master/suboption6/suboption10" element={<ServiceItemMaster/>} />
+          <Route path="/master/suboption6/suboption11" element={<StockLocationMaster/>} />
           {/*Master Options*/}
 
           {/*Transaction */}
@@ -138,6 +159,11 @@ function App() {
           <Route path="/inventoryreports/suboption3" element={<PrintPreviewPurchaseSalesandReturnBill/>} />
           <Route path="/inventoryreports/suboptions8" element={<VendorPurchaseReturnCategoryWise/>} />
           <Route path="/inventoryreports/suboptions4" element={<PurchaseSalesIssueBook/>} />
+          <Route path="/inventoryreports/suboptions12/suboption1" element={<MateralizedViewsReport/>} />
+          <Route path="/inventoryreports/suboptions12/suboption2" element={<ElectronicPaymentDetail/>} />
+          <Route path="/inventoryreports/suboptions12/suboption3" element={<UserLogActivities/>} />
+          <Route path="/inventoryreports/suboptions12/suboption4" element={<AuditActivityLogReport/>} />
+          <Route path="/inventoryreports/suboptions12/suboption5" element={<PurchaseAndSalesBook/>} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}

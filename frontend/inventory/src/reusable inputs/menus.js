@@ -11,7 +11,23 @@ export const menus = [
       },
       { path: "/master/suboption4", label: "Change Account Type" },
       { path: "/master/suboption5", label: "Account Re-Grouping" },
-      { path: "/master/suboption6", label: "Inventory Master" },
+      { path: "/master/suboption6", label: "Inventory Master",
+      subOptions: [
+        { path: "/master/suboption6/suboption1", label: "Inventory Item Master"},
+        { path: "/master/suboption6/suboption2", label: "Inventory Item Master - From Excel"},
+        { path: "/master/suboption6/suboption3", label: "Vendor Master"},
+        { path: "/master/suboption6/suboption4", label: "Customer Master"},
+        { path: "/master/suboption6/suboption5", label: "Category Master"},
+        { path: "/master/suboption6/suboption6", label: "Sub Category Master"},
+        { path: "/master/suboption6/suboption7", label: "Unit Of Measurement"},
+        { path: "/master/suboption6/suboption8", label: "Creditors Master For SPL Pur Disc"},
+        { path: "/master/suboption6/suboption9", label: "Debitors Master For SPL Pur Disc"},
+        { path: "/master/suboption6/suboption10", label: "Servie Item Master"},
+        { path: "/master/suboption6/suboption11", label: "Stock Location Master"},
+
+        
+      ]
+    },
       { path: "/master/suboption7", label: "Department Master" },
       { path: "/master/suboption8", label: "Counter Setting" },
       { path: "/master/suboption9", label: "Point Collection Setting",
