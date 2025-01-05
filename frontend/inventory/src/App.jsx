@@ -14,6 +14,13 @@ import DepartmentMaster from "./components/Master/DepartmentMaster";
 import CounterSetting from "./components/Master/CounterSetting";
 import PointCollectionSetting from "./components/Master/PointCollectionSetting";
 import ChangeAccountType from "./components/Master/ChangeAccountType";
+import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
+import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
+import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
+import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
+import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
+import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
+import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
 {/* Master Options */}
 
 {/* Transaction */}
@@ -45,6 +52,9 @@ import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Repor
 import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/VendorPurchaseReturnCategoryWise";
 import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
 import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
+import InventoryItemStockPast from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockPast";
+
+
 
 {/* Inventory Reports */}
 
@@ -77,13 +87,7 @@ import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related
 import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
-import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
-import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
-import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
-import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
-import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
-import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
-import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
+
 
 
 {/* System Security */}
@@ -149,6 +153,7 @@ function App() {
           <Route path="/inventoryreports/suboptions15" element={<ItemSalesReturnInDetail/>} />
           <Route path="/inventoryreports/suboptions16" element={<ItemSalesAreaSalesmanWise />} />
           <Route path="/inventoryreports/suboptions17" element={<ProductionConsumptionReport />} />
+          <Route path="/inventoryreports/suboptions18/suboption2" element={<InventoryItemStockPast />} />
           <Route path="/inventoryreports/suboptions19" element={<ItemStockInDetail/>} /> 
           <Route path="/inventoryreports/suboptions20" element={<PurchaseAndSalesMoreThanOneLakh/>} /> 
           <Route path="/inventoryreports/suboptions21" element={<VATLedgerOfPurchaseAndSales/>} />
