@@ -31,6 +31,9 @@ import OpeningBalanceEntry from "./components/Transaction/OpeningBalanceEntry";
 import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
 import PaymentVoucher from "./components/Transaction/PaymentVoucher";
 import PDCEntry from "./components/Transaction/PDCEntry";
+import MaterialIssue from "./components/Transaction/MaterialIssue";
+import GoodsReceiptByProduct from "./components/Transaction/GoodsReceiptByProduct";
+import InvoiceGenerate from "./components/Transaction/InvoiceGenerate";
 {/* Transaction */}
 
 
