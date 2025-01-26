@@ -18,12 +18,12 @@ const Sidebar = () => {
   };
 
   const toggleDropdown = (menuName) => {
-    setActiveDropdown(activeDropdown === menuName ? null : menuName);
-    setActiveSubDropdown(null); // Reset sub-dropdowns when toggling a main dropdown
+    setActiveDropdown((prev) => (prev === menuName ? null : menuName));
+    setActiveSubDropdown(null); // Reset sub-dropdowns
   };
 
   const toggleSubDropdown = (itemPath) => {
-    setActiveSubDropdown(activeSubDropdown === itemPath ? null : itemPath);
+    setActiveSubDropdown((prev) => (prev === itemPath ? null : itemPath));
   };
 
   const renderSubOptions = (subOptions) => (
@@ -89,12 +89,16 @@ const Sidebar = () => {
                 }`}
               >
                 <div className="flex items-center space-x-2">
-                  <i className={`fa fa-${menu.icon || "circle"} text-yellow-500`}></i>
+                  <i
+                    className={`fa fa-${menu.icon || "circle"} text-yellow-500`}
+                  ></i>
                   <span>{menu.name}</span>
                 </div>
                 <i
                   className={`fa text-sm ${
-                    activeDropdown === menu.name ? "fa-chevron-up" : "fa-chevron-down"
+                    activeDropdown === menu.name
+                      ? "fa-chevron-up"
+                      : "fa-chevron-down"
                   }`}
                 ></i>
               </button>
@@ -103,9 +107,13 @@ const Sidebar = () => {
                 <ul className="ml-4 mt-2 space-y-2">
                   {menu.items.map((item) => (
                     <li key={item.path} className="relative">
-                      <button
-                        onClick={() => toggleSubDropdown(item.path)}
-                        className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-300 ${
+                      <Link
+                        to={item.path}
+                        onClick={() => {
+                          toggleSubDropdown(item.path);
+                          closeSidebar();
+                        }}
+                        className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
                           item.disabled
                             ? "opacity-50 pointer-events-none"
                             : location.pathname === item.path
@@ -123,7 +131,7 @@ const Sidebar = () => {
                             }`}
                           ></i>
                         )}
-                      </button>
+                      </Link>
 
                       {activeSubDropdown === item.path &&
                         item.subOptions &&
@@ -145,7 +153,8 @@ const Sidebar = () => {
                   : "hover:bg-yellow-300"
               }`}
             >
-              <i className="fa fa-info-circle text-yellow-500 mr-2"></i> About Software
+              <i className="fa fa-info-circle text-yellow-500 mr-2"></i> About
+              Software
             </Link>
           </li>
           <li>
@@ -175,3 +184,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
