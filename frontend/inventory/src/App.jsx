@@ -87,6 +87,10 @@ import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related
 import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
+import MaterialIssue from "./components/Transaction/MaterialIssue";
+import GoodsReceiptByProduct from "./components/Transaction/GoodsReceiptByProduct";
+import InvoiceGenerate from "./components/Transaction/InvoiceGenerate";
+import CustomerMaster from "./components/Master/InventoryMaster/CustomerMaster";
 
 
 
@@ -121,6 +125,7 @@ function App() {
           <Route path="/master/suboption6/suboption9" element={<DebitorAccountMaster/>} />
           <Route path="/master/suboption6/suboption10" element={<ServiceItemMaster/>} />
           <Route path="/master/suboption6/suboption11" element={<StockLocationMaster/>} />
+          <Route path="/master/suboption6/suboption4" element={<CustomerMaster/>} />
           {/*Master Options*/}
 
           {/*Transaction */}
@@ -129,6 +134,10 @@ function App() {
           <Route path="/transaction/suboption3" element={<PaymentVoucher/>} />
           <Route path="/transaction/suboption15" element={<OpeningBalanceEntry/>} />
           <Route path="/transaction/suboption16" element={<OpeningStockEntry/>} />
+          <Route path="/transaction/suboption10" element={<MaterialIssue/>} />
+          <Route path="/transaction/suboption11" element={<GoodsReceiptByProduct/>} />
+          <Route path="/transaction/suboption9" element={<InvoiceGenerate/>} />
+          <Route path="/transaction/suboption10" element={<MaterialIssue/>} />
 
           {/*Account Reports */}
           <Route path="/accountreports/suboption2" element={<DayBook/>} />

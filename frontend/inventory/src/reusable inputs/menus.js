@@ -2,7 +2,7 @@ export const menus = [
   {
     name: "Master",
     items: [
-      { path: "/master/suboption1", label: "Create Account Ledger" },
+      { path: "/master/suboption1", label: "Create Account Ledger",disabled: false },
       { path: "/master/suboption2", label: "Sub Ledger Master" },
       {
         path: "/master/suboption3",
