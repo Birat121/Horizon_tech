@@ -21,6 +21,7 @@ import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMas
 import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
 import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
 import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
+import VendorMaster from "./components/Master/InventoryMaster/VendorMaster";
 {/* Master Options */}
 
 {/* Transaction */}
@@ -29,6 +30,7 @@ import ReceiptVoucher from "./components/Transaction/ReceiptVoucher";
 import OpeningBalanceEntry from "./components/Transaction/OpeningBalanceEntry";
 import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
 import PaymentVoucher from "./components/Transaction/PaymentVoucher";
+import PDCEntry from "./components/Transaction/PDCEntry";
 {/* Transaction */}
 
 
@@ -53,9 +55,6 @@ import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/Ven
 import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
 import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
 import InventoryItemStockPast from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockPast";
-
-
-
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -87,9 +86,6 @@ import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related
 import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
-
-
-
 {/* System Security */}
 
 function App() {
@@ -121,12 +117,15 @@ function App() {
           <Route path="/master/suboption6/suboption9" element={<DebitorAccountMaster/>} />
           <Route path="/master/suboption6/suboption10" element={<ServiceItemMaster/>} />
           <Route path="/master/suboption6/suboption11" element={<StockLocationMaster/>} />
+          <Route path="/master/suboption6/suboption3" element={<VendorMaster/>}/>
+
           {/*Master Options*/}
 
           {/*Transaction */}
           <Route path="/transaction/suboption1" element={<JournalVoucher/>} />
           <Route path="/transaction/suboption2" element={<ReceiptVoucher/>} />
           <Route path="/transaction/suboption3" element={<PaymentVoucher/>} />
+          <Route path="/transaction/suboption6" element={<PDCEntry/>} />
           <Route path="/transaction/suboption15" element={<OpeningBalanceEntry/>} />
           <Route path="/transaction/suboption16" element={<OpeningStockEntry/>} />
 
