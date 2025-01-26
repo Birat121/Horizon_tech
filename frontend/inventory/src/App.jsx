@@ -27,14 +27,12 @@ import{
 {/* Master Options */}
 
 {/* Transaction */}
-import{
-  JournalVoucher,
-  ReceiptVoucher,
-  OpeningBalanceEntry,
-  OpeningStockEntry,
-  PaymentVoucher,
-  PDCEntry
-} from "./components/Transaction/index"
+import JournalVoucher from "./components/Transaction/JournalVoucher";
+import ReceiptVoucher from "./components/Transaction/ReceiptVoucher";
+import OpeningBalanceEntry from "./components/Transaction/OpeningBalanceEntry";
+import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
+import PaymentVoucher from "./components/Transaction/PaymentVoucher";
+import PDCEntry from "./components/Transaction/PDCEntry";
 {/* Transaction */}
 
 
