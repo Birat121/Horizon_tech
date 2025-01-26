@@ -6,24 +6,22 @@ import About from "./components/About Software/About";
 import LoginPage from "./pages/Login";
 
 {/* Master Options */}
-import{
-  CreateAccountLedger,
-  SubLedgerMaster,
-  AdditionalExpensesLedger,
-  AccountReGrouping,
-  DepartmentMaster,
-  CounterSetting,
-  PointCollectionSetting,
-  ChangeAccountType,
-  ServiceItemMaster,
-  StockLocationMaster,
-  DebitorAccountMaster,
-  CreditorAccountMaster,
-  UnitOfMeasurement,
-  SubCategoryMaster,
-  CategoryMaster,
-  VendorMaster
-} from "./components/Master/index"
+import CreateAccountLedger from "./components/Master/CreateAccountLedger";
+import SubLedgerMaster from "./components/Master/SubLedgerMaster";
+import AdditionalExpensesLedger from "./components/Master/AdditionalExpensesLedger";
+import AccountReGrouping from "./components/Master/AccountReGrouping";
+import DepartmentMaster from "./components/Master/DepartmentMaster";
+import CounterSetting from "./components/Master/CounterSetting";
+import PointCollectionSetting from "./components/Master/PointCollectionSetting";
+import ChangeAccountType from "./components/Master/ChangeAccountType";
+import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
+import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
+import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
+import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
+import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
+import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
+import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
+import VendorMaster from "./components/Master/InventoryMaster/VendorMaster";
 {/* Master Options */}
 
 {/* Transaction */}
@@ -38,62 +36,56 @@ import PDCEntry from "./components/Transaction/PDCEntry";
 
 
 {/* Inventory Reports */}
-import{
-  InventoryItemList,
-  ItemSalesAreaSalesmanWise,
-  ProductionConsumptionReport,
-  BonusReceivedFromVendor,
-  NoPurchaseSinceDateButStockAvi,
-  VATLedgerOfPurchaseAndSales,
-  NoSalesFromLastPurchase,
-  PurchaseAndSalesMoreThanOneLakh,
-  ItemStockInDetail,
-  CustomerSalesReturnDetailInvoiceWise,
-  CustomerSalesReturnCategoryWise,
-  ItemPurchaseReturnInDetail,
-  ItemSalesReturnInDetail,
-  VendorPurchaseReturnDetailInvoiceWise,
-  PrintPreviewPurchaseSalesandReturnBill,
-  VendorPurchaseReturnCategoryWise,
-  PurchaseSalesIssueBook,
-  MateralizedViewsReport,
-  InventoryItemStockPast
-} from "./components/Inventory Reports/index"
+import InventoryItemList from "./components/Inventory Reports/InventoryItemList";
+import ItemSalesAreaSalesmanWise from "./components/Inventory Reports/ItemSalesAreaSalesmanWise";
+import ProductionConsumptionReport from "./components/Inventory Reports/ProductionConsumptionReport";
+import BonusReceivedFromVendor from "./components/Inventory Reports/BonusReceivedFromVendor";
+import NoPurchaseSinceDateButStockAvi from "./components/Inventory Reports/NoPurchaseSinceDateButStockAvi";
+import VATLedgerOfPurchaseAndSales from "./components/Inventory Reports/VATLedgerOfPurchaseAndSales";
+import NoSalesFromLastPurchase from "./components/Inventory Reports/NoSalesFromLastPurchase";
+import PurchaseAndSalesMoreThanOneLakh from "./components/Inventory Reports/PurchaseAndSalesMoreThanOneLakh";
+import ItemStockInDetail from "./components/Inventory Reports/ItemStockInDetail";
+import CustomerSalesReturnDetailInvoiceWise from "./components/Inventory Reports/CustomerSalesReturnDetailInvoiceWise";
+import CustomerSalesReturnCategoryWise from "./components/Inventory Reports/CustomerSalesReturnCategoryWise";
+import ItemPurchaseReturnInDetail from "./components/Inventory Reports/ItemPurchaseReturnInDetail";
+import ItemSalesReturnInDetail from "./components/Inventory Reports/ItemSalesReturnInDetail";
+import VendorPurchaseReturnDetailInvoiceWise from "./components/Inventory Reports/VendorPurchaseReturnDetailInvoiceWise";
+import PrintPreviewPurchaseSalesandReturnBill from "./components/Inventory Reports/PrintPreviewPurchaseSalesandReturnBill";
+import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/VendorPurchaseReturnCategoryWise";
+import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
+import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
+import InventoryItemStockPast from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockPast";
 {/* Inventory Reports */}
 
 {/* Account Reports */}
-import{
-  GeneralLedgerProductDetail,
-  PrintPreviewVoucher,
-  BalanceConfirmation,
-  ChartOfAccounts,
-  ProfitAndLoss,
-  DayBook,
-  InvoiceWiseAgeingAnalysis,
-  GeneralLedgerDetail,
-  PriceChangeDetail,
-  UserBaseCollection,
-  AgeingAnalysisReports,
-  BalanceSheet,
-  TrialBalance
-} from "./components/Account Reports/index"
+import GeneralLedgerProductDetail from "./components/Account Reports/GeneralLedgerProductDetail";
+import PrintPreviewVoucher from "./components/Account Reports/PrintPreviewVoucher";
+import BalanceConfirmation from "./components/Account Reports/BalanceConfirmation";
+import ChartOfAccounts from "./components/Account Reports/ChartOfAccounts";
+import ProfitAndLoss from "./components/Account Reports/ProfitAndLoss";
+import DayBook from "./components/Account Reports/DayBook";
+import InvoiceWiseAgeingAnalysis from "./components/Account Reports/InvoiceWiseAgeingAnalysis";
+import GeneralLedgerDetail from "./components/Account Reports/GeneralLedgerDetail"
+import PriceChangeDetail from "./components/Account Reports/PriceChangeDetail";
+import UserBaseCollection from "./components/Account Reports/UserBaseCollection";
+import AgeingAnalysisReports from "./components/Account Reports/AgeingAnalysisReports";
+import BalanceSheet from "./components/Account Reports/BalanceSheet";
+import TrialBalance from "./components/Account Reports/TrialBalance";
 {/* Account Reports */}
 
 {/* System Security */}
-import{
-  ChangePassword,
-  SignUpUser,
-  MenuAccess,
-  InvoiceGreetingNote,
-  EndOfDay,
-  BackupData,
-  PrinterSetup,
-  RID,
-  ElectronicPaymentDetail,
-  UserLogActivities,
-  AuditActivityLogReport,
-  PurchaseAndSalesBook
-} from "./components/System Security/index"
+import ChangePassword from "./components/System Security/ChangePassword";
+import SignUpUser from "./components/System Security/SignUpUser";
+import MenuAccess from "./components/System Security/MenuAccess";
+import InvoiceGreetingNote from "./components/System Security/InvoiceGreetingNote";
+import EndOfDay from "./components/System Security/EndOfDay";
+import BackupData from "./components/System Security/BackupData";
+import PrinterSetup from "./components/System Security/PrinterSetup";
+import RID from "./components/System Security/IRDSetup/RID";
+import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related Report/ElectronicPaymentDetail";
+import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
+import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
+import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
 {/* System Security */}
 
 function App() {
