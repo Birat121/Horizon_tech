@@ -22,6 +22,9 @@ import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasure
 import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
 import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
 import VendorMaster from "./components/Master/InventoryMaster/VendorMaster";
+import CustomerMaster from "./components/Master/InventoryMaster/CustomerMaster";
+import InventoryItemMaster from "./components/Master/InventoryMaster/InventroryItemmaster";
+
 {/* Master Options */}
 
 {/* Transaction */}
@@ -89,6 +92,7 @@ import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related
 import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
+import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMasterFromExcel";
 {/* System Security */}
 
 function App() {
@@ -121,6 +125,10 @@ function App() {
           <Route path="/master/suboption6/suboption10" element={<ServiceItemMaster/>} />
           <Route path="/master/suboption6/suboption11" element={<StockLocationMaster/>} />
           <Route path="/master/suboption6/suboption3" element={<VendorMaster/>}/>
+          <Route path="/master/suboption6/suboption2" element={<ImportExcel/>}/>
+          <Route path ="/master/suboption6/suboption4" element={<CustomerMaster/>}/>
+          <Route path="/master/suboption6/suboption1" element={<InventoryItemMaster/>} />
+
 
           {/*Master Options*/}
 

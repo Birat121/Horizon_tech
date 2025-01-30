@@ -4,15 +4,15 @@ function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="p-8 bg-white border shadow-lg rounded-lg w-[600px]">
-      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
-            Create New Account Ledger
-          </div>
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          Create New Account Ledger
+        </div>
 
         {/* Account Type Selector */}
         <div className="bg-white shadow-md rounded-md p-4 mb-4">
-          <h2 className="text-lg  font-semibold text-gray-700 mb-2">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">
             Select Group / Child Account
           </h2>
           <div className="flex space-x-6">
@@ -39,37 +39,79 @@ function CreateAccountLedger() {
           </div>
         </div>
 
-        {/* Group Account Section */}
-        <div className="bg-white shadow-md rounded-md p-4 mb-4">
-          <h2 className="text-lg font-semibold text-black">
-            Group Account
-          </h2>
-          <div className="grid grid-cols-3 gap-4 items-center">
-            <label className="text-gray-600 font-medium">Group Code:</label>
-            <input
-              type="text"
-              value="HX41"
-              readOnly
-              className="col-span-2 p-2 bg-gray-200 border border-gray-300 rounded-lg"
-            />
+        {/* Conditionally Render Sections */}
+        {accountType === "Group Account" && (
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <h2 className="text-lg font-semibold text-black">Group Account</h2>
+            <div className="grid grid-cols-3 gap-4 items-center">
+              <label className="text-gray-600 font-medium">Group Code:</label>
+              <input
+                type="text"
+                value="HX41"
+                readOnly
+                className="col-span-2 p-2 bg-gray-200 border border-gray-300 rounded-lg"
+              />
 
-            <label className="text-gray-600 font-medium">Group Name:</label>
-            <input
-              type="text"
-              placeholder="Enter Group Name"
-              className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
+              <label className="text-gray-600 font-medium">Group Name:</label>
+              <input
+                type="text"
+                placeholder="Enter Group Name"
+                className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              />
 
-            <label className="text-gray-600 font-medium">Account Type:</label>
-            <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
-              <option value="">Select Account Type</option>
-              <option value="Type1">Assets</option>
-              <option value="Type2">Liabilities</option>
-              <option value="Type2">Income</option>
-              <option value="Type2">Expenses</option>
-            </select>
+              <label className="text-gray-600 font-medium">Account Type:</label>
+              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                <option value="">Select Account Type</option>
+                <option value="Type1">Assets</option>
+                <option value="Type2">Liabilities</option>
+                <option value="Type3">Income</option>
+                <option value="Type4">Expenses</option>
+              </select>
+            </div>
           </div>
-        </div>
+        )}
+
+        {accountType === "Sub Group / Ledger" && (
+          <div className="bg-white shadow-md rounded-md p-4 mb-4">
+            <h2 className="text-lg font-semibold text-black">Child Account</h2>
+            <div className="grid grid-cols-3 gap-4 items-center">
+              <label className="text-gray-600 font-medium">Select GroupAc:</label>
+              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                <option value="">Select Group</option>
+                <option value="Group1">Group 1</option>
+                <option value="Group2">Group 2</option>
+              </select>
+
+              <label className="text-gray-600 font-medium">Enter Child Name:</label>
+              <input
+                type="text"
+                placeholder="Enter Child Name"
+                className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              />
+
+              <label className="text-gray-600 font-medium">Account Type:</label>
+              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                <option value="">Select Account Type</option>
+                <option value="Assets">Assets</option>
+                <option value="Liabilities">Liabilities</option>
+                <option value="Income">Income</option>
+                <option value="Expenses">Expenses</option>
+              </select>
+
+              <label className="col-span-1"></label>
+              <div className="col-span-2 flex space-x-4">
+                <label className="flex items-center space-x-2">
+                  <input type="checkbox" className="form-checkbox text-purple-600" />
+                  <span className="text-gray-700">Sub Ledger Enable</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input type="checkbox" className="form-checkbox text-purple-600" />
+                  <span className="text-gray-700">Is VAT</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Buttons */}
         <div className="flex justify-center space-x-3 mt-8">

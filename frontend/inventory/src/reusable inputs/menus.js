@@ -11,7 +11,7 @@ export const menus = [
       },
       { path: "/master/suboption4", label: "Change Account Type" },
       { path: "/master/suboption5", label: "Account Re-Grouping" },
-      { path: "/master/suboption6", label: "Inventory Master",
+      { label: "Inventory Master",
       subOptions: [
         { path: "/master/suboption6/suboption1", label: "Inventory Item Master"},
         { path: "/master/suboption6/suboption2", label: "Inventory Item Master - From Excel"},
@@ -130,7 +130,7 @@ export const menus = [
         path: "/inventoryreports/suboptions11",
         label: "Item Purchase / Return In Detail",
       },
-      { path: "/inventoryreports/suboptions12", label: "CBMS Related Report",
+      {  label: "CBMS Related Report",
         subOptions: [
           {
             path: "/inventoryreports/suboptions12/suboption1",
@@ -177,7 +177,7 @@ export const menus = [
         label: "Production / Consumptions Report",
       },
       {
-        path: "/inventoryreports/suboptions18",
+        
         label: "Inventory Item Stock Report",
         subOptions: [
           {
@@ -228,7 +228,7 @@ export const menus = [
       },
       { path: "/systemsecurity/suboptions8", label: "End Of Day" },
       {
-        path: "/systemsecurity/suboptions9",
+        
         label: "IRD Setup",
         subOptions: [
           {
