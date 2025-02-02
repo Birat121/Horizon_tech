@@ -33,23 +33,18 @@ const ImportExcel = () => {
       {/* Sidebar */}
       <div className="w-1/5 bg-blue-700 p-4 flex flex-col items-center gap-4 text-white">
         <button
-          className="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded text-center"
+          className="w-full bg-save hover:bg-save-hover py-2 rounded text-center"
           onClick={handleSave}
         >
           Save
         </button>
         <button
-          className="w-full bg-gray-500 hover:bg-gray-600 py-2 rounded text-center"
+          className="w-full bg-cancel hover:bg-cancel-hover py-2 rounded text-center"
           onClick={handleCancel}
         >
           Cancel
         </button>
-        <button
-          className="w-full bg-red-500 hover:bg-red-600 py-2 rounded text-center"
-          onClick={() => setFilePath("")}
-        >
-          Close
-        </button>
+        
         <button
           className="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded text-center"
           onClick={handleGetExcel}

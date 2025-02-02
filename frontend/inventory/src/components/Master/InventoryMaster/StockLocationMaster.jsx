@@ -25,11 +25,11 @@ const StockLocationMaster = () => {
             />
           </div>
           <div className="flex space-x-4">
-            <button className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            <button className="flex items-center space-x-2 bg-save text-white px-4 py-2 rounded hover:bg-save-hover">
               <i className="fa fa-save"></i>
               <span>Save</span>
             </button>
-            <button className="flex items-center space-x-2 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+            <button className="flex items-center space-x-2 bg-cancel text-white px-4 py-2 rounded hover:bg-cancel-hover">
               <i className="fa fa-undo"></i>
               <span>Cancel</span>
             </button>

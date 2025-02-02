@@ -55,13 +55,13 @@ const SubCategoryMaster = () => {
 
         {/* Buttons */}
         <div className="mt-6 flex justify-between">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+          <button className="bg-save text-white px-4 py-2 rounded-md hover:bg-save-cancel">
             Save
           </button>
-          <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+          <button className="bg-modify text-white px-4 py-2 rounded-md hover:bg-modify-cancel">
             Modify
           </button>
-          <button className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">
+          <button className="bg-cancel text-white px-4 py-2 rounded-md hover:bg-cancel-hover">
             Cancel
           </button>
           

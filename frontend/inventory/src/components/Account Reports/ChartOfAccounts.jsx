@@ -64,7 +64,7 @@ const ChartOfAccounts = () => {
 
           {/* Buttons */}
           <div className="space-y-4 mt-4">
-            <button className="w-full flex items-center justify-center p-3 bg-blue-500 hover:bg-blue-600 text-white rounded shadow">
+            <button className="w-full flex items-center justify-center p-3 bg-preview hover:bg-preview-hover text-white rounded shadow">
               <i className="fa fa-search mr-2"></i> Preview
             </button>
           </div>

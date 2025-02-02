@@ -40,13 +40,13 @@ const OpeningStockEntry = () => {
     <div className="flex flex-col md:flex-row h-[90vh] bg-blue-50">
       {/* Sidebar */}
       <div className="w-full md:w-1/6 bg-blue-700 text-white flex md:flex-col flex-row md:items-center md:py-4 py-2">
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-blue-600 hover:bg-blue-800 rounded text-sm md:text-base">
+        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-save hover:bg-save-hover rounded text-sm md:text-base">
           Save
         </button>
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-blue-600 hover:bg-blue-800 rounded text-sm md:text-base">
+        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-cancel hover:bg-cancel-hover rounded text-sm md:text-base">
           Cancel
         </button>
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-blue-600 hover:bg-blue-800 rounded text-sm md:text-base">
+        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-modify hover:bg-modify-hover rounded text-sm md:text-base">
           Modify
         </button>
         <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-blue-600 hover:bg-blue-800 rounded text-sm md:text-base">

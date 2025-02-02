@@ -126,7 +126,7 @@ const DayBook = () => {
           {/* Buttons */}
           <div className="space-y-4 mt-6">
             <button
-              className="w-full flex items-center justify-center p-3 bg-green-500 text-white rounded hover:bg-green-600"
+              className="w-full flex items-center justify-center p-3 bg-preview text-white rounded hover:bg-preview-hover"
               onClick={fetchPreviewData}
             >
               <i className="fa fa-search mr-2"></i> Preview

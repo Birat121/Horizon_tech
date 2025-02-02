@@ -88,16 +88,16 @@ function PaymentVoucher() {
             <span className="ml-2 border border-gray-300 px-4 py-2">0</span>
           </div>
           <div className="flex gap-2">
-            <button className="bg-green-500 text-white px-4 py-2 rounded">
+            <button className="bg-save text-white px-4 py-2 rounded">
               Save
             </button>
-            <button className="bg-yellow-500 text-white px-4 py-2 rounded">
+            <button className="bg-modify text-white px-4 py-2 rounded">
               Modify
             </button>
             <button className="bg-blue-500 text-white px-4 py-2 rounded">
               Print
             </button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded">
+            <button className="bg-cancel text-white px-4 py-2 rounded">
               Cancel
             </button>
           </div>

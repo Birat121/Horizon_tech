@@ -93,7 +93,7 @@ const BalanceSheet = () => {
 
           {/* Action Buttons */}
           <div className="mt-auto flex justify-end">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button className="px-4 py-2 bg-preview text-white rounded hover:bg-preview-hover">
               Preview
             </button>
           </div>

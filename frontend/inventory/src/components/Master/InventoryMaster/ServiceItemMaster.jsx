@@ -12,15 +12,15 @@ const ServiceItemMaster = () => {
           {/* Sidebar */}
           <div className="bg-red-600 text-white w-1/4 p-4">
             <div className="space-y-4">
-              <button className="w-full bg-green-500 hover:bg-green-700 p-2 rounded flex items-center justify-center space-x-2">
+              <button className="w-full bg-save hover:bg-save-hover p-2 rounded flex items-center justify-center space-x-2">
                 <i className="fa fa-save"></i>
                 <span>Save</span>
               </button>
-              <button className="w-full bg-blue-500 hover:bg-blue-700 p-2 rounded flex items-center justify-center space-x-2">
+              <button className="w-full bg-modify hover:bg-modify-hover p-2 rounded flex items-center justify-center space-x-2">
                 <i className="fa fa-edit"></i>
                 <span>Modify</span>
               </button>
-              <button className="w-full bg-yellow-500 hover:bg-yellow-700 p-2 rounded flex items-center justify-center space-x-2">
+              <button className="w-full bg-cancel hover:bg-cancel-hover p-2 rounded flex items-center justify-center space-x-2">
                 <i className="fa fa-undo"></i>
                 <span>Cancel</span>
               </button>

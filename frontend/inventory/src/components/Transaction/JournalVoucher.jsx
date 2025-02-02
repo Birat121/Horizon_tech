@@ -85,19 +85,17 @@ const JournalVoucher = () => {
         {/* Action Buttons */}
         <div className="flex justify-between mt-6">
           <div className="flex gap-4">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            <button className="bg-save text-white px-4 py-2 rounded hover:bg-save-hover">
               Save
             </button>
-            <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+            <button className="bg-modify text-white px-4 py-2 rounded hover:bg-modify-hover">
               Modify
             </button>
-            <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+            <button className="bg-cancel text-white px-4 py-2 rounded hover:bg-cancel-hover">
               Cancel
             </button>
           </div>
-          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-            Close
-          </button>
+          
         </div>
       </div>
     </div>

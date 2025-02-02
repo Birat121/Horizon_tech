@@ -75,7 +75,7 @@ const DepartmentMaster = () => {
         <div className="flex justify-center mt-6 space-x-4">
           <button
             onClick={() => setIsEditable(true)}
-            className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 focus:outline-none"
+            className="bg-modify text-white px-6 py-2 rounded hover:bg-modify-hover focus:outline-none"
           >
             Modify
           </button>
@@ -85,7 +85,7 @@ const DepartmentMaster = () => {
             disabled={!isEditable || !selectedDepartment}
             className={`px-6 py-2 rounded focus:outline-none ${
               isEditable && selectedDepartment
-                ? "bg-green-500 text-white hover:bg-green-600"
+                ? "bg-save text-white hover:bg-save-hover"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
           >
@@ -97,7 +97,7 @@ const DepartmentMaster = () => {
             disabled={!isEditable}
             className={`px-6 py-2 rounded focus:outline-none ${
               isEditable
-                ? "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                ? "bg-cancel text-gray-700 hover:bg-cancel-hover"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
           >

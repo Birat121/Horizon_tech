@@ -17,9 +17,9 @@ const InputField = ({ label, name, value, onChange, type = "text" }) => (
 // Reusable Button component for actions
 const Button = ({ label, onClick, variant = "primary" }) => {
   const variantClasses = {
-    primary: "bg-blue-500 hover:bg-blue-600",
-    success: "bg-green-500 hover:bg-green-600",
-    danger: "bg-gray-500 hover:bg-gray-600",
+    primary: "bg-green-500 hover:bg-green-600",
+    success: "bg-orange-500 hover:bg-orange-600",
+    danger: "bg-red-500 hover:bg-red-600",
   };
 
   return (

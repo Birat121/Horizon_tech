@@ -206,17 +206,17 @@ function VendorMaster() {
 
       {/* Footer Section: Buttons */}
       <div className="bg-gray-100 border-t border-gray-300 p-4 justify-center flex space-x-4">
-        <button className="flex items-center px-8 py-3 bg-blue-500 text-white text-lg rounded-lg shadow-lg hover:bg-blue-600">
+        <button className="flex items-center px-8 py-3 bg-save text-white text-lg rounded-lg shadow-lg hover:bg-save-hover">
           <i className="fa fa-save mr-3"></i> Save
         </button>
         <button
-          className="flex items-center px-8 py-3 bg-yellow-500 text-white text-lg rounded-lg shadow-lg hover:bg-yellow-600"
+          className="flex items-center px-8 py-3 bg-modify text-white text-lg rounded-lg shadow-lg hover:bg-modify-hover"
           onClick={handleModifyClick}
         >
           <i className="fa fa-edit mr-3"></i> Modify
         </button>
         <button
-          className="flex items-center px-8 py-3 bg-gray-500 text-white text-lg rounded-lg shadow-lg hover:bg-gray-600"
+          className="flex items-center px-8 py-3 bg-cancel text-white text-lg rounded-lg shadow-lg hover:bg-cancel-hover"
           onClick={handleCancelClick}
         >
           <i className="fa fa-ban mr-3"></i> Cancel

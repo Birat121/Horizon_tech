@@ -118,13 +118,13 @@ function CreateAccountLedger() {
           <button className="px-4 py-2 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
             Add New
           </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
+          <button className="px-4 py-2 bg-modify text-gray-700 border rounded-lg shadow hover:bg-modify-hover">
             Modify
           </button>
-          <button className="px-4 py-2 bg-green-500 text-white border rounded-lg shadow hover:bg-green-600">
+          <button className="px-4 py-2 bg-save text-white border rounded-lg shadow hover:bg-save-hover">
             Save
           </button>
-          <button className="px-4 py-2 bg-red-500 text-white border rounded-lg shadow hover:bg-red-600">
+          <button className="px-4 py-2 bg-cancel text-white border rounded-lg shadow hover:bg-cancel-hover">
             Cancel
           </button>
         </div>

@@ -134,13 +134,13 @@ const VATLedgerOfPurchaseAndSales = () => {
           <div className="flex space-x-4 mt-4">
             <button
               onClick={() => fetchData("grid")}
-              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-red-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
+              className="px-6 py-2 bg-save text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
             >
               On Grid
             </button>
             <button
               onClick={() => fetchData("preview")}
-              className="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
+              className="px-6 py-2 bg-preview text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
             >
               Preview
             </button>

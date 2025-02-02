@@ -101,7 +101,7 @@ const CounterSetting = () => {
         <div className="flex justify-center mt-6 gap-40">
           <button
             onClick={() => setIsEditable(true)} // Enable editing
-            className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600 focus:outline-none"
+            className="bg-modify text-white px-8 py-2 rounded hover:bg-modify-hover focus:outline-none"
           >
             Edit
           </button>
@@ -111,7 +111,7 @@ const CounterSetting = () => {
             disabled={!isEditable}
             className={`px-8 py-2 rounded focus:outline-none ${
               isEditable
-                ? "bg-green-500 text-white hover:bg-green-600"
+                ? "bg-save text-white hover:bg-save-hover"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
           >
