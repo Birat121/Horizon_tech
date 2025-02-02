@@ -72,9 +72,9 @@ const AgeingAnalysisReports = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Ageing Analysis Reports
-          </div>
+          </h1>
           <div className="bg-white shadow-md rounded-md p-4 mb-4">
             <label className="block font-medium mb-2">On Date</label>
             <div className="flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">

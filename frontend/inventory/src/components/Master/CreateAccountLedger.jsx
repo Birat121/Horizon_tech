@@ -6,9 +6,9 @@ function CreateAccountLedger() {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="p-8 bg-white border shadow-lg rounded-lg w-[600px]">
-        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
           Create New Account Ledger
-        </div>
+        </h1>
 
         {/* Account Type Selector */}
         <div className="bg-white shadow-md rounded-md p-4 mb-4">

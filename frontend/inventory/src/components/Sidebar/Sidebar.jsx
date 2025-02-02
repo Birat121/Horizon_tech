@@ -64,7 +64,7 @@ const Sidebar = () => {
       >
         <div className="p-6 flex justify-between items-center border-b border-gray-300">
           <Link to="/" onClick={closeSidebar}>
-            <h1 className="text-2xl font-bold flex items-center space-x-2">
+           <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
               <i className="fa fa-rocket text-yellow-500"></i>
               <span>Horizon Tech</span>
             </h1>

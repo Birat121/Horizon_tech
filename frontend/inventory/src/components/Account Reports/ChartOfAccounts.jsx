@@ -15,7 +15,7 @@ const ChartOfAccounts = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300">
-          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          <div className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Chart Of Accounts
           </div>
           {/* Header */}
@@ -63,11 +63,11 @@ const ChartOfAccounts = () => {
           </div>
 
           {/* Buttons */}
-          <div className="space-y-4 mt-4">
+          <h1 className="space-y-4 mt-4">
             <button className="w-full flex items-center justify-center p-3 bg-preview hover:bg-preview-hover text-white rounded shadow">
               <i className="fa fa-search mr-2"></i> Preview
             </button>
-          </div>
+          </h1>
         </div>
 
         {/* Main Content */}

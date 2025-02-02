@@ -4,7 +4,9 @@ const PDCEntry = () => {
   return (
     <div className="p-4  min-h-screen">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
-        <h2 className="text-xl font-bold mb-4">PDC Entry</h2>
+      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            PDC Entry
+          </h1>
         
         {/* Party Info Section */}
         <div className="border p-4 rounded-lg mb-4">

@@ -34,11 +34,11 @@ const EndOfDay = () => {
 
         {/* Buttons */}
         <div className="flex flex-wrap justify-between mt-4 gap-4">
-          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-cyan-500 text-white font-medium py-2 rounded-md hover:bg-cyan-600">
+          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-save text-white font-medium py-2 rounded-md hover:bg-save-hover">
             
             End Of Day
           </button>
-          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-red-500 text-white font-medium py-2 rounded-md hover:bg-red-600">
+          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-cancel text-white font-medium py-2 rounded-md hover:bg-cancel-hover">
             
             Close
           </button>

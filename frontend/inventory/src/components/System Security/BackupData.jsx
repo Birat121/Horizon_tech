@@ -69,7 +69,7 @@ const BackupRestore = () => {
           </div>
         </div>
         <div className="text-center">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+          <button className="bg-preview text-white px-6 py-2 rounded-md hover:bg-preview-hover">
             Backup
           </button>
         </div>

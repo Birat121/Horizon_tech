@@ -125,9 +125,9 @@ const CustomerMaster = () => {
     <div className="flex items-center justify-center min-h-screen p-4">
       {/* Main Container */}
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl">
-      <div className="bg-green-600 text-white text-lg text-center font-semibold p-2 rounded-md mb-2">
+      <h1 className=" text-white text-lg text-center font-semibold p-2 rounded-md mb-2">
             Customer Master
-          </div>
+          </h1>
 
         <div className="flex flex-col md:flex-row gap-6">
           {/* Input Section */}

@@ -15,9 +15,9 @@ function MenuAccess() {
     <div className="flex justify-center items-center h-screen">
       <div className="w-[450px] bg-white rounded-lg shadow-lg">
         {/* Header */}
-        <div className="bg-gray-300 p-4 text-center text-lg font-bold text-black rounded-t-lg">
+        <h1 className=" p-4 text-center text-lg font-bold text-black rounded-t-lg">
           Set Access to Users
-        </div>
+        </h1>
 
         {/* Body */}
         <div className="p-6 space-y-4">
@@ -70,14 +70,14 @@ function MenuAccess() {
 
         {/* Footer Buttons */}
         <div className="p-4 bg-gray-100 rounded-b-lg flex justify-between space-x-2">
-          <button className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition">
+          <button className="flex-1 py-2 bg-save hover:bg-save-hover text-black font-medium rounded-md shadow transition">
             Set Access
           </button>
-          <button className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition">
+          <button className="flex-1 py-2 bg-preview hover:bg-preview-hover text-black font-medium rounded-md shadow transition">
             Select All
           </button>
           <button
-            className="flex-1 py-2 bg-gray-100 hover:bg-gray-300 text-black font-medium rounded-md shadow transition"
+            className="flex-1 py-2 bg-cancel hover:bg-cancel-hover text-black font-medium rounded-md shadow transition"
             onClick={() => {
               setSelectedUser(""); // Reset the selected user to default
               setSearchTerm(""); // Clear the search term

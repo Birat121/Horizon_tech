@@ -6,7 +6,9 @@ const JournalVoucher = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl">
         {/* Header Section */}
         <div className="flex flex-wrap items-center justify-between mb-4">
-          <h1 className="text-xl font-bold">Journal Voucher Entry</h1>
+        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Journal Voucher Entry
+          </h1>
           <button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
             Create Account Ledger
           </button>

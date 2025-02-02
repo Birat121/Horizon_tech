@@ -23,9 +23,9 @@ const PurchaseAndSalesMoreThanOneLakh = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Purchase And Sales More Than One Lakh
-          </div>
+          </h1>
           
 
           {/* First Report Type Radio Group */}

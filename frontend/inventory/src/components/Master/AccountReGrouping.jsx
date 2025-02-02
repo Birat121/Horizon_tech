@@ -4,9 +4,9 @@ const AccountReGrouping = () => {
   return (
     <div className='flex items-center justify-center h-screen'>
       <div className='w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow'>
-      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Account Re-Grouping
-          </div>
+          </h1>
         <div className="bg-white shadow-md rounded-b-md p-4 mb-4">
         <div className="bg-indigo-950 text-white text-lg font-semibold p-2 rounded-md mb-2">
             Changing Account Group

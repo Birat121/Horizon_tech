@@ -41,9 +41,9 @@ const PurchaseAndSalesBook = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
-          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Purchase And Sales Book
-          </div>
+          </h1>
           {/* Till Purchase Date */}
           <div className="bg-white shadow-md rounded-b-md p-4">
             {/* Report Between Date */}

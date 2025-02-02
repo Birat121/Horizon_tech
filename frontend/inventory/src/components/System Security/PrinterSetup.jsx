@@ -72,15 +72,13 @@ const PrinterSetup = () => {
           </div>
         </div>
         <div className="flex justify-around">
-          <button className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400">
+          <button className="bg-save text-gray-700 px-6 py-2 rounded-md hover:bg-save-hover">
             Save
           </button>
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+          <button className="bg-modify text-white px-6 py-2 rounded-md hover:bg-modify-hover">
             Modify
           </button>
-          <button className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600">
-            Close
-          </button>
+          
         </div>
       </div>
     </div>

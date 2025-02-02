@@ -16,7 +16,7 @@ const ProfitAndLoss = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300 ">
-        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">Profit And Loss</div>
+        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">Profit And Loss</h1>
           
           {/* Select Date Section */}
           <div className="bg-white shadow-md rounded-md p-4 mb-4">

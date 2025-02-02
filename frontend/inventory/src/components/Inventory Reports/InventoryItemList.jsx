@@ -22,9 +22,9 @@ const InventoryItemList = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300">
-          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+          <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Inventory Item List
-          </div>
+          </h1>
           {/* Header */}
           <div className="bg-white shadow-md rounded-md p-4 mb-4">
             <label className="block font-semibold mb-2">

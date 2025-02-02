@@ -26,9 +26,9 @@ function VendorMaster() {
       <div className="flex-1 flex">
         {/* Left Section: Form */}
         <div className="w-1/3 bg-gray-100 p-6 border-r border-gray-300">
-          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white text-lg font-semibold p-4 rounded-md mb-4 shadow-md">
+          <h1 className=" text-white text-lg font-semibold p-4 rounded-md mb-4 shadow-md">
             Create / Modify Customer Information
-          </div>
+          </h1>
           <div className="bg-white shadow-lg rounded-lg p-6 space-y-6">
             {/* Vendor Name */}
             <div>

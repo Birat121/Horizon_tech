@@ -126,7 +126,7 @@ const SignupPage = () => {
             disabled={!isEditable}
             className={`px-6 py-2 rounded focus:outline-none ${
               isEditable
-                ? "bg-green-500 text-white hover:bg-green-600"
+                ? "bg-save text-white hover:bg-save-hover"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
           >
@@ -137,7 +137,7 @@ const SignupPage = () => {
             disabled={!isEditable}
             className={`px-6 py-2 rounded focus:outline-none ${
               isEditable
-                ? "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                ? "bg-cancel text-gray-700 hover:bg-cancel-hover"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
           >
