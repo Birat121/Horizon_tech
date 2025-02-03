@@ -37,6 +37,9 @@ import PDCEntry from "./components/Transaction/PDCEntry";
 import MaterialIssue from "./components/Transaction/MaterialIssue";
 import GoodsReceiptByProduct from "./components/Transaction/GoodsReceiptByProduct";
 import InvoiceGenerate from "./components/Transaction/InvoiceGenerate";
+import VendorListExcel from "./components/Transaction/ImportDataFromExcel/VendorListExcel";
+import CustomerListExcel from "./components/Transaction/ImportDataFromExcel/CustomerListExcel";
+import ProductInformationExcel from "./components/Transaction/ImportDataFromExcel/ProductInformationExcel";
 {/* Transaction */}
 
 
@@ -143,6 +146,10 @@ function App() {
           <Route path="/transaction/suboption11" element={<GoodsReceiptByProduct/>} />
           <Route path="/transaction/suboption9" element={<InvoiceGenerate/>} />
           <Route path="/transaction/suboption10" element={<MaterialIssue/>} />
+          <Route path ="/transaction/suboption17/suboption4" element={<VendorListExcel/>}/>
+          <Route path ="/transaction/suboption17/suboption5" element={<CustomerListExcel/>}/>
+          <Route path ="/transaction/suboption17/suboption3" element={<ProductInformationExcel/>}/>
+
 
           {/*Account Reports */}
           <Route path="/accountreports/suboption2" element={<DayBook/>} />

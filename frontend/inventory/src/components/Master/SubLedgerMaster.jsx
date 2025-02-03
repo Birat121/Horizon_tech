@@ -7,8 +7,8 @@ function SubLedgerMaster() {
     <div className="flex items-center justify-center min-h-screen ">
       <div className="p-6 bg-white border shadow-lg rounded-lg w-[900px]">
         {/* Header Section */}
-        <div className="flex justify-between items-center bg-blue-600 text-white p-2 rounded-t-lg">
-          <div className="text-lg font-semibold">Sub Ledger Master</div>
+        <div className="flex justify-between items-center bg-green-600 text-white p-2 rounded-t-lg">
+          <h1 className="text-lg font-semibold">Sub Ledger Master</h1>
           <div className="space-x-2">
             <button
               onClick={() => setActiveTab("Enter/Edit")}
@@ -16,7 +16,7 @@ function SubLedgerMaster() {
                 activeTab === "Enter/Edit"
                   ? "bg-blue-500"
                   : "bg-gray-200 text-gray-700"
-              } rounded shadow hover:bg-gray-300`}
+              } rounded shadow hover:bg-blue-600`}
             >
               Enter / Edit
             </button>
@@ -26,7 +26,7 @@ function SubLedgerMaster() {
                 activeTab === "Sub Ledger List"
                   ? "bg-blue-500"
                   : "bg-gray-200 text-gray-700"
-              } rounded shadow hover:bg-gray-300`}
+              } rounded shadow hover:bg-blue-600`}
             >
               Sub Ledger List
             </button>

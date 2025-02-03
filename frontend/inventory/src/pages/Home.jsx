@@ -4,9 +4,9 @@ const Home = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center text-white">
       {/* Company Name */}
-      <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-center">
+      <h2 className="text-4xl lg:text-6xl font-bold mb-4 text-center">
         Horizon Technology Pvt. Ltd.
-      </h1>
+      </h2>
       
       {/* Tagline */}
       <p className="text-lg lg:text-2xl mb-8 text-center max-w-2xl">

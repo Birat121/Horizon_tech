@@ -58,7 +58,18 @@ export const menus = [
       },
       { path: "/transaction/suboption15", label: "Opening Balance Entry" },
       { path: "/transaction/suboption16", label: "Opening Stock Entry" },
-      { path: "/transaction/suboption17", label: "Import Data From Excel" },
+      {  label: "Import Data From Excel",
+        subOptions: [
+          { path: "/transaction/suboption17/suboption1", label: "Chart Of Account Excel"},
+          { path: "/transaction/suboption17/suboption2", label: "Category and Subcategory Excel"},
+          { path: "/transaction/suboption17/suboption3", label: "Product Information Excel"},
+          { path: "/transaction/suboption17/suboption4", label: "Vendor List Excel"},
+          { path: "/transaction/suboption17/suboption5", label: "Customer List Excel"},
+          { path: "/transaction/suboption17/suboption6", label: "Opening Stock Excel"},
+          { path: "/transaction/suboption17/suboption7", label: "Opening Balance Excel"},
+          { path: "/transaction/suboption17/suboption8", label: "Product Batch Excel"},
+        ]
+       },
     ],
   },
   {
