@@ -33,7 +33,7 @@ const PurchaseSalesIssueBook = () => {
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
           <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
-            Vendor Purchase / Return Category Wise
+            Purchase/Sales Book
           </h1>
 
           {/* Transaction Type */}

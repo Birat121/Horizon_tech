@@ -18,7 +18,7 @@ const NoSalesFromLastPurchase = () => {
         {/* Sidebar */}
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
           <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
-            No Purchase Since Date But Stock Available
+            No Purchase From Last Purchase
           </h1>
           {/* Date Pickers */}
           <div className="bg-white shadow-md rounded-b-md p-4 mb-4">

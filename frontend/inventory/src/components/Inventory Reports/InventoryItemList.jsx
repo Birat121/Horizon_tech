@@ -104,13 +104,13 @@ const InventoryItemList = () => {
 
           {/* Buttons */}
           <div className="space-y-4 mt-auto">
-            <button className="w-full flex items-center justify-center p-3 bg-gray-300 rounded shadow">
+            <button className="w-full flex items-center justify-center p-3 bg-save rounded shadow">
               <i className="fa fa-th mr-2"></i> On Grid
             </button>
-            <button className="w-full flex items-center justify-center p-3 bg-gray-300 rounded shadow">
+            <button className="w-full flex items-center justify-center p-3 bg-preview rounded shadow">
               <i className="fa fa-search mr-2"></i> Preview
             </button>
-            <button className="w-full flex items-center justify-center p-3 bg-gray-300 rounded shadow">
+            <button className="w-full flex items-center justify-center p-3 bg-cancel rounded shadow">
               <i className="fa fa-times-circle mr-2"></i> Close
             </button>
           </div>

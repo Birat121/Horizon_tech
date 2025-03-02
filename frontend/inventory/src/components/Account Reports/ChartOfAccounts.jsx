@@ -15,9 +15,9 @@ const ChartOfAccounts = () => {
       <div className="flex flex-1">
         {/* Sidebar */}
         <div className="w-1/4 bg-gray-100 p-4 border-r border-gray-300">
-          <div className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
-            Chart Of Accounts
-          </div>
+        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            ChartOfAccounts
+          </h1>
           {/* Header */}
           <div className="bg-white shadow-md rounded-md p-4 mb-2 mt-4">
             <label className="block font-semibold mb-2">

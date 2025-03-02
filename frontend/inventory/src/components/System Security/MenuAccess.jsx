@@ -12,44 +12,45 @@ function MenuAccess() {
   );
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-[450px] bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center h-screen ">
+      <div className="w-[500px] bg-white rounded-xl shadow-2xl">
         {/* Header */}
-        <h1 className=" p-4 text-center text-lg font-bold text-white rounded-t-lg">
+        <h1 className="p-6 text-center text-2xl font-bold text-white  rounded-t-xl">
           Set Access to Users
         </h1>
 
         {/* Body */}
-        <div className="p-6 space-y-4">
+        <div className="p-8 space-y-6">
           {/* Searchable Dropdown */}
           <div className="relative">
-            <label className="block text-gray-700 font-medium mb-2">Username:</label>
+            <label className="block text-lg font-semibold text-gray-700 mb-2">Username:</label>
             {/* Dropdown Toggle */}
             <div
-              className="w-full bg-gray-50 border border-gray-300 rounded-md px-3 py-2 flex justify-between items-center cursor-pointer"
+              className="w-full bg-gray-100 border border-gray-400 rounded-lg px-4 py-3 flex justify-between items-center cursor-pointer text-lg"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <span>{selectedUser || "Select a user"}</span>
+              <span className="text-gray-500">&#9662;</span> {/* Downward arrow */}
             </div>
 
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute w-full bg-white border border-gray-300 rounded-md mt-2 z-10 shadow-lg">
+              <div className="absolute w-full bg-white border border-gray-400 rounded-lg mt-2 z-10 shadow-xl">
                 {/* Search Box */}
                 <input
                   type="text"
-                  className="w-full px-3 py-2 border-b border-gray-300 focus:outline-none"
+                  className="w-full px-4 py-3 border-b border-gray-300 focus:outline-none text-lg"
                   placeholder="Search users..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 {/* Filtered Users */}
-                <ul className="max-h-40 overflow-y-auto">
+                <ul className="max-h-48 overflow-y-auto">
                   {filteredUsers.length > 0 ? (
                     filteredUsers.map((user, index) => (
                       <li
                         key={index}
-                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                        className="px-4 py-3 hover:bg-gray-100 cursor-pointer text-lg"
                         onClick={() => {
                           setSelectedUser(user);
                           setDropdownOpen(false);
@@ -60,7 +61,7 @@ function MenuAccess() {
                       </li>
                     ))
                   ) : (
-                    <li className="px-3 py-2 text-gray-500">No users found</li>
+                    <li className="px-4 py-3 text-gray-500 text-lg">No users found</li>
                   )}
                 </ul>
               </div>
@@ -69,15 +70,15 @@ function MenuAccess() {
         </div>
 
         {/* Footer Buttons */}
-        <div className="p-4 bg-gray-100 rounded-b-lg flex justify-between space-x-2">
-          <button className="flex-1 py-2 bg-save hover:bg-save-hover text-black font-medium rounded-md shadow transition">
+        <div className="p-6 bg-gray-100 rounded-b-xl flex justify-between space-x-4">
+          <button className="flex-1 py-3 bg-green-600 hover:bg-green-700 text-white text-lg font-semibold rounded-lg shadow-md transition">
             Set Access
           </button>
-          <button className="flex-1 py-2 bg-preview hover:bg-preview-hover text-black font-medium rounded-md shadow transition">
+          <button className="flex-1 py-3 bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md transition">
             Select All
           </button>
           <button
-            className="flex-1 py-2 bg-cancel hover:bg-cancel-hover text-black font-medium rounded-md shadow transition"
+            className="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white text-lg font-semibold rounded-lg shadow-md transition"
             onClick={() => {
               setSelectedUser(""); // Reset the selected user to default
               setSearchTerm(""); // Clear the search term
