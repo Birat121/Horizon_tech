@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
 
 function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
@@ -118,15 +119,9 @@ function CreateAccountLedger() {
           <button className="px-4 py-2 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
             Add New
           </button>
-          <button className="px-4 py-2 bg-modify text-gray-700 border rounded-lg shadow hover:bg-modify-hover">
-            Modify
-          </button>
-          <button className="px-4 py-2 bg-save text-white border rounded-lg shadow hover:bg-save-hover">
-            Save
-          </button>
-          <button className="px-4 py-2 bg-cancel text-white border rounded-lg shadow hover:bg-cancel-hover">
-            Cancel
-          </button>
+          <Button type="modify">Modify</Button>
+          <Button type="save" >Save</Button>
+          <Button type="cancel">Cancel</Button>
         </div>
       </div>
     </div>

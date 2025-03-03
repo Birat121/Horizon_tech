@@ -22,7 +22,7 @@ function VendorMaster() {
   const cityOptions = ["City 1", "City 2", "City 3"]; // Example city options
 
   return ( 
-    <div className="flex flex-col h-[90vh] bg-gray-50 rounded-lg shadow-md">
+    <div className="flex flex-col h-[90vh] bg-gray-50 rounded-lg shadow-md overflow-y-auto">
       <div className="flex-1 flex">
         {/* Left Section: Form */}
         <div className="w-1/3 bg-gray-100 p-6 border-r border-gray-300">

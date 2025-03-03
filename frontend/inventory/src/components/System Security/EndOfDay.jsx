@@ -3,7 +3,7 @@ import React from 'react';
 const EndOfDay = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  p-4">
-      <div className="w-full max-w-2xl bg-white border-2 border-red-500 rounded-md shadow-md p-6">
+      <div className="w-full max-w-2xl bg-white border-2 rounded-md shadow-md p-6">
         {/* Header */}
         <h2 className="text-xl font-semibold text-center text-gray-700 mb-6">
           End Of Day
