@@ -16,8 +16,8 @@ import PointCollectionSetting from "./components/Master/PointCollectionSetting";
 import ChangeAccountType from "./components/Master/ChangeAccountType";
 import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
 import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
-import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
-import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
+//import DebitorAccountMaster from "./components/Master/InventoryMaster/DebitorMasterForSPLSalesDiscount";
+//import CreditorAccountMaster from "./components/Master/InventoryMaster/CreditMasterForSPLPurchseDiscount";
 import UnitOfMeasurement from "./components/Master/InventoryMaster/UnitOfMeasurement";
 import SubCategoryMaster from "./components/Master/InventoryMaster/SubCategoryMaster";
 import CategoryMaster from "./components/Master/InventoryMaster/CategoryMaster";
@@ -40,6 +40,8 @@ import InvoiceGenerate from "./components/Transaction/InvoiceGenerate";
 import VendorListExcel from "./components/Transaction/ImportDataFromExcel/VendorListExcel";
 import CustomerListExcel from "./components/Transaction/ImportDataFromExcel/CustomerListExcel";
 import ProductInformationExcel from "./components/Transaction/ImportDataFromExcel/ProductInformationExcel";
+import ChartOfAccountExcel from "./components/Transaction/ImportDataFromExcel/ChartOfAccountExcel";
+import ProductBatchExcel from './components/Transaction/ImportDataFromExcel/ProductBatchExcel'
 {/* Transaction */}
 
 
@@ -64,6 +66,7 @@ import VendorPurchaseReturnCategoryWise from "./components/Inventory Reports/Ven
 import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSalesIssueBook";
 import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
 import InventoryItemStockPast from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockPast";
+import PurchaseSalesBookAnnex from "./components/Inventory Reports/PurchaseSalesBook";
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -96,6 +99,8 @@ import UserLogActivities from "./components/Inventory Reports/CBMS Related Repor
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
 import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMasterFromExcel";
+
+
 {/* System Security */}
 
 function App() {
@@ -123,8 +128,6 @@ function App() {
           <Route path="/master/suboption6/suboption5" element={<CategoryMaster/>} />
           <Route path="/master/suboption6/suboption6" element={<SubCategoryMaster/>} />
           <Route path="/master/suboption6/suboption7" element={<UnitOfMeasurement/>} />
-          <Route path="/master/suboption6/suboption8" element={<CreditorAccountMaster />} />
-          <Route path="/master/suboption6/suboption9" element={<DebitorAccountMaster/>} />
           <Route path="/master/suboption6/suboption10" element={<ServiceItemMaster/>} />
           <Route path="/master/suboption6/suboption11" element={<StockLocationMaster/>} />
           <Route path="/master/suboption6/suboption3" element={<VendorMaster/>}/>
@@ -149,6 +152,8 @@ function App() {
           <Route path ="/transaction/suboption17/suboption4" element={<VendorListExcel/>}/>
           <Route path ="/transaction/suboption17/suboption5" element={<CustomerListExcel/>}/>
           <Route path ="/transaction/suboption17/suboption3" element={<ProductInformationExcel/>}/>
+          <Route path='/transaction/suboption17/suboption1' element={<ChartOfAccountExcel/>}/>
+          <Route path ='/transaction/suboption17/suboption8' element={<ProductBatchExcel/>}/>
 
 
           {/*Account Reports */}
@@ -190,6 +195,7 @@ function App() {
           <Route path="/inventoryreports/suboptions12/suboption3" element={<UserLogActivities/>} />
           <Route path="/inventoryreports/suboptions12/suboption4" element={<AuditActivityLogReport/>} />
           <Route path="/inventoryreports/suboptions12/suboption5" element={<PurchaseAndSalesBook/>} />
+          <Route path ='inventoryreports/suboption5' element={<PurchaseSalesBookAnnex/>} />
           {/*Inventory Reports */}
 
           {/*Account Reports */}

@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const GoodsReceiptByProduct = () => {
   const [formData, setFormData] = useState({
     issueDate: '',
-    receiptDate: '',
     issueNo: '',
     branch: '',
   });
 
-  const [tableData, setTableData] = useState([
-    { id: 1, productId: 'P001', productName: 'Product A', qty: 10, uom: 'PCS', rate: 5, total: 50, batchNo: 'B001' },
-  ]);
+  const [tableData, setTableData] = useState([]);
+
+  // Fetch data from backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('YOUR_BACKEND_API_URL'); // Replace with actual API URL
+        const data = await response.json();
+
+        setFormData({
+          issueDate: data.issueDate || '',
+          issueNo: data.issueNo || '',
+          branch: data.branch || '',
+        });
+
+        setTableData(data.items || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,32 +50,35 @@ const GoodsReceiptByProduct = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-5xl bg-white shadow-lg rounded-lg p-6">
-      <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
-           Material Reciept
-          </div>
+        {/* Header */}
+        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-4">
+          Material Receipt
+        </div>
 
         {/* Form Section */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div>
-            <label className="block text-sm font-medium mb-1">Issue Date:</label>
+          {/* Issue & Receipt Date */}
+          <div className="flex space-x-4 items-center">
+            <label className="block text-sm font-medium">Issue Date:</label>
             <input
               type="date"
               name="issueDate"
               value={formData.issueDate}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded p-2"
+              className="border border-gray-300 rounded p-2"
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Receipt Date:</label>
+
+            
             <input
               type="date"
               name="receiptDate"
               value={formData.receiptDate}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded p-2"
+              className="border border-gray-300 rounded p-2"
             />
           </div>
+
+          {/* Issue Number */}
           <div>
             <label className="block text-sm font-medium mb-1">Issue No.:</label>
             <input
@@ -67,6 +89,8 @@ const GoodsReceiptByProduct = () => {
               className="w-full border border-gray-300 rounded p-2"
             />
           </div>
+
+          {/* Branch */}
           <div>
             <label className="block text-sm font-medium mb-1">From Branch:</label>
             <select
@@ -166,15 +190,12 @@ const GoodsReceiptByProduct = () => {
 
         {/* Button Section */}
         <div className="flex justify-between mt-6">
-          <button className="bg-save text-white px-4 py-2 rounded hover:bg-save-hover">
+          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
             Save
           </button>
-          <div className="space-x-4">
-            <button className="bg-cancel text-white px-4 py-2 rounded hover:bg-cancel-hover">
-              Cancel
-            </button>
-            
-          </div>
+          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+            Cancel
+          </button>
         </div>
       </div>
     </div>

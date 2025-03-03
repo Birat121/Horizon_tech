@@ -20,8 +20,7 @@ export const menus = [
         { path: "/master/suboption6/suboption5", label: "Category Master"},
         { path: "/master/suboption6/suboption6", label: "Sub Category Master"},
         { path: "/master/suboption6/suboption7", label: "Unit Of Measurement"},
-        { path: "/master/suboption6/suboption8", label: "Creditors Master For SPL Pur Disc"},
-        { path: "/master/suboption6/suboption9", label: "Debitors Master For SPL Pur Disc"},
+        
         { path: "/master/suboption6/suboption10", label: "Servie Item Master"},
         { path: "/master/suboption6/suboption11", label: "Stock Location Master"},
 
@@ -41,8 +40,21 @@ export const menus = [
       { path: "/transaction/suboption1", label: "Journal Voucher" },
       { path: "/transaction/suboption2", label: "Receipt Voucher" },
       { path: "/transaction/suboption3", label: "Payment Voucher" },
-      { path: "/transaction/suboption4", label: "Purchase" },
-      { path: "/transaction/suboption5", label: "Sales" },
+      {  label: "Purchase",
+        subOptions:[
+          {path:"/transaction/suboption4/suboption1",label:'Material Receipt Note'},
+          {path:"/transaction/suboption4/suboption2",label:'Purchase Return'},
+          {path:"/transaction/suboption4/suboption3",label:'Purchase Order-Local'},
+          {path:"/transaction/suboption4/suboption4",label:'Purchase: Addition Cost Entry'},
+        ]
+       },
+
+      {label: "Sales",
+        subOptions:[
+          {path:"/transaction/suboption5/suboption1",label:'Point of Sale'},
+          {path:"/transaction/suboption5/suboption2",label:'Sales Return'},
+        ]
+       },
       { path: "/transaction/suboption6", label: "PDC Entry" },
       { path: "/transaction/suboption7", label: "BG Entry" },
       { path: "/transaction/suboption8", label: "Price Change" },
@@ -65,8 +77,6 @@ export const menus = [
           { path: "/transaction/suboption17/suboption3", label: "Product Information Excel"},
           { path: "/transaction/suboption17/suboption4", label: "Vendor List Excel"},
           { path: "/transaction/suboption17/suboption5", label: "Customer List Excel"},
-          { path: "/transaction/suboption17/suboption6", label: "Opening Stock Excel"},
-          { path: "/transaction/suboption17/suboption7", label: "Opening Balance Excel"},
           { path: "/transaction/suboption17/suboption8", label: "Product Batch Excel"},
         ]
        },
@@ -124,6 +134,7 @@ export const menus = [
       {
         path: "/inventoryreports/suboptions6",
         label: "Product Wise - Profitability Reports",
+        disabled: true,
       },
       {
         path: "/inventoryreports/suboptions7",

@@ -19,7 +19,9 @@ const ChangePassword = () => {
   return (
     <div className='min-h-screen flex items-center justify-center '>
       <div className='p-6 max-w-lg w-full bg-white shadow-md rounded-lg'>
-        <h1 className='text-2xl font-bold text-gray-800 text-center mb-4'>Change Password</h1>
+      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Change Password
+          </h1>
         <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
           <div className="form-group">
             <label htmlFor="oldPassword" className='text-lg text-gray-800'>Old Password:</label>

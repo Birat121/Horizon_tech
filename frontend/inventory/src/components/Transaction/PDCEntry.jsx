@@ -75,7 +75,7 @@ const PDCEntry = () => {
             </div>
             <div>
               <label className="block text-sm">Cheque Type</label>
-              <input type="text" className="w-full border p-2 rounded" value="PDC" readOnly />
+              <input type="text" className="w-full border p-2 rounded"  />
             </div>
           </div>
         </div>

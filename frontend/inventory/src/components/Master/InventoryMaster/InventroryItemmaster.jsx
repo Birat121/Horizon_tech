@@ -210,7 +210,7 @@ const InventoryItemMaster = () => {
     <div className="flex flex-col items-center min-h-screen">
       <div className="w-full max-w-4xl bg-white p-6 shadow-lg rounded-lg mt-4">
         <header className="w-full bg-blue-600 text-white py-4 shadow-md mb-2">
-          <h1 className="text-center text-2xl font-bold">Inventory Item Master</h1>
+          <h2 className="text-center text-2xl font-bold">Inventory Item Master</h2>
         </header>
         <div className="tabs flex space-x-4 mb-6">
           {["Product Information", "UOM And Barcode Setting", "Multiple Retail Price"].map((tab) => (

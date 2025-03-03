@@ -4,6 +4,9 @@ const SubCategoryMaster = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white border-2  p-6 rounded-md shadow-lg w-full max-w-lg">
+      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            SubCategory Master
+          </h1>
         <h2 className="text-lg font-bold mb-4 text-center text-blue-700">
           Create / Modify Sub Category
         </h2>

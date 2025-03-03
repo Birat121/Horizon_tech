@@ -30,9 +30,9 @@ const ServiceItemMaster = () => {
 
           {/* Main Content */}
           <div className="w-3/4 p-8">
-            <h1 className="text-orange-600 font-bold text-lg mb-4">
-              Service Item Master
-            </h1>
+          <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+            Service Item Master
+          </h1>
             <p className="text-blue-600 font-semibold text-lg mb-8">
               Create / Modify Service Items
             </p>
