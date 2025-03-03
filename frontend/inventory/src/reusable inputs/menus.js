@@ -42,17 +42,17 @@ export const menus = [
       { path: "/transaction/suboption3", label: "Payment Voucher" },
       {  label: "Purchase",
         subOptions:[
-          {path:"/transaction/suboption4/suboption1",label:'Material Receipt Note'},
-          {path:"/transaction/suboption4/suboption2",label:'Purchase Return'},
-          {path:"/transaction/suboption4/suboption3",label:'Purchase Order-Local'},
-          {path:"/transaction/suboption4/suboption4",label:'Purchase: Addition Cost Entry'},
+          {path:"/transaction/suboption4/suboption1",label:"Material Receipt Note"},
+          {path:"/transaction/suboption4/suboption2",label:"Purchase Return"},
+          {path:"/transaction/suboption4/suboption3",label:"Purchase Order-Local"},
+          {path:"/transaction/suboption4/suboption4",label:"Purchase: Addition Cost Entry"},
         ]
        },
 
       {label: "Sales",
         subOptions:[
-          {path:"/transaction/suboption5/suboption1",label:'Point of Sale'},
-          {path:"/transaction/suboption5/suboption2",label:'Sales Return'},
+          {path:"/transaction/suboption5/suboption1",label:"Point of Sale"},
+          {path:"/transaction/suboption5/suboption2",label:"Sales Return"},
         ]
        },
       { path: "/transaction/suboption6", label: "PDC Entry" },
