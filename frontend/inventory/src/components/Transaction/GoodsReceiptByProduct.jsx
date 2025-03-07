@@ -121,7 +121,18 @@ const GoodsReceiptByProduct = () => {
                 <th className="border p-2">Batch No.</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody> <tr>
+              <td className="border p-2">1</td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+                <td className="border p-2"></td>
+
+              </tr>
+
               {tableData.map((row, index) => (
                 <tr key={row.id}>
                   <td className="border p-2">{index + 1}</td>
