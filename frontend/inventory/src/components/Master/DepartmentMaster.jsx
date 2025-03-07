@@ -38,7 +38,7 @@ const DepartmentMaster = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen rounded-lg">
+    <div className="flex items-center justify-center h-screen rounded-lg -my-8">
       <div className="w-[500px] bg-white border rounded shadow-md p-6">
       <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Department Master

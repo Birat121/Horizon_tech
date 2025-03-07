@@ -2,8 +2,8 @@ import React from "react";
 
 function ReceiptVoucher() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="max-w-5xl w-full mx-auto bg-white shadow-md p-6 rounded">
+    <div className="flex items-center justify-center min-h-screen -my-8">
+      <div className="max-w-5xl w-full mx-auto bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Title Section */}
         <div className="text-center mb-6">
         <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">

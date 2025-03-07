@@ -245,7 +245,7 @@ export const menus = [
       { path: "/systemsecurity/suboptions4", label: "Sign Up User" },
       { path: "/systemsecurity/suboptions5", label: "Printer Setup" },
       { path: "/systemsecurity/suboptions6", label: "Invoice Greeting Note" },
-      { path: "/systemsecurity/suboptions7", label: "Current Users" ,
+      { path: "/systemsecurity/suboptions7", label: "Current Users",
         disabled: true
       },
       { path: "/systemsecurity/suboptions8", label: "End Of Day" },

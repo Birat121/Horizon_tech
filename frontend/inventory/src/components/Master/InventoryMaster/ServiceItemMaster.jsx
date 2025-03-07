@@ -5,9 +5,9 @@ const ServiceItemMaster = () => {
   const [saleRate, setSaleRate] = useState("");
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="flex items-center justify-center h-screen -my-8 ">
       {/* Outer Box */}
-      <div className="w-3/4 max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="w-3/4 max-w-4xl bg-white border-2 rounded-lg shadow-lg overflow-hidden">
         <div className="flex">
           {/* Sidebar */}
           <div className="bg-red-600 text-white w-1/4 p-4">

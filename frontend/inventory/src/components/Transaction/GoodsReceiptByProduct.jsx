@@ -48,7 +48,7 @@ const GoodsReceiptByProduct = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex items-center justify-center min-h-screen p-4 -my-8">
       <div className="w-full max-w-5xl bg-white shadow-lg rounded-lg p-6">
         {/* Header */}
         <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-4">

@@ -5,8 +5,8 @@ function SubLedgerMaster() {
   const [activeTab, setActiveTab] = useState("Enter/Edit");
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="p-6 bg-white border shadow-lg rounded-lg w-[900px]">
+    <div className="flex items-center justify-center min-h-screen -my-10 ">
+      <div className="p-6 bg-white border shadow-xl rounded-lg w-[900px]">
         {/* Header Section */}
         <div className="flex justify-between items-center bg-green-600 text-white p-2 rounded-t-lg">
           <h1 className="text-lg font-semibold">Sub Ledger Master</h1>

@@ -37,7 +37,7 @@ const OpeningStockEntry = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[90vh] bg-blue-50">
+    <div className="flex flex-col md:flex-row h-[87vh] bg-white border-2 rounded-lg shadow-lg ml-8">
       {/* Sidebar */}
       <div className="w-full md:w-1/6 bg-blue-700 text-white flex md:flex-col flex-row md:items-center md:py-4 py-2">
         <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-save hover:bg-save-hover rounded text-sm md:text-base">

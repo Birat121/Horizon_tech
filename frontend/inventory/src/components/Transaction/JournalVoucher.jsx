@@ -2,8 +2,8 @@ import React from "react";
 
 const JournalVoucher = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen  p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-4xl">
+    <div className="flex items-center justify-center min-h-screen -my-8  p-4">
+      <div className="bg-white border-2 rounded-lg shadow-lg p-6 w-full max-w-4xl">
         {/* Header Section */}
         <div className="flex flex-wrap items-center justify-between mb-4">
         <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">

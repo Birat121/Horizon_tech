@@ -2,44 +2,42 @@ import React from 'react';
 
 const EndOfDay = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen  p-4">
-      <div className="w-full max-w-2xl bg-white border-2 rounded-md shadow-md p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 ">
+      <div className="w-full max-w-3xl bg-white border-2 rounded-lg shadow-lg p-8">
         {/* Header */}
-        <h2 className="text-xl font-semibold text-center text-gray-700 mb-6">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
           End Of Day
         </h2>
 
         {/* Day Going to Ending */}
-        <div className="flex flex-wrap items-center mb-4">
-          <label className="text-gray-700 font-medium w-full md:w-40">Day Going to Ending:</label>
-          <div className="bg-blue-500 text-white font-semibold px-3 py-1 rounded-md w-full md:w-auto mt-2 md:mt-0">
+        <div className="flex flex-wrap items-center mb-6">
+          <label className="text-gray-800 font-semibold w-full md:w-52">Day Going to Ending:</label>
+          <div className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg w-full md:w-auto text-center mt-2 md:mt-0">
             11/09/2081 Thursday
           </div>
         </div>
 
         {/* Next Start Of Day */}
-        <div className="flex flex-wrap items-center mb-6">
-          <label className="text-gray-700 font-medium w-full md:w-40">Next Start Of Day:</label>
-          <div className="flex flex-wrap items-center gap-2 w-full mt-2 md:mt-0">
+        <div className="flex flex-wrap items-center mb-8">
+          <label className="text-gray-800 font-semibold w-full md:w-52">Next Start Of Day:</label>
+          <div className="flex flex-wrap items-center gap-3 w-full mt-2 md:mt-0">
             <input
               type="date"
-              className="border border-gray-300 rounded-md px-2 py-1 w-full md:w-auto"
+              className="border border-gray-400 rounded-lg px-4 py-2 w-full md:w-48"
             />
             <input
               type="date"
-              className="border border-gray-300 rounded-md px-2 py-1 w-full md:w-auto"
+              className="border border-gray-400 rounded-lg px-4 py-2 w-full md:w-48"
             />
           </div>
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-wrap justify-between mt-4 gap-4">
-          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-save text-white font-medium py-2 rounded-md hover:bg-save-hover">
-            
+        <div className="flex flex-wrap justify-center gap-6">
+          <button className="flex items-center justify-center w-full md:w-52 bg-green-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-200">
             End Of Day
           </button>
-          <button className="flex items-center justify-center gap-2 w-full md:w-40 bg-cancel text-white font-medium py-2 rounded-md hover:bg-cancel-hover">
-            
+          <button className="flex items-center justify-center w-full md:w-52 bg-red-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-red-700 transition duration-200">
             Close
           </button>
         </div>

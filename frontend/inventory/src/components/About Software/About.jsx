@@ -2,11 +2,11 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section className="w-full h-screen flex flex-col justify-center items-center p-4">
+    <section className="w-full h-screen flex flex-col justify-center items-center p-4 -my-10">
       <h2 className="font-medium text-3xl md:text-4xl text-black text-center mb-8">
         About Software:
       </h2>
-      <div className="bg-slate-200 box-border rounded-md w-full max-w-xl flex flex-col justify-center items-center gap-4 border-2 border-slate-700 shadow-md hover:scale-105 transition-transform duration-300 ease-in-out">
+      <div className=" box-border rounded-md w-full max-w-xl flex flex-col justify-center items-center gap-4 border-2 border-slate-700 shadow-md hover:scale-105 transition-transform duration-300 ease-in-out">
         <p className="font-medium text-xl md:text-2xl text-center mt-8 px-4">
           Name of Software: Horizon For Billing Software
         </p>

@@ -5,7 +5,7 @@ const RID = () => {
 
   return (
     <div className="min-h-screen  flex justify-center items-center p-4">
-      <div className="flex bg-white shadow-lg border-2 border-red-500 rounded-lg">
+      <div className="flex bg-white border-2 rounded-lg shadow-lg">
         {/* Sidebar */}
         <div className="w-28 bg-red-500 flex flex-col items-center py-10 space-y-4">
           <button className="flex items-center justify-center bg-white rounded-md p-2 shadow-md hover:scale-105 transition">

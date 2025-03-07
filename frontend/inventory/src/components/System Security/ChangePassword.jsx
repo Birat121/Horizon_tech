@@ -18,7 +18,7 @@ const ChangePassword = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center '>
-      <div className='p-6 max-w-lg w-full bg-white shadow-md rounded-lg'>
+      <div className='p-6 max-w-lg w-full bg-white border-2 rounded-lg shadow-lg'>
       <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Change Password
           </h1>

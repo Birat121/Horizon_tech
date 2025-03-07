@@ -3,7 +3,7 @@ import Button from "../../../reusable inputs/buttons";
 
 const UnitOfMeasurement = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen -my-8">
       <div className="bg-white border-2 p-6 rounded-md shadow-md w-full max-w-md">
         <h2 className="text-lg font-bold mb-4 text-center text-blue-700">
           Create / Modify Unit Of Measurement

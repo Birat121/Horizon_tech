@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Exit from "./components/Exit/Exit";
 import About from "./components/About Software/About";
 import LoginPage from "./pages/Login";
+import Navbar from "./pages/Navbar";
 
 {/* Master Options */}
 import CreateAccountLedger from "./components/Master/CreateAccountLedger";
@@ -107,10 +108,12 @@ import BarcodeLabelPrint from "./components/Transaction/BarcodeLabelPrint";
 function App() {
   return (
     <div className='min-h-screen'>
+      <Navbar/>
       <hr/>
       <div className="flex w-full">
         <Sidebar/>
-        <div className='w-[70%] mx-auto ml-[max(5vw,25px] my-8 text-gray-600 text-base'>
+        
+        <div className='w-[70%] mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

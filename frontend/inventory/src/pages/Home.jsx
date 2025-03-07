@@ -2,7 +2,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center text-white">
+    <div className="h-screen -my-8 w-full flex flex-col items-center justify-center text-">
       {/* Company Name */}
       <h2 className="text-4xl lg:text-6xl font-bold mb-4 text-center">
         Horizon Technology Pvt. Ltd.

@@ -1,187 +1,152 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "font-awesome/css/font-awesome.min.css";
+import * as LucideIcons from "lucide-react";
+
 import { menus } from "../../reusable inputs/menus";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeSubDropdown, setActiveSubDropdown] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Default to open
   const location = useLocation();
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsOpen(false);
-  };
 
   const toggleDropdown = (menuName) => {
     setActiveDropdown((prev) => (prev === menuName ? null : menuName));
-    setActiveSubDropdown(null); // Reset sub-dropdowns
+    setActiveSubDropdown(null);
   };
 
   const toggleSubDropdown = (itemPath) => {
     setActiveSubDropdown((prev) => (prev === itemPath ? null : itemPath));
   };
 
-  const renderSubOptions = (subOptions) => (
-    <ul className="ml-6 mt-2 space-y-2">
-      {subOptions.map((subItem, subIndex) => (
-        <li key={subIndex}>
-          <Link
-            to={subItem.path}
-            onClick={!subItem.disabled ? closeSidebar : undefined}
-            className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
-              subItem.disabled
-                ? "opacity-50 pointer-events-none"
-                : location.pathname === subItem.path
-                ? "bg-yellow-500 text-white"
-                : "hover:bg-yellow-300"
-            }`}
-          >
-            {subItem.label}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
+  const getMenuIcon = (menuName) => {
+    const icons = {
+      Master: "Database",
+      Transaction: "FileText",
+      Reports: "BarChart2",
+      Settings: "Settings",
+      "User Management": "Users",
+    };
+    return icons[menuName] || "Menu";
+  };
 
   return (
-    <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-25 z-40"
-          onClick={closeSidebar}
-        ></div>
-      )}
-
-      <div
-        className={`fixed inset-y-0 left-0 bg-white text-black w-64 transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-500 shadow-lg h-screen z-50 overflow-y-auto`}
-      >
-        <div className="p-6 flex justify-between items-center border-b border-gray-300">
-          <Link to="/" onClick={closeSidebar}>
-           <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
-              <i className="fa fa-rocket text-yellow-500"></i>
-              <span>Horizon Tech</span>
-            </h1>
-          </Link>
-          <button
-            onClick={toggleSidebar}
-            className="text-gray-700 text-2xl focus:outline-none"
-          >
-            <i className="fa fa-times"></i>
-          </button>
-        </div>
-
-        <ul className="mt-4 space-y-3">
-          {menus.map((menu) => (
-            <li key={menu.name} className="relative">
-              <button
-                onClick={() => toggleDropdown(menu.name)}
-                className={`w-full text-left px-4 py-3 flex items-center justify-between rounded-lg transition-all duration-300 ${
-                  activeDropdown === menu.name
-                    ? "bg-yellow-300"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <i
-                    className={`fa fa-${menu.icon || "circle"} text-yellow-500`}
-                  ></i>
-                  <span>{menu.name}</span>
-                </div>
-                <i
-                  className={`fa text-sm ${
-                    activeDropdown === menu.name
-                      ? "fa-chevron-up"
-                      : "fa-chevron-down"
-                  }`}
-                ></i>
-              </button>
-
-              {activeDropdown === menu.name && (
-                <ul className="ml-4 mt-2 space-y-2">
-                  {menu.items.map((item) => (
-                    <li key={item.path} className="relative">
-                      <Link
-                        to={item.path}
-                        onClick={() => {
-                          toggleSubDropdown(item.path);
-                          closeSidebar();
-                        }}
-                        className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
-                          item.disabled
-                            ? "opacity-50 pointer-events-none"
-                            : location.pathname === item.path
-                            ? "bg-yellow-500 text-white"
-                            : "hover:bg-yellow-300"
-                        }`}
-                      >
-                        {item.label}
-                        {item.subOptions && (
-                          <i
-                            className={`fa text-xs ml-2 ${
-                              activeSubDropdown === item.path
-                                ? "fa-chevron-up"
-                                : "fa-chevron-down"
-                            }`}
-                          ></i>
-                        )}
-                      </Link>
-
-                      {activeSubDropdown === item.path &&
-                        item.subOptions &&
-                        renderSubOptions(item.subOptions)}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-
-          <li>
-            <Link
-              to="/about"
-              onClick={closeSidebar}
-              className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
-                location.pathname === "/about"
-                  ? "bg-yellow-500 text-white"
-                  : "hover:bg-yellow-300"
+    <div className="flex ">
+    {/* Toggle Sidebar Button - Fixed */}
+    <button
+      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      className="fixed top-4 left-4 z-50 bg-yellow-500 text-white p-2 rounded-full shadow-lg"
+    >
+      {isSidebarOpen ? <LucideIcons.X size={24} /> : <LucideIcons.Menu size={24} />}
+    </button>
+  
+    {/* Sidebar */}
+    <div
+      className={`fixed left-0 top-0 h-screen w-64 bg-[#9fb6c3] text-black shadow-lg p-4 space-y-4 overflow-y-auto max-h-screen transition-all duration-300 z-40
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-64"}`}
+    >
+      {/* Fixed Header inside Sidebar */}
+      <div className="sticky top-0 left-0 w-full   pb-3 z-50">
+        <Link to="/">
+          <h2 className="text-black text-lg font-semibold p-2 rounded-md mb-2 text-center">
+            <i className="fa fa-rocket text-yellow-500"></i>
+            <span className="ml-2"> HORIZON TECH</span>
+          </h2>
+        </Link>
+      </div>
+  
+      {/* Sidebar Menu (Scrollable) */}
+      <ul className="space-y-2 overflow-y-auto max-h-[calc(100vh-64px)] pb-4">
+        {menus.map((menu) => (
+          <li key={menu.name} className="relative">
+            <button
+              onClick={() => toggleDropdown(menu.name)}
+              className={`w-full text-left px-4 py-3 flex items-center justify-between rounded-lg transition-all duration-300 ${
+                activeDropdown === menu.name ? "bg-yellow-500 text-white" : "hover:bg-gray-200"
               }`}
             >
-              <i className="fa fa-info-circle text-yellow-500 mr-2"></i> About
-              Software
-            </Link>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                closeSidebar();
-                console.log("Exiting...");
-              }}
-              className="block w-full text-left px-4 py-3 rounded-lg hover:bg-yellow-300 transition-all duration-300"
-            >
-              <i className="fa fa-sign-out text-yellow-500 mr-2"></i> Exit
+              <div className="flex items-center gap-2">
+                {React.createElement(LucideIcons[getMenuIcon(menu.name)], {
+                  size: 20,
+                  className: "text-white",
+                })}
+                <span>{menu.name}</span>
+              </div>
+              {activeDropdown === menu.name ? (
+                <LucideIcons.ChevronUp size={16} />
+              ) : (
+                <LucideIcons.ChevronDown size={16} />
+              )}
             </button>
+  
+            {/* Submenu */}
+            {activeDropdown === menu.name && (
+              <ul className="ml-4 mt-2 space-y-2">
+                {menu.items.map((item) => (
+                  <li key={item.path} className="relative">
+                    <Link
+                      to={item.path}
+                      onClick={() => toggleSubDropdown(item.path)}
+                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex justify-between ${
+                        item.disabled
+                          ? "opacity-50 pointer-events-none"
+                          : location.pathname === item.path
+                          ? "bg-yellow-500 text-white"
+                          : "hover:bg-gray-200"
+                      }`}
+                    >
+                      {item.label}
+                      {item.subOptions &&
+                        (activeSubDropdown === item.path ? (
+                          <LucideIcons.ChevronUp size={14} />
+                        ) : (
+                          <LucideIcons.ChevronDown size={14} />
+                        ))}
+                    </Link>
+  
+                    {activeSubDropdown === item.path && item.subOptions && (
+                      <ul className="ml-6 mt-1 p-2 rounded-lg space-y-2">
+                        {item.subOptions.map((subItem, subIndex) => (
+                          <li key={subIndex}>
+                            <Link
+                              to={subItem.path}
+                              className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
+                                location.pathname === subItem.path
+                                  ? "bg-yellow-500 text-white"
+                                  : "hover:bg-gray-200"
+                              }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
-        </ul>
-      </div>
-
-      <div className="p-4">
-        <button
-          onClick={toggleSidebar}
-          className="text-gray-700 text-2xl focus:outline-none"
-        >
-          <i className={`fa ${isOpen ? "fa-times" : "fa-bars"}`}></i>
-        </button>
-      </div>
-    </>
+        ))}
+  
+        {/* About Software */}
+        <li>
+          <Link
+            to="/about"
+            className={`px-4 py-3 rounded-lg transition-all duration-300 flex items-center ${
+              location.pathname === "/about" ? "bg-yellow-500 text-white" : "hover:bg-gray-200"
+            }`}
+          >
+            <LucideIcons.Info className="text-white mr-2" size={20} /> About Software
+          </Link>
+        </li>
+  
+        
+      </ul>
+    </div>
+  </div>
+  
   );
 };
 
 export default Sidebar;
-
