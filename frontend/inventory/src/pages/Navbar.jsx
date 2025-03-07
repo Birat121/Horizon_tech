@@ -5,6 +5,7 @@ import { LogOut } from "lucide-react"; // Import logout icon
 const Navbar = () => {
   const navigate = useNavigate();
   const [organization, setOrganization] = useState("Loading...");
+  const [currentTime, setCurrentTime] = useState(new Date());
   const userId = localStorage.getItem("userId"); // Get logged-in user ID
 
   useEffect(() => {
@@ -28,6 +29,14 @@ const Navbar = () => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000); // Update time every second
+
+    return () => clearInterval(timer); // Cleanup interval on component unmount
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userId");
@@ -35,13 +44,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-2 flex items-center border-none shadow-lg  ">
-      {/* Empty div for spacing */}
-      <div className="w-24"></div>
-
-      {/* Organization Name (Centered) */}
-      <div className="flex-1 text-center">
-        <h2 className="text-2xl font-medium">{organization}</h2>
+    <nav className="p-2 flex items-center justify-between border-none shadow-lg w-full bg-[#c1d8c1] ">
+      {/* Organization Name & Date-Time Box */}
+      <div className="flex-1 flex justify-center">
+        <div className="
+        flex items-center gap-4">
+          <h2 className="text-2xl font-semibold text-gray-700">{organization}</h2>
+          <p className="text-lg text-gray-600">{currentTime.toLocaleString()}</p>
+        </div>
       </div>
 
       {/* Logout Button (Right Aligned) */}

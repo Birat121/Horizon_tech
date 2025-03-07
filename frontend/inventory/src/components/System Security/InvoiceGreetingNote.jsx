@@ -25,7 +25,7 @@ const InvoiceGreetingNote = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center ">
+    <div className="h-screen flex justify-center items-center -mt-8 ">
       <div className="p-10 bg-white border-2 rounded-lg shadow-lg  w-[40rem] max-w-full">
         <div className="flex flex-col items-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Invoice Greeting Note</h2>
