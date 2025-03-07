@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../../reusable inputs/buttons'
 
 const ChangeAccountType = () => {
   return (
@@ -31,8 +32,8 @@ const ChangeAccountType = () => {
         </form>
         </div>
         <div className='flex justify-between mt-4'>
-          <button className='bg-save hover:bg-save-hover text-white font-bold py-2 px-4 rounded' type="submit">Save</button>
-          <button className='bg-cancel hover:bg-cancel-hover text-white font-bold py-2 px-4 rounded' type="button">Cancel</button>
+        <Button type="save" >Save</Button>
+        <Button type="cancel">Cancel</Button>
         </div>
 
       </div>

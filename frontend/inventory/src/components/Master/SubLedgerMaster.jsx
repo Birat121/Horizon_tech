@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
 
 function SubLedgerMaster() {
   const [activeTab, setActiveTab] = useState("Enter/Edit");
@@ -118,15 +119,8 @@ function SubLedgerMaster() {
 
             {/* Buttons */}
             <div className="flex justify-end space-x-4 mt-6">
-              <button className="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600">
-                Save
-              </button>
-              <button className="px-4 py-2 bg-yellow-500 text-white rounded-lg shadow hover:bg-yellow-600">
-                Cancel
-              </button>
-              <button className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600">
-                Close
-              </button>
+            <Button type="save" >Save</Button>
+            <Button type="cancel">Cancel</Button>
             </div>
           </div>
         ) : (

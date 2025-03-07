@@ -99,6 +99,7 @@ import UserLogActivities from "./components/Inventory Reports/CBMS Related Repor
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
 import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMasterFromExcel";
+import BarcodeLabelPrint from "./components/Transaction/BarcodeLabelPrint";
 
 
 {/* System Security */}
@@ -154,6 +155,7 @@ function App() {
           <Route path ="/transaction/suboption17/suboption3" element={<ProductInformationExcel/>}/>
           <Route path='/transaction/suboption17/suboption1' element={<ChartOfAccountExcel/>}/>
           <Route path ='/transaction/suboption17/suboption8' element={<ProductBatchExcel/>}/>
+          <Route path ='/transaction/suboption13' element={<BarcodeLabelPrint/>}/>
 
 
           {/*Account Reports */}

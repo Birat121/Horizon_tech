@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../../reusable inputs/buttons";
 
 const CategoryMaster = () => {
   const [isVatable, setIsVatable] = useState(false);
@@ -70,15 +71,9 @@ const CategoryMaster = () => {
 
         {/* Buttons */}
         <div className="mt-6 flex justify-between">
-          <button className="bg-save text-white px-4 py-2 rounded-md hover:bg-save-hover">
-            Save
-          </button>
-          <button className="bg-modify text-white px-4 py-2 rounded-md hover:bg-modify-hover">
-            Modify
-          </button>
-          <button className="bg-cancel text-white px-4 py-2 rounded-md hover:bg-cancel-hover">
-            Cancel
-          </button>
+        <Button type="save" >Save</Button>
+        <Button type="modify">Modify</Button>
+        <Button type="cancel">Cancel</Button>
           
         </div>
       </div>

@@ -20,7 +20,7 @@ const MaterialIssue = () => {
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg">
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2 ">
             Material Issue
           </h1>
 
