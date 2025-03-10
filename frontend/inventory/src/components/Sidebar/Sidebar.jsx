@@ -42,13 +42,13 @@ const Sidebar = () => {
   
     {/* Sidebar */}
     <div
-      className={`fixed left-0 top-0 h-screen w-64 bg-[#9fb6c3] text-black shadow-lg p-4 space-y-4 overflow-y-auto max-h-screen transition-all duration-300 z-40
+      className={`fixed left-0 top-0 h-screen w-64 bg-gray-600 text-black shadow-lg p-4 space-y-4 overflow-y-auto max-h-screen transition-all duration-300 z-40
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-64"}`}
     >
       {/* Fixed Header inside Sidebar */}
       <div className="sticky top-0 left-0 w-full   pb-3 z-50">
         <Link to="/">
-          <h2 className="text-black text-lg font-semibold p-2 rounded-md mb-2 text-center">
+          <h2 className="text-white text-lg font-semibold p-2 rounded-md mb-2 text-center">
             <i className="fa fa-rocket text-yellow-500"></i>
             <span className="ml-2"> HORIZON TECH</span>
           </h2>
@@ -61,8 +61,8 @@ const Sidebar = () => {
           <li key={menu.name} className="relative">
             <button
               onClick={() => toggleDropdown(menu.name)}
-              className={`w-full text-left px-4 py-3 flex items-center justify-between rounded-lg transition-all duration-300 ${
-                activeDropdown === menu.name ? "bg-yellow-500 text-white" : "hover:bg-gray-200"
+              className={`w-full text-white text-left px-4 py-3 flex items-center justify-between rounded-lg transition-all duration-300 ${
+                activeDropdown === menu.name ? "bg-yellow-500 text-white" : "hover:bg-gray-200 hover:text-black"
               }`}
             >
               <div className="flex items-center gap-2">
@@ -87,12 +87,12 @@ const Sidebar = () => {
                     <Link
                       to={item.path}
                       onClick={() => toggleSubDropdown(item.path)}
-                      className={`px-4 py-2 rounded-lg transition-all duration-300 flex justify-between ${
+                      className={`px-4 py-2 text-white rounded-lg transition-all duration-300 flex justify-between ${
                         item.disabled
                           ? "opacity-50 pointer-events-none"
                           : location.pathname === item.path
                           ? "bg-yellow-500 text-white"
-                          : "hover:bg-gray-200"
+                          : "hover:bg-gray-200 hover:text-black"
                       }`}
                     >
                       {item.label}
@@ -105,7 +105,7 @@ const Sidebar = () => {
                     </Link>
   
                     {activeSubDropdown === item.path && item.subOptions && (
-                      <ul className="ml-6 mt-1 p-2 rounded-lg space-y-2">
+                      <ul className="ml-6 mt-1 p-2 rounded-lg space-y-2 text-white">
                         {item.subOptions.map((subItem, subIndex) => (
                           <li key={subIndex}>
                             <Link
@@ -113,7 +113,7 @@ const Sidebar = () => {
                               className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
                                 location.pathname === subItem.path
                                   ? "bg-yellow-500 text-white"
-                                  : "hover:bg-gray-200"
+                                  : "hover:bg-gray-200 hover:text-black"
                               }`}
                             >
                               {subItem.label}
@@ -133,11 +133,11 @@ const Sidebar = () => {
         <li>
           <Link
             to="/about"
-            className={`px-4 py-3 rounded-lg transition-all duration-300 flex items-center ${
-              location.pathname === "/about" ? "bg-yellow-500 text-white" : "hover:bg-gray-200"
+            className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
+              location.pathname === "/about" ? "bg-yellow-500 text-white" : "hover:bg-gray-200 hover:text-black"
             }`}
           >
-            <LucideIcons.Info className="text-white mr-2" size={20} /> About Software
+            <LucideIcons.Info className="text-white mr-2 " size={20} /> About Software
           </Link>
         </li>
   

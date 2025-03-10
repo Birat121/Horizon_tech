@@ -44,11 +44,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-2 flex items-center justify-between border-none shadow-lg w-full bg-[#c1d8c1] ">
+    <nav className="p-2 flex items-center justify-between border-none shadow-lg w-full  ">
       {/* Organization Name & Date-Time Box */}
       <div className="flex-1 flex justify-center">
-        <div className="
-        flex items-center gap-4">
+        <div className=" flex items-center gap-4">
           <h2 className="text-2xl font-semibold text-gray-700">{organization}</h2>
           <p className="text-lg text-gray-600">{currentTime.toLocaleString()}</p>
         </div>
