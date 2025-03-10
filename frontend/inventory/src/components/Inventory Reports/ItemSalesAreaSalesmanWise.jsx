@@ -47,7 +47,7 @@ const ItemSalesAreaSalesmanWise = () => {
   };
 
   return (
-    <div className="flex flex-col h-[90vh] rounded-lg overflow-y-auto bg-gray-50">
+    <div className="flex flex-col h-[85vh] bg-white border-2 rounded-lg shadow-lg overflow-y-auto ml-14">
       <div className="flex flex-1">
         <div className="w-1/3 bg-gray-100 p-4 border-r border-gray-300">
           <h1 className=" text-white text-lg font-semibold p-2 rounded-t-md">

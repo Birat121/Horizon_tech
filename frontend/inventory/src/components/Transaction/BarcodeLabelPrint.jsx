@@ -21,7 +21,7 @@ export default function BarcodeLabelPrint() {
   };
 
   return (
-    <div className="p-6  min-h-screen flex items-center justify-center">
+    <div className="p-6  min-h-screen flex items-center justify-center -mt-8">
       <div className=" p-6 bg-white border-2 rounded-lg shadow-lg w-full max-w-3xl relative">
         <h2 className="text-2xl font-semibold mb-4 text-gray-700 ">Barcode Label Print</h2>
         
