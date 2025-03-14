@@ -5,7 +5,8 @@ function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
 
   return (
-    <div className="flex items-center justify-center min-h-screen -my-8">
+    <div className="flex items-center justify-center h-screen overflow-y-hidden">
+
       <div className="p-8 bg-white border-2 rounded-lg shadow-lg w-[600px]">
         <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
           Create New Account Ledger

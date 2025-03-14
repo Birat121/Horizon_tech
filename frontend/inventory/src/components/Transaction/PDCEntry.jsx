@@ -4,7 +4,7 @@ const PDCEntry = () => {
   return (
     <div className="p-4  min-h-screen overflow-y-auto">
       <div className="bg-white border-2 rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+      <h1 className=" text-white text-lg font-semibold p-2 text-center rounded-md mb-2">
             PDC Entry
           </h1>
         

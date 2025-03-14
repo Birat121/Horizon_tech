@@ -23,7 +23,7 @@
 
 body{
   background: white;
-  overflow: hidden;
+  overflow: auto;
   scroll-behavior: auto;
   margin:0;
   padding:0;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
 
 const ItemPurchaseReturnInDetail = () => {
   const [transactionType, setTransactionType] = useState("Purchase"); // Voucher type state
@@ -215,10 +216,8 @@ const ItemPurchaseReturnInDetail = () => {
           </div>
 
           {/* Buttons */}
-          <div className="space-y-4 mt-10">
-            <button className="w-full flex items-center justify-center p-3 bg-green-500 text-white rounded hover:bg-green-600">
-              <i className="fa fa-search mr-2"></i> Preview
-            </button>
+          <div className="space-y-4 mt-10 flex justify-center">
+            <Button type="preview"> Preview </Button>
           </div>
         </div>
       </div>

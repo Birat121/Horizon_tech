@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
 
 const InventoryItemList = () => {
   // State to track selected product type and checkbox status
@@ -103,17 +104,13 @@ const InventoryItemList = () => {
           </div>
 
           {/* Buttons */}
-          <div className="space-y-4 mt-auto">
-            <button className="w-full flex items-center justify-center p-3 text-white bg-save rounded shadow">
-              <i className="fa fa-th mr-2"></i> On Grid
-            </button>
-            <button className="w-full flex items-center justify-center p-3 text-white bg-preview rounded shadow">
-              <i className="fa fa-search mr-2"></i> Preview
-            </button>
-            <button className="w-full flex items-center justify-center p-3 text-white bg-cancel rounded shadow">
-              <i className="fa fa-times-circle mr-2"></i> Close
-            </button>
-          </div>
+          <div className="flex flex-col items-center space-y-4 mt-auto w-full">
+  <Button className="w-full" type="save">Grid View</Button>
+  <Button className="w-full" type="preview">Preview</Button>
+  <Button className="w-full" type="cancel">Cancel</Button>
+</div>
+
+
         </div>
 
         {/* Main Content */}

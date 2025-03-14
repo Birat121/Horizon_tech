@@ -3,8 +3,8 @@ import React from "react";
 const BGEntry = () => {
   return (
     <div className="p-4 min-h-screen overflow-y-auto">
-      <div className="p-6 max-w-2xl mx-auto border rounded-lg shadow-lg bg-white">
-        <h1 className="text-lg font-bold p-2 rounded mb-4 text-gray-700">BG Entry</h1>
+      <div className="p-6 max-w-4xl mx-auto border rounded-lg shadow-lg bg-white">
+        <h1 className="text-lg font-bold p-2 rounded mb-4 text-white text-center">BG Entry</h1>
 
         {/* Party Info Section */}
         <div className="border p-4 rounded-md mb-4 bg-gray-100">
@@ -100,7 +100,7 @@ const BGEntry = () => {
         </div>
       </div>
     </div>
-  );
+  ); 
 };
 
 export default BGEntry;
