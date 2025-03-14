@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "../../reusable inputs/buttons";
 
 const ItemSalesAreaSalesmanWise = () => {
   const [selectedReportType, setSelectedReportType] = useState("sales");
@@ -309,10 +310,8 @@ const ItemSalesAreaSalesmanWise = () => {
                 )}
             </div>
 
-            <div className="flex space-x-4">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                Preview
-              </button>
+            <div className="flex space-x-4 flex justify-center">
+              <Button type="preview"> Preview </Button>
             </div>
           </div>
         </div>

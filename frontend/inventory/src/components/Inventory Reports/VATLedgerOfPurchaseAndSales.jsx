@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "../../reusable inputs/buttons";
 
 const VATLedgerOfPurchaseAndSales = () => {
   const [radioValue, setRadioValue] = useState("");
@@ -131,21 +132,12 @@ const VATLedgerOfPurchaseAndSales = () => {
             </div>
           </div>
           {/* Buttons */}
-          <div className="flex space-x-4 mt-4">
-            <button
-              onClick={() => fetchData("grid")}
-              className="px-6 py-2 bg-save text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
-            >
-              On Grid
-            </button>
-            <button
-              onClick={() => fetchData("preview")}
-              className="px-6 py-2 bg-preview text-white font-semibold rounded-full shadow-lg hover:scale-105 transition"
-            >
-              Preview
-            </button>
-          </div>
-          <div className="bg-white shadow-lg rounded-lg p-4 mt-56">
+          <div className="flex flex-col items-center gap-4 mt-10 w-48">
+  <Button className="w-full" type="preview">Preview</Button>
+  <Button className="w-full" type="save">Grid</Button>
+</div>
+
+          <div className="bg-white shadow-lg rounded-lg p-4 mt-11">
             <label className="block text-gray-700 font-semibold mb-2">
               Select Order By Here
             </label>

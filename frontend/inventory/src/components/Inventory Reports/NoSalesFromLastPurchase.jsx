@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
+
 const NoSalesFromLastPurchase = () => {
   const [fromDate1, setFromDate1] = useState(""); // First "From" date
   const [toDate1, setToDate1] = useState(""); // First "To" date
@@ -116,11 +118,9 @@ const NoSalesFromLastPurchase = () => {
           </div>
 
           {/* Buttons */}
-          <div className="mt-4">
-            <button className="w-full flex items-center justify-center p-3 bg-green-500 text-white rounded hover:bg-green-600">
-              <i className="fa fa-search mr-2"></i> Preview
-            </button>
-          </div>
+          <div className="space-y-4 mt-10 flex justify-center">
+             <Button type="preview"> Preview </Button>
+            </div>
         </div>
       </div>
     </div>

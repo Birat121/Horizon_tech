@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../reusable inputs/buttons";
 
 const PurchaseAndSalesMoreThanOneLakh = () => {
   const [selectedReportType, setSelectedReportType] = useState(""); 
@@ -130,11 +131,9 @@ const PurchaseAndSalesMoreThanOneLakh = () => {
           
 
           {/* Buttons */}
-          <div className="space-y-4 mt-10">
-            <button className="w-full flex items-center justify-center p-3 bg-preview text-white rounded hover:bg-preview-hover">
-              <i className="fa fa-search mr-2"></i> Preview
-            </button>
-          </div>
+          <div className="space-y-4 mt-10 flex justify-center">
+             <Button type="preview"> Preview </Button>
+            </div>
         </div>
       </div>
     </div>
