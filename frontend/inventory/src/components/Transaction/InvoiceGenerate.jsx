@@ -109,6 +109,7 @@ const InvoiceGenerate = () => {
               <input type='text' className='w-full border border-gray-300 rounded px-2 py-1' />
             </div>
           </div>
+          {/* button section */}
           <div className='mt-4 flex justify-between items-center'>
             <div className="flex gap-2">
               <button className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
