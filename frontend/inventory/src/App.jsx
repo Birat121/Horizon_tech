@@ -48,6 +48,7 @@ import MaterialReceiptNote from "./components/Transaction/Purchase/MaterialRecei
 import PurchaseReturn from "./components/Transaction/Purchase/PurchaseReturn";
 import PurchaseAdditionalCostEntry from "./components/Transaction/Purchase/PurchaseAdditionCostEntry";
 import PointOfSales from "./components/Transaction/Sales/PointOfSales";
+import SalesReturn from "./components/Transaction/Sales/SalesReturn"
 {/* Transaction */}
 
 
@@ -170,6 +171,7 @@ function App() {
           <Route path="/transaction/suboption4/suboption2" element={<PurchaseReturn/>}/>
           <Route path="/transaction/suboption4/suboption4" element={<PurchaseAdditionalCostEntry/>}/>
           <Route path="/transaction/suboption5/suboption1" element={<PointOfSales/>}/>
+          <Route path="/transaction/suboption5/suboption2" element={<SalesReturn/>}/>
 
 
           {/*Account Reports */}
