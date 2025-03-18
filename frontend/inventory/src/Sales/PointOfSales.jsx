@@ -18,7 +18,7 @@ const PointOfSales = () => {
   });
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-white border-2 rounded-lg shadow-lg min-h-screen ml-12">
       {/* Header */}
       <div className="text-center text-lg font-bold bg-blue-800 text-white py-2 rounded mb-4">
         Point of Sale (Counter - 6) | Cashier: Shiva | {new Date().toLocaleString()}
@@ -246,10 +246,7 @@ const PointOfSales = () => {
         <button className="bg-green-500 text-white px-4 py-2 rounded">Save</button>
       </div>
 
-      {/* Footer */}
-      <div className="text-center text-sm text-gray-600 mt-4">
-        F3 - Barcode | F5 - Qty | F6 - Product Name | F11 - Save | F12 - Cancel | Esc - Tender | Ctrl+U - Close
-      </div>
+      
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 const MaterialReceiptNote = () => {
   return (
-    <div className='flex items-center justify-center min-h-screen -my-8'>
+    <div className='flex items-center justify-center min-h-screen -my-8 ml-14'>
       <div className="max-w-6xl w-full mx-auto bg-white border-2 rounded-lg shadow-lg p-6">
         
         {/* Title Section */}

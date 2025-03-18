@@ -44,11 +44,17 @@ import CustomerListExcel from "./components/Transaction/ImportDataFromExcel/Cust
 import ProductInformationExcel from "./components/Transaction/ImportDataFromExcel/ProductInformationExcel";
 import ChartOfAccountExcel from "./components/Transaction/ImportDataFromExcel/ChartOfAccountExcel";
 import ProductBatchExcel from './components/Transaction/ImportDataFromExcel/ProductBatchExcel';
-import MaterialReceiptNote from "./components/Transaction/Purchase/MaterialReceiptNote";
-import PurchaseReturn from "./components/Transaction/Purchase/PurchaseReturn";
-import PurchaseAdditionalCostEntry from "./components/Transaction/Purchase/PurchaseAdditionCostEntry";
-import PointOfSales from "./components/Transaction/Sales/PointOfSales";
+
 {/* Transaction */}
+
+{/* Sales */}
+import PointOfSales from "./Sales/PointOfSales";
+{/* Sales */}
+
+{/*Purchase*/}
+import MaterialReceiptNote from "./Purchase/MaterialReceiptNote";
+import PurchaseAdditionalCostEntry from "./Purchase/PurchaseAdditionCostEntry";
+import PurchaseReturnEntry from "./Purchase/PurchaseReturn";
 
 
 
@@ -106,6 +112,7 @@ import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related 
 import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Report/PurchaseAndSalesBook";
 import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMasterFromExcel";
 import BarcodeLabelPrint from "./components/Transaction/BarcodeLabelPrint";
+import Reports from "./Reports/Reports";
 
 
 
@@ -125,6 +132,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/exit" element={<Exit />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/reports" element={<Reports/>} />
 
           {/*Master Options*/}
           <Route path="/master/suboption1" element={<CreateAccountLedger />} />
@@ -166,10 +174,19 @@ function App() {
           <Route path='/transaction/suboption17/suboption1' element={<ChartOfAccountExcel/>}/>
           <Route path ='/transaction/suboption17/suboption8' element={<ProductBatchExcel/>}/>
           <Route path ='/transaction/suboption13' element={<BarcodeLabelPrint/>}/>
-          <Route path="/transaction/suboption4/suboption1" element={<MaterialReceiptNote/>}/>
-          <Route path="/transaction/suboption4/suboption2" element={<PurchaseReturn/>}/>
-          <Route path="/transaction/suboption4/suboption4" element={<PurchaseAdditionalCostEntry/>}/>
-          <Route path="/transaction/suboption5/suboption1" element={<PointOfSales/>}/>
+
+
+          {/*Transaction */}
+
+          {/*Sales */}
+          <Route path='/sales/suboption1' element={<PointOfSales/>}/>
+          {/*Sales */}
+
+          {/*Purchase */}
+          <Route path='/purchase/suboption1' element={<MaterialReceiptNote/>}/>
+          <Route path='/purchase/suboption2' element={<PurchaseAdditionalCostEntry/>}/>
+          <Route path='/purchase/suboption4' element={<PurchaseReturnEntry/>}/>
+
 
 
           {/*Account Reports */}

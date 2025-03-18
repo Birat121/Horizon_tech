@@ -310,7 +310,7 @@ const ItemSalesAreaSalesmanWise = () => {
                 )}
             </div>
 
-            <div className="flex space-x-4 flex justify-center">
+            <div className="space-x-4 flex justify-center">
               <Button type="preview"> Preview </Button>
             </div>
           </div>
