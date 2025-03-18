@@ -49,6 +49,7 @@ import PurchaseReturn from "./components/Transaction/Purchase/PurchaseReturn";
 import PurchaseAdditionalCostEntry from "./components/Transaction/Purchase/PurchaseAdditionCostEntry";
 import PointOfSales from "./components/Transaction/Sales/PointOfSales";
 import SalesReturn from "./components/Transaction/Sales/SalesReturn"
+import PriceChange from "./components/Transaction/PriceChange";
 {/* Transaction */}
 
 
@@ -172,6 +173,7 @@ function App() {
           <Route path="/transaction/suboption4/suboption4" element={<PurchaseAdditionalCostEntry/>}/>
           <Route path="/transaction/suboption5/suboption1" element={<PointOfSales/>}/>
           <Route path="/transaction/suboption5/suboption2" element={<SalesReturn/>}/>
+          <Route path ="transaction/suboption8" element={<PriceChange/>}/>
 
 
           {/*Account Reports */}
