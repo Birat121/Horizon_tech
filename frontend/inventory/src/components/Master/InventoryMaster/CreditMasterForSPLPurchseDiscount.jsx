@@ -5,7 +5,7 @@ const CreditorAccountMaster = () => {
   const [creditorName, setCreditorName] = useState("");
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center h-[85vh]">
       {/* Outer Box */}
       <div className="w-full max-w-xl bg-white shadow-lg rounded-lg p-6 border border-gray-300">
         {/* Title Section */}

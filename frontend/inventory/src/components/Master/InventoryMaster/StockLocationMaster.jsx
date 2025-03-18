@@ -4,7 +4,7 @@ const StockLocationMaster = () => {
   const [locationName, setLocationName] = useState("");
 
   return (
-    <div className="flex items-center justify-center h-screen -my-10 ">
+    <div className="flex items-center justify-center h-[85vh] ">
       {/* Outer Box */}
       <div className="w-full max-w-4xl bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Form Section */}

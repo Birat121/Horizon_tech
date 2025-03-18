@@ -24,7 +24,7 @@ const BackupRestore = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen ">
+    <div className="flex items-center justify-center h-[80vh] ">
       <div className="w-1/3 bg-white border-2 rounded-lg shadow-lg p-6">
       <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
             Backup and Restore

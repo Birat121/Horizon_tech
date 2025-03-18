@@ -207,7 +207,7 @@ const InventoryItemMaster = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
+    <div className="flex flex-col items-center h-[85vh]">
       <div className="w-full max-w-4xl  p-6 bg-white border-2 rounded-lg shadow-lg mt-4">
         <header className="w-full bg-blue-600 text-white py-4 shadow-md mb-2">
           <h2 className="text-center text-2xl font-bold">Inventory Item Master</h2>

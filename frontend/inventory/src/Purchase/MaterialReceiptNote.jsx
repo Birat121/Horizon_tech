@@ -2,12 +2,12 @@ import React from 'react';
 
 const MaterialReceiptNote = () => {
   return (
-    <div className='flex items-center justify-center min-h-screen -my-8 ml-14'>
+    <div className='flex items-center justify-center h-[85vh]  ml-14'>
       <div className="max-w-6xl w-full mx-auto bg-white border-2 rounded-lg shadow-lg p-6">
         
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h1 className='text-lg font-bold p-2 rounded mb-4'>Material Receipt Note</h1>
+          <h1 className='text-lg font-bold p-2 rounded mb-4 text-white'>Material Receipt Note</h1>
         </div>
 
         {/* Form Header */}

@@ -5,71 +5,81 @@ const MaterialIssue = () => {
 
   const handleFileUpload = (e) => {
     const uploadedFile = e.target.files[0];
-    setFile(uploadedFile);
-    alert(`Uploaded: ${uploadedFile.name}`);
+    if (uploadedFile) {
+      setFile(uploadedFile);
+      alert(`Uploaded: ${uploadedFile.name}`);
+    }
   };
 
   const handleGetExcelFormat = () => {
-    // Dummy link for sample excel template
     const link = document.createElement('a');
-    link.href = '/path/to/sample-format.xlsx';
+    link.href = '/path/to/sample-format.xlsx'; // Replace with actual file path
     link.download = 'SampleMaterialIssueFormat.xlsx';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center -my-8 ">
-      <div className="w-full max-w-4xl p-6 bg-white border-2 rounded-lg shadow-lg">
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2 ">
-            Material Issue
-          </h1>
+    <div className="min-h-screen flex items-center justify-center -mt-14 p-6">
+      <div className="w-full max-w-4xl p-8 bg-white border border-gray-300 rounded-2xl shadow-lg">
+        {/* Title Section */}
+        <h1 className="text-white text-lg font-semibold p-2 rounded-md mb-2">
+          Material Issue
+        </h1>
 
         {/* Form Section */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <label className="block font-medium">Issue Date</label>
-            <input type="date" className="w-full border p-2 rounded" />
+            <label className="block text-lg font-medium text-gray-700">Issue Date</label>
+            <input
+              type="date"
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
           </div>
           <div>
-            <label className="block font-medium">Branch To</label>
-            <input type="text" className="w-full border p-2 rounded" />
+            <label className="block text-lg font-medium text-gray-700">Branch To</label>
+            <input
+              type="text"
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
           </div>
         </div>
 
         {/* Table Section */}
         <div className="overflow-x-auto">
-          <table className="table-auto w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-2">Sr.</th>
-                <th className="border border-gray-300 p-2">Product ID</th>
-                <th className="border border-gray-300 p-2">Barcode</th>
-                <th className="border border-gray-300 p-2">Product Name</th>
-                <th className="border border-gray-300 p-2">Issue Qty</th>
-                <th className="border border-gray-300 p-2">UOM</th>
-                <th className="border border-gray-300 p-2">Unit Cost</th>
-                <th className="border border-gray-300 p-2">Total Amt</th>
+          <table className="w-full border border-gray-300 rounded-lg shadow">
+            <thead className="bg-blue-600 text-white text-lg">
+              <tr>
+                <th className="border border-gray-300 px-4 py-3 text-left">Sr.</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Product ID</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Barcode</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Product Name</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Issue Qty</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">UOM</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Unit Cost</th>
+                <th className="border border-gray-300 px-4 py-3 text-left">Total Amt</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-gray-300 p-2">1</td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
-                <td className="border border-gray-300 p-2"></td>
+              <tr className="bg-gray-50">
+                <td className="border border-gray-300 px-4 py-3 text-lg text-center">1</td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
+                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
               </tr>
             </tbody>
           </table>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between items-center mt-6">
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md text-lg hover:bg-blue-600 transition"
             onClick={handleGetExcelFormat}
           >
             Get Excel Format
@@ -84,7 +94,7 @@ const MaterialIssue = () => {
             />
             <label
               htmlFor="uploadExcel"
-              className="px-4 py-2 bg-green-500 text-white rounded cursor-pointer hover:bg-green-600"
+              className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md text-lg cursor-pointer hover:bg-green-600 transition"
             >
               Upload Excel
             </label>
@@ -96,4 +106,3 @@ const MaterialIssue = () => {
 };
 
 export default MaterialIssue;
-
