@@ -21,7 +21,7 @@ const MaterialIssue = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center -mt-14 p-6">
+    <div className="h-[85vh] flex items-center justify-center  p-6">
       <div className="w-full max-w-4xl p-8 bg-white border border-gray-300 rounded-2xl shadow-lg">
         {/* Title Section */}
         <h1 className="text-white text-lg font-semibold p-2 rounded-md mb-2">
