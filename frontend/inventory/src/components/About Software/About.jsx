@@ -2,7 +2,7 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section className="w-full h-screen flex flex-col justify-center items-center p-4 -my-10">
+    <section className="w-full h-[85vh] flex flex-col justify-center items-center p-4">
       <h2 className="font-medium text-3xl md:text-4xl text-black text-center mb-8">
         About Software:
       </h2>
