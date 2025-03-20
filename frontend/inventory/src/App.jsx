@@ -36,6 +36,7 @@ import OpeningStockEntry from "./components/Transaction/OpeningStockEntry";
 import PaymentVoucher from "./components/Transaction/PaymentVoucher";
 import PDCEntry from "./components/Transaction/PDCEntry";
 import BGEntry from  "./components/Transaction/BGEntry";
+import PriceChange from "./components/Transaction/PriceChange";
 import MaterialIssue from "./components/Transaction/MaterialIssue";
 import GoodsReceiptByProduct from "./components/Transaction/GoodsReceiptByProduct";
 import InvoiceGenerate from "./components/Transaction/InvoiceGenerate";
@@ -44,11 +45,13 @@ import CustomerListExcel from "./components/Transaction/ImportDataFromExcel/Cust
 import ProductInformationExcel from "./components/Transaction/ImportDataFromExcel/ProductInformationExcel";
 import ChartOfAccountExcel from "./components/Transaction/ImportDataFromExcel/ChartOfAccountExcel";
 import ProductBatchExcel from './components/Transaction/ImportDataFromExcel/ProductBatchExcel';
+import IssueReturn from "./components/Transaction/IssueReturn";
 
 {/* Transaction */}
 
 {/* Sales */}
 import PointOfSales from "./Sales/PointOfSales";
+import SalesReturn from "./Sales/SalesReturn";
 {/* Sales */}
 
 {/*Purchase*/}
@@ -174,12 +177,17 @@ function App() {
           <Route path='/transaction/suboption17/suboption1' element={<ChartOfAccountExcel/>}/>
           <Route path ='/transaction/suboption17/suboption8' element={<ProductBatchExcel/>}/>
           <Route path ='/transaction/suboption13' element={<BarcodeLabelPrint/>}/>
+          <Route path="/transaction/suboption8" element={<PriceChange/>}/>
+          <Route path="/transaction/suboption12" element={<IssueReturn/>}/>
+          
 
 
           {/*Transaction */}
 
           {/*Sales */}
           <Route path='/sales/suboption1' element={<PointOfSales/>}/>
+          <Route path='/sales/suboption2' element={<SalesReturn/>}/>
+          
           {/*Sales */}
 
           {/*Purchase */}
