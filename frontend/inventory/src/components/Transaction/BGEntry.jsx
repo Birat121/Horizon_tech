@@ -2,7 +2,7 @@ import React from "react";
 
 const BGEntry = () => {
   return (
-    <div className="p-4 min-h-screen overflow-y-auto">
+    <div className="p-4 h-[85vh] overflow-y-auto">
       <div className="p-6 max-w-4xl mx-auto border rounded-lg shadow-lg bg-white">
         <h1 className="text-lg font-bold p-2 rounded mb-4 text-white text-center">BG Entry</h1>
 

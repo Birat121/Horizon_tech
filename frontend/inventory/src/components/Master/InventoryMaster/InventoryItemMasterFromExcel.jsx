@@ -22,7 +22,7 @@ const ImportExcel = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden ml-14">
+    <div className="flex h-[85vh] overflow-hidden ml-14">
       {/* Sidebar */}
       <div className="w-1/6 bg-blue-700 p-3 flex flex-col items-center gap-3 text-white">
         <button className="w-full bg-save hover:bg-save-hover py-1.5 rounded text-sm" onClick={handleSave}>

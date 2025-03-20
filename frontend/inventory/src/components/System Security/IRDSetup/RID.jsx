@@ -4,7 +4,7 @@ const RID = () => {
   const [schedulerStatus, setSchedulerStatus] = useState("Yes");
 
   return (
-    <div className="min-h-screen  flex justify-center items-center p-4">
+    <div className="h-[85vh]  flex justify-center items-center p-4">
       <div className="flex bg-white border-2 rounded-lg shadow-lg">
         {/* Sidebar */}
         <div className="w-28 bg-red-500 flex flex-col items-center py-10 space-y-4">

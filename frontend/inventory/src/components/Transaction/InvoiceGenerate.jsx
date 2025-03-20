@@ -2,7 +2,7 @@ import React from 'react';
 
 const InvoiceGenerate = () => {
   return (
-    <div className='flex items-center justify-center min-h-screen -my-8'>
+    <div className='flex items-center justify-center h-[85vh]'>
       <div className="max-w-5xl w-full mx-auto bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Title Section */}
         <div className="text-center mb-6">

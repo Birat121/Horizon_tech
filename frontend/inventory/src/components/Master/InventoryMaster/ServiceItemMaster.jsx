@@ -5,7 +5,7 @@ const ServiceItemMaster = () => {
   const [saleRate, setSaleRate] = useState("");
 
   return (
-    <div className="flex items-center justify-center h-screen -my-8 ">
+    <div className="flex items-center justify-center h-[85vh] ">
       {/* Outer Box */}
       <div className="w-3/4 max-w-4xl bg-white border-2 rounded-lg shadow-lg overflow-hidden">
         <div className="flex">

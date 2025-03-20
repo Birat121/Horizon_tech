@@ -5,7 +5,7 @@ function SubLedgerMaster() {
   const [activeTab, setActiveTab] = useState("Enter/Edit");
 
   return (
-    <div className="flex items-center justify-center min-h-screen -my-10 ">
+    <div className="flex items-center justify-center h-[85vh] ">
       <div className="p-6 bg-white border shadow-xl rounded-lg w-[900px]">
         {/* Header Section */}
         <div className="flex justify-between items-center bg-green-600 text-white p-2 rounded-t-lg">
