@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const PriceChange = () => {
 
 return(
-  <div className=" w-full bg-gray-300 p-5 py-2 px-2 rounded">
+  <div className=" w-full h-[85vh] ml-14 bg-gray-300 p-7 py-2 px-2 rounded">
       <div className="flex items-center">
         <span className="text-purple-800 font-bold mr-2">Excel File</span>
         <input

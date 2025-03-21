@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (!username || !password) {
-      setError('Both fields are required.');
+      setError("Both fields are required.");
       return;
     }
 
-    // Perform login logic (example only)
-    setError('');
-    console.log('Logging in with:', { username, password });
+    setError("");
+    console.log("Logging in with:", { username, password });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Login</h2>
-        <form onSubmit={handleLogin}>
+    <div className="flex items-center justify-center h-[85vh] px-4">
+      <div className="w-full max-w-md bg-gray-200 shadow-md rounded-2xl p-8">
+        <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
+          Sign In
+        </h2>
+
+        <form onSubmit={handleLogin} className="space-y-5">
           {/* Username Field */}
-          <div className="mb-4">
+          <div>
             <label
               htmlFor="username"
-              className="block text-sm font-medium text-gray-800 mb-2"
+              className="block text-sm font-medium text-gray-700"
             >
               Username
             </label>
@@ -37,15 +39,15 @@ const LoginPage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
           {/* Password Field */}
-          <div className="mb-4">
+          <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-800 mb-2"
+              className="block text-sm font-medium text-gray-700"
             >
               Password
             </label>
@@ -55,27 +57,23 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
+          
+
           {/* Error Message */}
-          {error && (
-            <div className="mb-4 text-sm text-red-500">
-              {error}
-            </div>
-          )}
+          {error && <div className="text-sm text-red-500">{error}</div>}
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Login
           </button>
         </form>
-
-        
       </div>
     </div>
   );

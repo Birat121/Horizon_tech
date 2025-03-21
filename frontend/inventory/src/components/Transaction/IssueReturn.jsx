@@ -7,7 +7,7 @@ const ReturnMaterialIssue = () => {
 
 
   return (
-    <div className="p-4 bg-gray-100 ">
+    <div className="p-4  bg-gray-100 ">
       <div className="bg-white shadow-lg rounded-lg p-4">
         {/* Header */}
         <div className="grid grid-cols-3 gap-4">

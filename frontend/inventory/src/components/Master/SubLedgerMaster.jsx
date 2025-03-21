@@ -17,7 +17,7 @@ function SubLedgerMaster() {
                 activeTab === "Enter/Edit"
                   ? "bg-blue-500"
                   : "bg-gray-200 text-gray-700"
-              } rounded shadow hover:bg-blue-600`}
+              } rounded shadow `}
             >
               Enter / Edit
             </button>
@@ -27,7 +27,7 @@ function SubLedgerMaster() {
                 activeTab === "Sub Ledger List"
                   ? "bg-blue-500"
                   : "bg-gray-200 text-gray-700"
-              } rounded shadow hover:bg-blue-600`}
+              } rounded shadow`}
             >
               Sub Ledger List
             </button>
