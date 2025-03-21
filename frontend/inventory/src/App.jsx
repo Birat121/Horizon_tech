@@ -1,10 +1,11 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes,useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home";
 import Exit from "./components/Exit/Exit";
 import About from "./components/About Software/About";
 import LoginPage from "./pages/Login";
 import Navbar from "./pages/Navbar";
+
 
 {/* Master Options */}
 import CreateAccountLedger from "./components/Master/CreateAccountLedger";
@@ -124,12 +125,15 @@ import Reports from "./Reports/Reports";
 {/* System Security */}
 
 function App() {
+  const location = useLocation(); // Get the current route
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <div className='min-h-screen'>
-      <Navbar/>
+      {!isLoginPage && <Navbar />}
       <hr/>
       <div className="flex w-full">
-        <Sidebar/>
+      {!isLoginPage && <Sidebar />}
         
         <div className='w-[70%] mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
         <Routes>
