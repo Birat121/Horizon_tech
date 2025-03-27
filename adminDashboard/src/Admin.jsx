@@ -55,7 +55,7 @@ export default function AdminDashboard() {
   return (
     <div className="flex h-screen">
       <div className="w-64 bg-gray-800 text-white p-6">
-        <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
+        <h2 className="text-2xl font-bold mb-6">Horizon Admin</h2>
         <ul>
           <li className={`cursor-pointer p-2 rounded-lg ${activeTab === "list" ? "bg-gray-600" : ""}`} onClick={() => setActiveTab("list")}>
             List Clients
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
         )}
 
         {activeTab === "add" && (
-          <div className="bg-white shadow-md rounded-lg p-6">
+          <div className="bg-white border-2 border-gray-200 shadow-md rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4">Create New Client</h2>
             <div className="flex flex-col gap-4">
               <input type="text" placeholder="Client Name" value={tenantName} onChange={(e) => setTenantName(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full" />
