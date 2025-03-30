@@ -20,7 +20,7 @@ const PointOfSales = () => {
   return (
     <div className="p-6 bg-white border-2 rounded-lg shadow-lg min-h-screen ml-12">
       {/* Header */}
-      <div className="text-center text-lg font-bold bg-blue-800 text-white py-2 rounded mb-4">
+      <div className="text-center text-lg font-bold bg-green-600 text-white py-2 rounded mb-4">
         Point of Sale (Counter - 6) | Cashier: Shiva | {new Date().toLocaleString()}
       </div>
 

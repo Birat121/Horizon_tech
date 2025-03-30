@@ -5,6 +5,7 @@ import Exit from "./components/Exit/Exit";
 import About from "./components/About Software/About";
 import LoginPage from "./pages/Login";
 import Navbar from "./pages/Navbar";
+import ErrorPage from "./pages/Error";
 
 
 {/* Master Options */}
@@ -102,14 +103,7 @@ import TrialBalance from "./components/Account Reports/TrialBalance";
 {/* Account Reports */}
 
 {/* System Security */}
-import ChangePassword from "./components/System Security/ChangePassword";
-import SignUpUser from "./components/System Security/SignUpUser";
-import MenuAccess from "./components/System Security/MenuAccess";
-import InvoiceGreetingNote from "./components/System Security/InvoiceGreetingNote";
-import EndOfDay from "./components/System Security/EndOfDay";
-import BackupData from "./components/System Security/BackupData";
-import PrinterSetup from "./components/System Security/PrinterSetup";
-import RID from "./components/System Security/IRDSetup/RID";
+
 import ElectronicPaymentDetail from "./components/Inventory Reports/CBMS Related Report/ElectronicPaymentDetail";
 import UserLogActivities from "./components/Inventory Reports/CBMS Related Report/UserLogActivities";
 import AuditActivityLogReport from "./components/Inventory Reports/CBMS Related Report/AuditActivityLogReport";
@@ -117,6 +111,7 @@ import PurchaseAndSalesBook from "./components/Inventory Reports/CBMS Related Re
 import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMasterFromExcel";
 import BarcodeLabelPrint from "./components/Transaction/BarcodeLabelPrint";
 import Reports from "./Reports/Reports";
+import SystemSecurity from "./components/System Security/SystemSecurity";
 
 
 
@@ -125,13 +120,14 @@ import Reports from "./Reports/Reports";
 function App() {
   const location = useLocation(); // Get the current route
   const isLoginPage = location.pathname === "/login";
+  const isErrorPage = location.pathname === "*";
 
   return (
     <div className='min-h-screen'>
-      {!isLoginPage && <Navbar />}
+      {!isLoginPage && !isErrorPage && <Navbar />}
       <hr/>
       <div className="flex w-full">
-      {!isLoginPage && <Sidebar />}
+      {!isLoginPage && !isErrorPage && <Sidebar />}
         
         <div className='w-[70%] mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
         <Routes>
@@ -140,6 +136,8 @@ function App() {
         <Route path="/exit" element={<Exit />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reports" element={<Reports/>} />
+        <Route path ='/systemsecurity' element={<SystemSecurity />} />
+        <Route path="*" element={<ErrorPage />} />
 
           {/*Master Options*/}
           <Route path="/master/suboption1" element={<CreateAccountLedger />} />
@@ -250,16 +248,9 @@ function App() {
           <Route path="//accountreports/suboption10" element={<GeneralLedgerProductDetail/>} />
           {/*Account Reports */}
 
-          {/*System Security */}
-          <Route path="/systemsecurity/suboptions1" element={<MenuAccess />} />
-          <Route path="/systemsecurity/suboptions2" element={<BackupData />} />
-          <Route path="/systemsecurity/suboptions3" element={<ChangePassword/>} />
-          <Route path="/systemsecurity/suboptions4" element={<SignUpUser />} />
-          <Route path="/systemsecurity/suboptions5" element={<PrinterSetup />} />
-          <Route path="/systemsecurity/suboptions6" element={<InvoiceGreetingNote />} />
-          <Route path="/systemsecurity/suboptions8" element={<EndOfDay/>} />
-          <Route path="/systemsecurity/suboptions9/suboption1" element={<RID/>} />
-          {/*System Security */}
+          
+
+          
         </Routes>
       </div>
     </div>

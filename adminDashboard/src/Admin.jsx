@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FiUsers, FiUserPlus, FiTrash } from "react-icons/fi";
 
 export default function AdminDashboard() {
   const [clients, setClients] = useState([]);
@@ -53,19 +54,22 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-64 bg-gray-800 text-white p-6">
-        <h2 className="text-2xl font-bold mb-6">Horizon Admin</h2>
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="w-72 bg-gray-900 text-white flex flex-col p-6 shadow-lg">
+        <h2 className="text-3xl font-bold text-center mb-6">Admin Panel</h2>
         <ul>
-          <li className={`cursor-pointer p-2 rounded-lg ${activeTab === "list" ? "bg-gray-600" : ""}`} onClick={() => setActiveTab("list")}>
-            List Clients
+          <li className={`flex items-center p-3 rounded-lg cursor-pointer ${activeTab === "list" ? "bg-gray-700" : "hover:bg-gray-800"}`} onClick={() => setActiveTab("list")}>
+            <FiUsers className="mr-3" /> List Clients
           </li>
-          <li className={`cursor-pointer p-2 rounded-lg mt-2 ${activeTab === "add" ? "bg-gray-600" : ""}`} onClick={() => setActiveTab("add")}>
-            Add Client
+          <li className={`flex items-center p-3 mt-3 rounded-lg cursor-pointer ${activeTab === "add" ? "bg-gray-700" : "hover:bg-gray-800"}`} onClick={() => setActiveTab("add")}>
+            <FiUserPlus className="mr-3" /> Add Client
           </li>
         </ul>
       </div>
-      <div className="flex-1 p-6">
+
+      {/* Content Area */}
+      <div className="flex-1 p-8">
         {message && (
           <div className={`p-4 mb-4 rounded-lg ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
             {message.text}
@@ -73,12 +77,12 @@ export default function AdminDashboard() {
         )}
 
         {activeTab === "add" && (
-          <div className="bg-white border-2 border-gray-200 shadow-md rounded-lg p-6">
+          <div className="bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4">Create New Client</h2>
-            <div className="flex flex-col gap-4">
-              <input type="text" placeholder="Client Name" value={tenantName} onChange={(e) => setTenantName(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full" />
-              <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full" />
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full" />
+            <div className="grid gap-4">
+              <input type="text" placeholder="Client Name" value={tenantName} onChange={(e) => setTenantName(e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="border rounded-lg p-2 w-full" />
               <button onClick={createClient} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Create</button>
             </div>
           </div>
@@ -90,7 +94,7 @@ export default function AdminDashboard() {
             {loading ? (
               <p className="text-center text-gray-500">Loading clients...</p>
             ) : (
-              <table className="w-full border-collapse border border-gray-200">
+              <table className="w-full border-collapse border border-gray-200 text-left">
                 <thead>
                   <tr className="bg-gray-100">
                     <th className="border border-gray-300 px-4 py-2">ID</th>
@@ -109,8 +113,10 @@ export default function AdminDashboard() {
                       <td className="border border-gray-300 px-4 py-2">{client.Username}</td>
                       <td className="border border-gray-300 px-4 py-2">{client.DatabaseName}</td>
                       <td className="border border-gray-300 px-4 py-2">{new Date(client.CreatedDate).toLocaleDateString()}</td>
-                      <td className="border border-gray-300 px-4 py-2">
-                        <button onClick={() => deleteClient(client.TenantId)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">Delete</button>
+                      <td className="border border-gray-300 px-4 py-2 text-center">
+                        <button onClick={() => deleteClient(client.TenantId)} className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 flex items-center">
+                          <FiTrash className="mr-1" /> Delete
+                        </button>
                       </td>
                     </tr>
                   ))}

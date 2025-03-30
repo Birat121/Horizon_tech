@@ -10,8 +10,8 @@ const SalesReturn = () =>{
      const [billType, setBillType] = useState("AVBT");
     const [qty, setQty] = useState({barcode:'', itenDesc:'',qrCode:'',skuCode:''});
     return(
-        <div className=" p-6 bg-gray-100 min-h-screen ">
-            <div className='text-center text-lg font-bold bg-red-500 text-white py-2 rounded mb-4'>
+        <div className=" p-6 bg-gray-100 min-h-screen ml-12 ">
+            <div className='text-center text-lg font-bold bg-green-500 text-white py-2 rounded mb-4'>
                 SalesReturn  (counter-6) | Cashier:shiva | {currentTime.toLocaleString()}
             </div>
             <div className="grid grid-cols-3 gap-4">
