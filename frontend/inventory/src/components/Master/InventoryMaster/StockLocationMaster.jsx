@@ -9,7 +9,7 @@ const StockLocationMaster = () => {
       <div className="w-full max-w-4xl bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Form Section */}
         <div className="mb-6">
-        <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+        <h1 className=" text-white text-center text-lg font-semibold p-2 rounded-md mb-2">
             Stock Location Master
           </h1>
           <div className="flex items-center space-x-4 mb-4">
@@ -41,7 +41,7 @@ const StockLocationMaster = () => {
         <div className="overflow-x-auto">
           <table className="w-full border border-gray-300">
             <thead>
-              <tr className="bg-blue-700 text-white">
+              <tr className="bg-gray-100">
                 <th className="px-4 py-2 border">Sr.</th>
                 <th className="px-4 py-2 border">Location Name</th>
                 <th className="px-4 py-2 border">Entry By</th>

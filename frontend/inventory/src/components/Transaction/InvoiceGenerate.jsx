@@ -60,7 +60,7 @@ const InvoiceGenerate = () => {
         {/* Table Section */}
         <div className="mt-8">
           <table className="w-full border border-gray-300">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-gray-100">
               <tr>
                 <th className="border border-gray-300 px-2 py-1">Sr.</th>
                 <th className="border border-gray-300 px-2 py-1">Account Name</th>

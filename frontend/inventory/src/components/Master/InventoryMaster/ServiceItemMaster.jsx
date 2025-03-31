@@ -10,7 +10,7 @@ const ServiceItemMaster = () => {
       <div className="w-3/4 max-w-4xl bg-white border-2 rounded-lg shadow-lg overflow-hidden">
         <div className="flex">
           {/* Sidebar */}
-          <div className="bg-red-600 text-white w-1/4 p-4">
+          <div className="bg-gray-300 text-white w-1/4 p-4">
             <div className="space-y-4">
               <button className="w-full bg-save hover:bg-save-hover p-2 rounded flex items-center justify-center space-x-2">
                 <i className="fa fa-save"></i>
@@ -30,7 +30,7 @@ const ServiceItemMaster = () => {
 
           {/* Main Content */}
           <div className="w-3/4 p-8">
-          <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+          <h1 className=" text-white text-lg text-center font-semibold p-2 rounded-md mb-2">
             Service Item Master
           </h1>
             <p className="text-blue-600 font-semibold text-lg mb-8">

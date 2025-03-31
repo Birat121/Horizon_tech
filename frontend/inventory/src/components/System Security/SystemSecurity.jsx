@@ -39,7 +39,7 @@ function SystemSecurity() {
   };
 
   return (
-    <div className="ml-12 flex h-[90vh] w-full bg-gray-100 rounded-lg">
+    <div className="ml-12 flex h-[90vh] w-full bg-gray-100 border-gray-400 rounded-lg">
       {/* Sidebar */}
       <div className="w-1/4 bg-white border-2 p-6 shadow-md rounded-lg">
         <h2 className="text-lg font-semibold mb-4">System Security</h2>

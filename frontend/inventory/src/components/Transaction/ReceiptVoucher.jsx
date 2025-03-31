@@ -56,7 +56,7 @@ function ReceiptVoucher() {
         {/* Table Section */}
         <div className="mt-8 overflow-x-auto">
           <table className="w-full border border-gray-300 rounded-lg shadow">
-            <thead className="bg-blue-600 text-white text-lg">
+            <thead className="bg-gray-100 text-lg">
               <tr>
                 <th className="border border-gray-300 px-4 py-3 text-left">Sr.</th>
                 <th className="border border-gray-300 px-4 py-3 text-left">Account Name</th>

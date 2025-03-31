@@ -34,7 +34,7 @@ const InvoiceGreetingNote = () => {
           <form className="w-full">
             <label
               htmlFor="greetingNote"
-              className="block text-lg font-semibold text-white text-center bg-red-600 py-2 px-4 rounded-md mb-4"
+              className="block text-lg font-semibold text-white text-center bg-green-600 py-2 px-4 rounded-md mb-4"
             >
               Enter Greeting Note
             </label>

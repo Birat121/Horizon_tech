@@ -51,7 +51,7 @@ const PurchaseAdditionalCostEntry = () => {
         {/* Table Section */}
         <div className="mt-8 overflow-x-auto">
           <table className="w-full border border-gray-300 min-w-[1200px]">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-gray-300">
               <tr>
                 <th className="border border-gray-300 px-2 py-1">Sr.</th>
                 <th className="border border-gray-300 px-2 py-1">Debit Ledger Name</th>

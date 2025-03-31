@@ -17,11 +17,11 @@ function VendorMaster() {
   const cityOptions = ["City 1", "City 2", "City 3"];
 
   return (
-    <div className="flex flex-col h-full w-full bg-white border rounded-lg shadow-md p-6 overflow-hidden">
+    <div className="flex flex-col h-full w-full bg-white border rounded-lg shadow-md p-6 overflow-hidden ml-12">
       <div className="flex-1 flex gap-6 overflow-hidden">
         {/* Left Section: Form */}
         <div className="w-1/3 bg-gray-100 p-6 border-r border-gray-300 rounded-lg h-full overflow-auto">
-          <h1 className="text-gray-900 text-lg font-semibold p-3 mb-4 shadow-sm bg-gray-200 rounded-md">
+          <h1 className="text-white text-lg font-semibold p-3 mb-4 shadow-sm  rounded-md">
             Create / Modify Vendor Information
           </h1>
           <div className="bg-white shadow-md rounded-lg p-6 space-y-6">
