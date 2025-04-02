@@ -9,6 +9,10 @@ const ReturnMaterialIssue = () => {
     <div className="flex items-center justify-center h-[90vh]">
       <div className="bg-white border-2 shadow-lg rounded-lg p-8 w-full max-w-4xl">
         {/* Header */}
+        <div className="text-center mb-6">
+          <h2 className='text-xl font-bold p-2 rounded mb-4 '>Issue Return</h2>
+        </div>
+
         <div className="grid grid-cols-3 gap-6">
           <div>
             <label className="block text-sm font-semibold">Return Date:</label>
@@ -51,7 +55,7 @@ const ReturnMaterialIssue = () => {
         {/* Table */}
         <div className="mt-6 overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300 text-lg">
-            <thead className="bg-blue-900 text-white">
+            <thead className="bg-gray-100">
               <tr>
                 <th className="p-3 border">Sr.</th>
                 <th className="p-3 border">Product ID</th>

@@ -6,7 +6,7 @@ const InvoiceGenerate = () => {
       <div className="max-w-5xl w-full mx-auto bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h1 className='text-lg font-bold p-2 rounded mb-4 text-white'>Invoice Generate</h1>
+          <h2 className='text-xl font-bold p-2 rounded mb-4 '>Invoice Generate</h2>
         </div>
 
         {/* Form Header */}

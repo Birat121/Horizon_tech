@@ -2,16 +2,16 @@ import React from "react";
 
 const PDCEntry = () => {
   return (
-    <div className="p-4  h-[85vh] overflow-y-auto">
-      <div className="bg-white border-2 rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
-      <h1 className=" text-white text-lg font-semibold p-2 text-center rounded-md mb-2">
-            PDC Entry
-          </h1>
+    <div className="p-6 h-[90vh] overflow-y-auto">
+      <div className="bg-white border-2 rounded-lg shadow-lg p-2 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-semibold p-4 text-center rounded-md mb-4">
+          PDC Entry
+        </h2>
         
         {/* Party Info Section */}
-        <div className="border p-4 rounded-lg mb-4">
-          <h3 className="font-semibold mb-2">Party Info...</h3>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="border p-6 rounded-lg mb-6">
+          <h3 className="font-semibold mb-3 text-lg">Party Info</h3>
+          <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="block text-sm">Transaction No.</label>
               <input type="text" className="w-full border p-2 rounded" value="PDC10081-82000001" readOnly />
@@ -42,9 +42,9 @@ const PDCEntry = () => {
         </div>
         
         {/* Advance Cheque Section */}
-        <div className="border p-4 rounded-lg mb-4">
-          <h3 className="font-semibold mb-2">Advance Cheque</h3>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="border p-6 rounded-lg mb-6">
+          <h3 className="font-semibold mb-3 text-lg">Advance Cheque</h3>
+          <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="block text-sm">Cheque No.</label>
               <input type="text" className="w-full border p-2 rounded" />
@@ -75,16 +75,16 @@ const PDCEntry = () => {
             </div>
             <div>
               <label className="block text-sm">Cheque Type</label>
-              <input type="text" className="w-full border p-2 rounded"  />
+              <input type="text" className="w-full border p-2 rounded" />
             </div>
           </div>
         </div>
         
         {/* Action Buttons */}
-        <div className="flex justify-end gap-2">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
-          <button className="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
-          <button className="bg-red-500 text-white px-4 py-2 rounded">Close</button>
+        <div className="flex justify-end gap-3">
+          <button className="bg-blue-500 text-white px-6 py-2 rounded">Save</button>
+          <button className="bg-gray-500 text-white px-6 py-2 rounded">Cancel</button>
+          <button className="bg-red-500 text-white px-6 py-2 rounded">Close</button>
         </div>
       </div>
     </div>

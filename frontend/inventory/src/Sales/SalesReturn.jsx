@@ -161,7 +161,7 @@ const SalesReturn = () =>{
     <div className=" mt-6 bg-white p-6 border rounded">
         <h2 className="text-lg font-semibold mb-3">Item Details</h2>
         <table className="w-full border">
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-gray-100">
             <tr>
               {['Sr.', 'Product ID', 'Product Name', 'Sale Qty', 'UOM', 'Rate', 'Total Amt', 'MRP'].map((header, index) => (
                 <th key={index} className="border px-2 py-1">{header}</th>
@@ -189,7 +189,7 @@ const SalesReturn = () =>{
 
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-blue-500 text-white">
+              <tr className="bg-gray-100">
                 <th className="p-2 text-left">Sr.</th>
                 <th className="p-2 text-left">Mem #</th>
                 <th className="p-2 text-left">Members Name</th>

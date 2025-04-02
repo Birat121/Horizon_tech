@@ -6,7 +6,7 @@ function ReceiptVoucher() {
       <div className="max-w-5xl w-full mx-auto bg-white border border-gray-300 rounded-2xl shadow-xl p-8">
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h1 className="text-white text-lg font-semibold p-2 rounded-md mb-2">Receipt Voucher</h1>
+          <h2 className=" text-xl font-semibold p-2 rounded-md mb-2">Receipt Voucher</h2>
         </div>
 
         {/* Form Header */}

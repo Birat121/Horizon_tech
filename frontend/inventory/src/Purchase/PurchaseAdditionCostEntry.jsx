@@ -7,7 +7,7 @@ const PurchaseAdditionalCostEntry = () => {
         
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h1 className='text-lg font-bold p-2 rounded mb-4 text-white'>Purchase Additional Cost Entry</h1>
+          <h2 className='text-xl font-bold p-2 rounded mb-4'>Purchase Additional Cost Entry</h2>
         </div>
 
         {/* Invoice Info */}
@@ -51,7 +51,7 @@ const PurchaseAdditionalCostEntry = () => {
         {/* Table Section */}
         <div className="mt-8 overflow-x-auto">
           <table className="w-full border border-gray-300 min-w-[1200px]">
-            <thead className="bg-gray-300">
+            <thead className="bg-gray-100">
               <tr>
                 <th className="border border-gray-300 px-2 py-1">Sr.</th>
                 <th className="border border-gray-300 px-2 py-1">Debit Ledger Name</th>
