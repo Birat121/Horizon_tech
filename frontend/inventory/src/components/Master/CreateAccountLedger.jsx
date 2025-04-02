@@ -5,19 +5,18 @@ function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
 
   return (
-    <div className="flex items-center justify-center h-[85vh] overflow-y-hidden">
-
-      <div className="p-8 bg-white border-2 rounded-lg shadow-lg w-[600px]">
-        <h2 className=" text-center text-xl font-semibold p-2 rounded-md mb-2">
+    <div className="flex items-center justify-center h-[90vh] overflow-y-hidden">
+      <div className="p-10 bg-white border-2 rounded-lg shadow-lg w-[750px]">
+        <h2 className="text-center text-2xl font-semibold p-3 rounded-md mb-4">
           Create New Account Ledger
         </h2>
 
         {/* Account Type Selector */}
-        <div className="bg-white shadow-md rounded-md p-4 mb-4">
-          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+        <div className="bg-white  shadow-md rounded-md p-5 mb-6">
+          <h2 className="text-xl font-semibold text-gray-700 mb-3">
             Select Group / Child Account
           </h2>
-          <div className="flex space-x-6">
+          <div className="flex space-x-8">
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
@@ -43,26 +42,26 @@ function CreateAccountLedger() {
 
         {/* Conditionally Render Sections */}
         {accountType === "Group Account" && (
-          <div className="bg-white shadow-md rounded-md p-4 mb-4">
-            <h2 className="text-lg font-semibold text-black">Group Account</h2>
-            <div className="grid grid-cols-3 gap-4 items-center">
+          <div className="bg-white shadow-md rounded-md p-5 mb-6">
+            <h2 className="text-xl font-semibold text-black">Group Account</h2>
+            <div className="grid grid-cols-3 gap-6 items-center">
               <label className="text-gray-600 font-medium">Group Code:</label>
               <input
                 type="text"
                 value="HX41"
                 readOnly
-                className="col-span-2 p-2 bg-gray-200 border border-gray-300 rounded-lg"
+                className="col-span-2 p-3 bg-gray-200 border border-gray-300 rounded-lg"
               />
 
               <label className="text-gray-600 font-medium">Group Name:</label>
               <input
                 type="text"
                 placeholder="Enter Group Name"
-                className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
               <label className="text-gray-600 font-medium">Account Type:</label>
-              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
                 <option value="">Select Account Type</option>
                 <option value="Type1">Assets</option>
                 <option value="Type2">Liabilities</option>
@@ -74,11 +73,11 @@ function CreateAccountLedger() {
         )}
 
         {accountType === "Sub Group / Ledger" && (
-          <div className="bg-white shadow-md rounded-md p-4 mb-4">
-            <h2 className="text-lg font-semibold text-black">Child Account</h2>
-            <div className="grid grid-cols-3 gap-4 items-center">
+          <div className="bg-white shadow-md rounded-md p-5 mb-6">
+            <h2 className="text-xl font-semibold text-black">Child Account</h2>
+            <div className="grid grid-cols-3 gap-6 items-center">
               <label className="text-gray-600 font-medium">Select GroupAc:</label>
-              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
                 <option value="">Select Group</option>
                 <option value="Group1">Group 1</option>
                 <option value="Group2">Group 2</option>
@@ -88,11 +87,11 @@ function CreateAccountLedger() {
               <input
                 type="text"
                 placeholder="Enter Child Name"
-                className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
               <label className="text-gray-600 font-medium">Account Type:</label>
-              <select className="col-span-2 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
                 <option value="">Select Account Type</option>
                 <option value="Assets">Assets</option>
                 <option value="Liabilities">Liabilities</option>
@@ -101,7 +100,7 @@ function CreateAccountLedger() {
               </select>
 
               <label className="col-span-1"></label>
-              <div className="col-span-2 flex space-x-4">
+              <div className="col-span-2 flex space-x-5">
                 <label className="flex items-center space-x-2">
                   <input type="checkbox" className="form-checkbox text-purple-600" />
                   <span className="text-gray-700">Sub Ledger Enable</span>
@@ -116,12 +115,12 @@ function CreateAccountLedger() {
         )}
 
         {/* Buttons */}
-        <div className="flex justify-center space-x-3 mt-8">
-          <button className="px-4 py-2 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
+        <div className="flex justify-center space-x-4 mt-10">
+          <button className="px-5 py-3 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
             Add New
           </button>
           <Button type="modify">Modify</Button>
-          <Button type="save" >Save</Button>
+          <Button type="save">Save</Button>
           <Button type="cancel">Cancel</Button>
         </div>
       </div>

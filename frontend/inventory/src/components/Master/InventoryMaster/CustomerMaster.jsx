@@ -122,7 +122,7 @@ const CustomerMaster = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[90vh] p-4">
+    <div className="flex items-center justify-center h-full p-4">
       {/* Main Container */}
       <div className="bg-white border-2 rounded-lg shadow-lg p-6 w-full max-w-6xl">
       <h2 className="  text-2xl text-center font-semibold p-2 rounded-md mb-2">

@@ -39,9 +39,9 @@ const SignupPage = () => {
   return (
     <div className="flex items-center justify-center h-[90vh]">
       <div className="w-[600px] bg-white border rounded-lg shadow-xl p-8">
-      <h1 className=" text-white text-center text-lg font-semibold p-2 rounded-md mb-2">
+      <h2 className=" text-center text-2xl font-semibold p-2 rounded-md mb-2">
             Sign Up
-          </h1>
+          </h2>
         <div className="space-y-6">
           <div className="flex items-center">
             <label htmlFor="username" className="w-40 text-gray-700 text-lg">

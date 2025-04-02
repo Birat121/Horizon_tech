@@ -16,9 +16,9 @@ function MenuAccess() {
     <div className="flex justify-center items-center h-[85vh]  ">
       <div className="w-[500px] bg-white border-2 rounded-lg shadow-lg">
         {/* Header */}
-        <h1 className="p-6 text-center text-2xl font-bold text-white  rounded-t-xl">
+        <h2 className="p-6 text-center text-2xl font-bold rounded-t-xl">
           Set Access to Users
-        </h1>
+        </h2>
 
         {/* Body */}
         <div className="p-8 space-y-6">

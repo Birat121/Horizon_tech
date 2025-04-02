@@ -26,9 +26,9 @@ const BackupRestore = () => {
   return (
     <div className="flex items-center justify-center h-[80vh]">
       <div className="w-2/3 bg-white border-2 rounded-lg shadow-lg p-8"> {/* Increased width and padding */}
-        <h1 className="text-2xl text-white font-semibold p-3 rounded-md mb-4 text-center"> {/* Increased font size */}
+        <h2 className="text-2xl font-semibold p-3 rounded-md mb-4 text-center"> {/* Increased font size */}
           Backup and Restore
-        </h1>
+        </h2>
         <div className="border border-gray-300 rounded-lg p-6 mb-6"> {/* Increased padding */}
           <div className="text-gray-600 font-medium text-center mb-5 text-xl"> {/* Increased font size */}
             SQL Server Information

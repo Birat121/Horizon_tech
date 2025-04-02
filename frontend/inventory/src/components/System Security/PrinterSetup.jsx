@@ -29,9 +29,9 @@ const PrinterSetup = () => {
   return (
     <div className="flex items-center justify-center h-[85vh]">
       <div className="w-[50rem] bg-white border-2 rounded-lg shadow-xl p-10">
-        <h1 className="text-white text-2xl font-semibold p-2 rounded-md mb-6 text-center">
+        <h2 className=" text-2xl font-semibold p-2 rounded-md mb-6 text-center">
           Billing Printer Setup
-        </h1>
+        </h2>
         <div className="border border-gray-300 rounded-lg p-6 mb-6">
           <div className="text-black-700 font-medium text-center mb-4">
             Select Printer
