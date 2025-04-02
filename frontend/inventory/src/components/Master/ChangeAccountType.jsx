@@ -5,9 +5,9 @@ const ChangeAccountType = () => {
   return (
     <div className='h-[85vh] flex items-center justify-center'>
       <div className='p-6 bg-white border-2 rounded-lg shadow-lg w-full max-w-md' >
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
+      <h2 className=" text-center text-xl font-semibold p-2 rounded-md mb-2">
             Change Account Type
-        </h1>
+        </h2>
         <div className="bg-white shadow-md rounded-md p-4 mb-4">
         <label className="block font-semibold mb-2">Select Account </label>
         <form className='space-y-4'>

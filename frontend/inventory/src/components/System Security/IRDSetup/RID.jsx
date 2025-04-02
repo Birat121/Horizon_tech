@@ -22,7 +22,7 @@ const RID = () => {
         {/* Main Content */}
         <div className="w-full p-6 space-y-4">
           {/* Header */}
-          <h2 className="text-lg font-bold text-red-500 text-center">
+          <h2 className="text-lg font-bold  text-center">
             CBMS Real Time Data
           </h2>
 

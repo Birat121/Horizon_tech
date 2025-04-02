@@ -55,7 +55,7 @@ const Sidebar = () => {
           <Link to="/">
             <h2 className="text-white text-lg font-semibold p-2 rounded-md mb-2 text-center">
               <i className="fa fa-rocket text-yellow-500"></i>
-              <span className="ml-2"> HORIZON TECH</span>
+              <span className="ml-2"> INVENTORY</span>
             </h2>
           </Link>
         </div>

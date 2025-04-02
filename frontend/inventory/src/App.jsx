@@ -129,7 +129,7 @@ function App() {
       <div className="flex w-full">
       {!isLoginPage && !isErrorPage && <Sidebar />}
         
-        <div className='w-[70%] mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
+        <div className='w-8/12 mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

@@ -9,9 +9,9 @@ const StockLocationMaster = () => {
       <div className="w-full max-w-4xl bg-white border-2 rounded-lg shadow-lg p-6">
         {/* Form Section */}
         <div className="mb-6">
-        <h1 className=" text-white text-center text-lg font-semibold p-2 rounded-md mb-2">
+        <h2 className="  text-center text-2xl font-semibold p-2 rounded-md mb-2">
             Stock Location Master
-          </h1>
+          </h2>
           <div className="flex items-center space-x-4 mb-4">
             <label className="w-32 text-gray-600 font-medium">
               Location Name:

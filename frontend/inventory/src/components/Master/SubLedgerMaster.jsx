@@ -8,14 +8,14 @@ function SubLedgerMaster() {
     <div className="flex items-center justify-center h-[85vh] ">
       <div className="p-6 bg-white border shadow-xl rounded-lg w-[900px]">
         {/* Header Section */}
-        <div className="flex justify-between items-center bg-green-600 text-white p-2 rounded-t-lg">
-          <h1 className="text-lg font-semibold">Sub Ledger Master</h1>
+        <div className="flex justify-between items-center p-2 rounded-t-lg">
+          <h2 className="text-xl font-semibold">Sub Ledger Master</h2>
           <div className="space-x-2">
             <button
               onClick={() => setActiveTab("Enter/Edit")}
               className={`px-3 py-1 ${
                 activeTab === "Enter/Edit"
-                  ? "bg-blue-500"
+                  ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-700"
               } rounded shadow `}
             >
@@ -25,7 +25,7 @@ function SubLedgerMaster() {
               onClick={() => setActiveTab("Sub Ledger List")}
               className={`px-3 py-1 ${
                 activeTab === "Sub Ledger List"
-                  ? "bg-blue-500"
+                  ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-700"
               } rounded shadow`}
             >
