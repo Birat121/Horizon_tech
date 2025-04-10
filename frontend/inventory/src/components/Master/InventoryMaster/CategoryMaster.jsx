@@ -11,25 +11,21 @@ const CategoryMaster = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[85vh]">
-      
-      <div className="bg-white border-2 p-6 rounded-md shadow-lg w-full max-w-lg">
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-2">
-            Category Master
-          </h1>
-        <h2 className="text-lg font-bold mb-4 text-center text-blue-700">
+    <div className="flex items-center justify-center h-[90vh]">
+      <div className="bg-white border-2 p-10 rounded-lg shadow-xl w-full max-w-2xl">
+        <h1 className="text-white text-xl text-center font-semibold p-3 rounded-md mb-4">
+          Category Master
+        </h1>
+        <h2 className="text-xl font-bold mb-6 text-center">
           Create / Modify Category
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* Category Name */}
           <div>
-            <label className="block text-gray-700 font-medium">
+            <label className="block text-gray-700 font-medium text-lg">
               Category Name:
             </label>
-            <select
-              className="w-full p-2 border rounded-md"
-              defaultValue=""
-            >
+            <select className="w-full p-3 border rounded-lg text-lg">
               <option value="" disabled>
                 Select Category
               </option>
@@ -40,27 +36,27 @@ const CategoryMaster = () => {
           </div>
 
           {/* Vatable and Non-Vatable Options */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-lg">
             <div className="flex items-center">
               <input
                 type="checkbox"
                 id="vatable"
                 checked={isVatable}
                 onChange={handleVatableChange}
-                className="mr-2"
+                className="mr-3 w-5 h-5"
               />
               <label htmlFor="vatable" className="text-gray-700 font-medium">
                 Vatable Item
               </label>
             </div>
-            <p className="text-red-500 font-medium">{vatRate.toFixed(2)} %</p>
+            <p className="text-red-500 font-bold">{vatRate.toFixed(2)} %</p>
             <div className="flex items-center">
               <input
                 type="checkbox"
                 id="non-vatable"
                 checked={!isVatable}
                 onChange={handleVatableChange}
-                className="mr-2"
+                className="mr-3 w-5 h-5"
               />
               <label htmlFor="non-vatable" className="text-gray-700 font-medium">
                 Non Vatable Item
@@ -70,11 +66,10 @@ const CategoryMaster = () => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-6 flex justify-between">
-        <Button type="save" >Save</Button>
-        <Button type="modify">Modify</Button>
-        <Button type="cancel">Cancel</Button>
-          
+        <div className="mt-8 flex justify-between">
+          <Button type="save" className="px-6 py-3 text-lg">Save</Button>
+          <Button type="modify" className="px-6 py-3 text-lg">Modify</Button>
+          <Button type="cancel" className="px-6 py-3 text-lg">Cancel</Button>
         </div>
       </div>
     </div>

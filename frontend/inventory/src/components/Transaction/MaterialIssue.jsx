@@ -24,9 +24,9 @@ const MaterialIssue = () => {
     <div className="h-[85vh] flex items-center justify-center  p-6">
       <div className="w-full max-w-4xl p-8 bg-white border border-gray-300 rounded-2xl shadow-lg">
         {/* Title Section */}
-        <h1 className="text-white text-lg font-semibold p-2 rounded-md mb-2">
+        <h2 className=" text-center text-xl font-semibold p-2 rounded-md mb-2">
           Material Issue
-        </h1>
+        </h2>
 
         {/* Form Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -49,7 +49,7 @@ const MaterialIssue = () => {
         {/* Table Section */}
         <div className="overflow-x-auto">
           <table className="w-full border border-gray-300 rounded-lg shadow">
-            <thead className="bg-blue-600 text-white text-lg">
+            <thead className="bg-gray-100 text-lg">
               <tr>
                 <th className="border border-gray-300 px-4 py-3 text-left">Sr.</th>
                 <th className="border border-gray-300 px-4 py-3 text-left">Product ID</th>

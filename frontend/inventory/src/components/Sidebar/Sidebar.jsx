@@ -55,7 +55,7 @@ const Sidebar = () => {
           <Link to="/">
             <h2 className="text-white text-lg font-semibold p-2 rounded-md mb-2 text-center">
               <i className="fa fa-rocket text-yellow-500"></i>
-              <span className="ml-2"> HORIZON TECH</span>
+              <span className="ml-2"> INVENTORY</span>
             </h2>
           </Link>
         </div>
@@ -135,6 +135,20 @@ const Sidebar = () => {
               )}
             </li>
           ))}
+
+
+<li>
+  <Link
+    to="/systemsecurity"
+    className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
+      location.pathname === "/systemsecurity"
+        ? "bg-yellow-500 text-white"
+        : "hover:bg-gray-200 hover:text-black"
+    }`}
+  >
+    <FileText className="text-white mr-2" size={20} /> System Security
+  </Link>
+</li>
 
 
 

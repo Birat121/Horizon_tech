@@ -51,7 +51,7 @@ const GoodsReceiptByProduct = () => {
     <div className="flex items-center justify-center h-[85vh] p-4">
       <div className="w-full max-w-5xl  bg-white border-2 rounded-lg shadow-lg  p-6">
         {/* Header */}
-        <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-4">
+        <div className="  text-center text-xl font-semibold p-2 rounded-md mb-4">
           Material Receipt
         </div>
 
@@ -109,7 +109,7 @@ const GoodsReceiptByProduct = () => {
         {/* Table Section */}
         <div className="overflow-x-auto">
           <table className="w-full border border-gray-300">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-gray-100">
               <tr>
                 <th className="border p-2">Sr.</th>
                 <th className="border p-2">Product ID</th>

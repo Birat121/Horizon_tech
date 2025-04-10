@@ -7,7 +7,7 @@ const MaterialReceiptNote = () => {
         
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h1 className='text-lg font-bold p-2 rounded mb-4 text-white'>Material Receipt Note</h1>
+          <h2 className='text-xl font-bold p-2 rounded mb-4 '>Material Receipt Note</h2>
         </div>
 
         {/* Form Header */}
@@ -31,7 +31,7 @@ const MaterialReceiptNote = () => {
         {/* Table Section */}
         <div className="mt-8 overflow-x-auto">
           <table className="w-full border border-gray-300 min-w-[1200px]">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-gray-100">
               <tr>
                 <th className="border border-gray-300 px-2 py-1">Sr.</th>
                 <th className="border border-gray-300 px-2 py-1">ProductID</th>

@@ -40,7 +40,7 @@ const DepartmentMaster = () => {
   return (
     <div className="flex items-center justify-center h-[85vh] rounded-lg ">
       <div className="w-[600px] bg-white border rounded shadow-md p-8">
-        <h1 className=" text-white text-xl font-semibold p-3 rounded-md mb-4 text-center">
+        <h1 className=" text-white text-xl font-semibold p-3 rounded-md mb-2 text-center">
           Department Master
         </h1>
 

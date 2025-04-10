@@ -7,7 +7,7 @@ const RID = () => {
     <div className="h-[85vh]  flex justify-center items-center p-4">
       <div className="flex bg-white border-2 rounded-lg shadow-lg">
         {/* Sidebar */}
-        <div className="w-28 bg-red-500 flex flex-col items-center py-10 space-y-4">
+        <div className="w-28 bg-gray-400 flex flex-col items-center py-10 space-y-4">
           <button className="flex items-center justify-center bg-white rounded-md p-2 shadow-md hover:scale-105 transition">
             Update
           </button>
@@ -22,7 +22,7 @@ const RID = () => {
         {/* Main Content */}
         <div className="w-full p-6 space-y-4">
           {/* Header */}
-          <h2 className="text-lg font-bold text-red-500 text-center">
+          <h2 className="text-lg font-bold  text-center">
             CBMS Real Time Data
           </h2>
 

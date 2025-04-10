@@ -20,7 +20,7 @@ const PointOfSales = () => {
   return (
     <div className="p-6 bg-white border-2 rounded-lg shadow-lg min-h-screen ml-12">
       {/* Header */}
-      <div className="text-center text-lg font-bold bg-blue-800 text-white py-2 rounded mb-4">
+      <div className="text-center text-lg font-bold bg-green-600 text-white py-2 rounded mb-4">
         Point of Sale (Counter - 6) | Cashier: Shiva | {new Date().toLocaleString()}
       </div>
 
@@ -88,7 +88,7 @@ const PointOfSales = () => {
 
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-blue-500 text-white">
+              <tr className="bg-gray-100">
                 <th className="p-2 text-left">Sr.</th>
                 <th className="p-2 text-left">Mem #</th>
                 <th className="p-2 text-left">Members Name</th>
@@ -170,7 +170,7 @@ const PointOfSales = () => {
       <div className="mt-6 bg-white p-4 border rounded">
         <h2 className="text-lg font-semibold mb-3">Item Details</h2>
         <table className="w-full border">
-          <thead className="bg-blue-600 text-white">
+          <thead className="bg-gray-100">
             <tr>
               {['Sr.', 'Product ID', 'Product Name', 'Sale Qty', 'UOM', 'Rate', 'Total Amt', 'MRP'].map((header, index) => (
                 <th key={index} className="border px-2 py-1">{header}</th>

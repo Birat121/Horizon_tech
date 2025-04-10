@@ -86,29 +86,5 @@ export const menus = [
   },
   
   
-  {
-    name: "System Security",
-    items: [
-      { path: "/systemsecurity/suboptions1", label: "Menu Access" },
-      { path: "/systemsecurity/suboptions2", label: "Backup Data" },
-      { path: "/systemsecurity/suboptions3", label: "Change Password" },
-      { path: "/systemsecurity/suboptions4", label: "Sign Up User" },
-      { path: "/systemsecurity/suboptions5", label: "Printer Setup" },
-      { path: "/systemsecurity/suboptions6", label: "Invoice Greeting Note" },
-      { path: "/systemsecurity/suboptions7", label: "Current Users",
-        disabled: true
-      },
-      { path: "/systemsecurity/suboptions8", label: "End Of Day" },
-      {
-        
-        label: "IRD Setup",
-        subOptions: [
-          {
-            path: "/systemsecurity/suboptions9/suboption1",
-            label: "Activate / Deactivate Real Time Data",
-          },
-        ],
-      },
-    ],
-  },
+  
 ];

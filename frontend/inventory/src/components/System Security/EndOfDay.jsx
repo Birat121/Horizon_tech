@@ -5,9 +5,9 @@ const EndOfDay = () => {
     <div className="flex flex-col items-center justify-center h-[85vh] p-6 ">
       <div className="w-full max-w-3xl bg-white border-2 rounded-lg shadow-lg p-8">
         {/* Header */}
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-          End Of Day
-        </h2>
+        <h2 className="  text-xl text-center font-semibold p-2 rounded-md mb-4 -mt-4">
+            End Of Day
+          </h2>
 
         {/* Day Going to Ending */}
         <div className="flex flex-wrap items-center mb-6">

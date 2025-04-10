@@ -39,9 +39,9 @@ const CounterSetting = () => {
   return (
     <div className="flex items-center justify-center h-[85vh]">
       <div className="w-[500px] bg-white border rounded shadow-md p-6">
-      <h1 className=" text-white text-lg font-semibold p-2 rounded-md mb-10">
+      <h2 className="  text-xl text-center font-semibold p-2 rounded-md mb-10">
             Counter Setting
-      </h1>
+      </h2>
         <div className="text-xl font-semibold text-black mb-4">
           Counter Details
         </div>
