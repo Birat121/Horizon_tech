@@ -84,6 +84,8 @@ import PurchaseSalesIssueBook from "./components/Inventory Reports/PurchaseSales
 import MateralizedViewsReport from "./components/Inventory Reports/CBMS Related Report/MateralizedViewsReport";
 import InventoryItemStockPast from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockPast";
 import PurchaseSalesBookAnnex from "./components/Inventory Reports/PurchaseSalesBook";
+import ItemSearch from "./components/Inventory Reports/ItemSearch";
+import InventoryItemStockNew from "./components/Inventory Reports/InventoryItemStockReport/InventoryItemStockNew";
 {/* Inventory Reports */}
 
 {/* Account Reports */}
@@ -239,6 +241,8 @@ function App() {
           <Route path="/inventoryreports/suboptions12/suboption4" element={<AuditActivityLogReport/>} />
           <Route path="/inventoryreports/suboptions12/suboption5" element={<PurchaseAndSalesBook/>} />
           <Route path ='inventoryreports/suboption5' element={<PurchaseSalesBookAnnex/>} />
+          <Route path="/inventoryreports/suboption1" element={<ItemSearch/>}/>
+          <Route path="/inventoryreports/suboptions18/suboption1" element={<InventoryItemStockNew/>}/>
           {/*Inventory Reports */}
 
           {/*Account Reports */}
