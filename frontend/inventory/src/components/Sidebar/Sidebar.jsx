@@ -136,35 +136,31 @@ const Sidebar = () => {
             </li>
           ))}
 
+          <li>
+            <Link
+              to="/systemsecurity"
+              className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
+                location.pathname === "/systemsecurity"
+                  ? "bg-yellow-500 text-white"
+                  : "hover:bg-gray-200 hover:text-black"
+              }`}
+            >
+              <FileText className="text-white mr-2" size={20} /> System Security
+            </Link>
+          </li>
 
-<li>
-  <Link
-    to="/systemsecurity"
-    className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
-      location.pathname === "/systemsecurity"
-        ? "bg-yellow-500 text-white"
-        : "hover:bg-gray-200 hover:text-black"
-    }`}
-  >
-    <FileText className="text-white mr-2" size={20} /> System Security
-  </Link>
-</li>
-
-
-
-<li>
-  <Link
-    to="/reports"
-    className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
-      location.pathname === "/reports"
-        ? "bg-yellow-500 text-white"
-        : "hover:bg-gray-200 hover:text-black"
-    }`}
-  >
-    <FileText className="text-white mr-2" size={20} /> Reports
-  </Link>
-</li>
-
+          <li>
+            <Link
+              to="/reports"
+              className={`px-4 py-3 text-white rounded-lg transition-all duration-300 flex items-center ${
+                location.pathname === "/reports"
+                  ? "bg-yellow-500 text-white"
+                  : "hover:bg-gray-200 hover:text-black"
+              }`}
+            >
+              <FileText className="text-white mr-2" size={20} /> Reports
+            </Link>
+          </li>
 
           {/* About Software */}
           <li>
