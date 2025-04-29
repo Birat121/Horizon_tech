@@ -7,11 +7,13 @@ import LoginPage from "./pages/Login";
 import Navbar from "./pages/Navbar";
 import ErrorPage from "./pages/Error";
 
+import "react-toastify/dist/ReactToastify.css";
+
 
 {/* Master Options */}
 import CreateAccountLedger from "./components/Master/CreateAccountLedger";
 import SubLedgerMaster from "./components/Master/SubLedgerMaster";
-import AdditionalExpensesLedger from "./components/Master/AdditionalExpensesLedger";
+
 import AccountReGrouping from "./components/Master/AccountReGrouping";
 import DepartmentMaster from "./components/Master/DepartmentMaster";
 import CounterSetting from "./components/Master/CounterSetting";
@@ -114,6 +116,7 @@ import ImportExcel from "./components/Master/InventoryMaster/InventoryItemMaster
 import BarcodeLabelPrint from "./components/Transaction/BarcodeLabelPrint";
 import Reports from "./Reports/Reports";
 import SystemSecurity from "./components/System Security/SystemSecurity";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -126,6 +129,7 @@ function App() {
 
   return (
     <div className='min-h-screen'>
+      <ToastContainer />
       {!isLoginPage && !isErrorPage && <Navbar />}
       <hr/>
       <div className="flex w-full">
@@ -144,7 +148,7 @@ function App() {
           {/*Master Options*/}
           <Route path="/master/suboption1" element={<CreateAccountLedger />} />
           <Route path="/master/suboption2" element={<SubLedgerMaster />} />
-          <Route path="/master/suboption3" element={<AdditionalExpensesLedger />} />
+          
           <Route path="/master/suboption4" element={<ChangeAccountType />} />
           <Route path="/master/suboption5" element={<AccountReGrouping/>} />
           <Route path="/master/suboption7" element={<DepartmentMaster />} />

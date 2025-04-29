@@ -12,8 +12,9 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@headlessui/react": "^2.2.2",
     "@shadcn/ui": "^0.0.4",
-    "axios": "^1.7.9",
+    "axios": "^1.9.0",
     "font-awesome": "^4.7.0",
     "inventory": "file:",
     "lucide-react": "^0.477.0",
@@ -22,7 +23,7 @@
     "react-dom": "^18.3.1",
     "react-fontawesome": "^1.7.1",
     "react-router-dom": "^7.1.0",
-    "react-toastify": "^11.0.2"
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
