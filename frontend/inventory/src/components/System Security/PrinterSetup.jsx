@@ -37,7 +37,7 @@ const PrinterSetup = () => {
             Select Printer
           </div>
           <div className="mb-6">
-            <label htmlFor="posPrinter" className="block text-gray-700 mb-2 text-lg font-semibold">
+            <label htmlFor="posPrinter" className="block text-gray-700 mb-2 text-lg">
               POS Printer:
             </label>
             <select
@@ -54,7 +54,7 @@ const PrinterSetup = () => {
             </select>
           </div>
           <div className="mb-6">
-            <label htmlFor="barcodePrinter" className="block text-gray-700 mb-2 text-lg font-semibold">
+            <label htmlFor="barcodePrinter" className="block text-gray-700 mb-2 text-lg">
               Barcode Printer:
             </label>
             <select
