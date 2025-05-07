@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../../../reusable inputs/buttons";
 import DialogBox from "../../../reusable inputs/DialogBox";
 import { toast } from "react-toastify";
+import { API_URLS } from "../../../reusable inputs/config";
 
 
 
@@ -60,7 +61,7 @@ const CategoryMaster = () => {
       const categoryData = { name: categoryName, isVatable, vatRate };
 
       try {
-        const response = await fetch("/api/Category/CreateCategory", {
+        const response = await fetch(API_URLS.CreateCategory, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -86,7 +87,7 @@ const CategoryMaster = () => {
       const categoryData = { name: categoryName, isVatable, vatRate };
 
       try {
-        const response = await fetch(`/api/Category/UpdateCategory/${categoryName}`, {
+        const response = await fetch(`${API_URLS.UpdateCategory}/${categoryName}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

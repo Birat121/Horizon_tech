@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
-import DialogBox from "../../reusable inputs/DialogBox"; // Import DialogBox component
+import DialogBox from "../../reusable inputs/DialogBox";
+import { API_URLS } from "../../reusable inputs/config";
 
 const CounterSetting = () => {
   const [counterData, setCounterData] = useState({
@@ -10,26 +11,7 @@ const CounterSetting = () => {
   });
 
   const [isEditable, setIsEditable] = useState(false);
-  const [showDialog, setShowDialog] = useState(false); // State for the dialog visibility
-
-  // Fetch data from backend
-  useEffect(() => {
-    const fetchCounterData = async () => {
-      try {
-        const response = await fetch("/api/counter-settings");
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const data = await response.json();
-        setCounterData(data);
-      } catch (error) {
-        console.error("Error fetching counter data:", error);
-        toast.error("Failed to load counter data.");
-      }
-    };
-
-    fetchCounterData();
-  }, []);
+  const [showDialog, setShowDialog] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,17 +19,21 @@ const CounterSetting = () => {
   };
 
   const handleSave = async () => {
-    setShowDialog(true); // Open dialog when save is clicked
+    setShowDialog(true); // Open confirmation dialog
   };
 
   const handleConfirmSave = async () => {
     try {
-      const response = await fetch("/api/save-counter-settings", {
+      const response = await fetch(API_URLS.SAVE_COUNTER_SETTING, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(counterData),
+        body: JSON.stringify({
+          CountNo: counterData.counter,
+          PCName: counterData.pcName,
+          MacID: counterData.macId,
+        }),
       });
 
       if (!response.ok) {
@@ -56,16 +42,16 @@ const CounterSetting = () => {
 
       toast.success("Counter data saved successfully!");
       setIsEditable(false);
-      setShowDialog(false); // Close dialog after saving
+      setShowDialog(false);
     } catch (error) {
       console.error("Error saving counter data:", error);
       toast.error("Failed to save counter data.");
-      setShowDialog(false); // Close dialog if saving fails
+      setShowDialog(false);
     }
   };
 
   const handleCancelDialog = () => {
-    setShowDialog(false); // Close the dialog without saving
+    setShowDialog(false);
   };
 
   return (
@@ -77,11 +63,8 @@ const CounterSetting = () => {
         <div className="text-xl font-semibold text-black mb-4">Counter Details</div>
         <div className="bg-white shadow-md rounded-b-md p-4 mb-4">
           <div className="space-y-3">
-            {/* Counter# */}
             <div className="flex items-center">
-              <label htmlFor="counter" className="w-40 text-black">
-                Counter#:
-              </label>
+              <label htmlFor="counter" className="w-40 text-black">Counter#:</label>
               <input
                 type="text"
                 id="counter"
@@ -93,11 +76,8 @@ const CounterSetting = () => {
               />
             </div>
 
-            {/* PC Name */}
             <div className="flex items-center">
-              <label htmlFor="pcName" className="w-40 text-black">
-                PC Name:
-              </label>
+              <label htmlFor="pcName" className="w-40 text-black">PC Name:</label>
               <input
                 type="text"
                 id="pcName"
@@ -109,11 +89,8 @@ const CounterSetting = () => {
               />
             </div>
 
-            {/* Mac Id */}
             <div className="flex items-center">
-              <label htmlFor="macId" className="w-40 text-black">
-                Mac Id:
-              </label>
+              <label htmlFor="macId" className="w-40 text-black">Mac Id:</label>
               <input
                 type="text"
                 id="macId"
@@ -127,7 +104,6 @@ const CounterSetting = () => {
           </div>
         </div>
 
-        {/* Save Button */}
         <div className="flex justify-center mt-6 gap-40">
           <button
             onClick={() => setIsEditable(true)}
@@ -150,12 +126,7 @@ const CounterSetting = () => {
         </div>
       </div>
 
-      {/* Dialog Box for Confirmation */}
-      <DialogBox
-        isOpen={showDialog}
-        onClose={handleCancelDialog}
-        title="Confirm Save"
-      >
+      <DialogBox isOpen={showDialog} onClose={handleCancelDialog} title="Confirm Save">
         <p>Are you sure you want to save the changes?</p>
         <div className="flex justify-between mt-6">
           <button

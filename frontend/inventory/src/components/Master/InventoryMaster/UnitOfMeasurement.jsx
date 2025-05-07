@@ -5,6 +5,8 @@ import { Dialog } from "@headlessui/react";
 
 import "react-toastify/dist/ReactToastify.css";
 
+import { API_URLS } from "../../../reusable inputs/config";
+
 const UnitOfMeasurement = () => {
   const [uomDescription, setUomDescription] = useState("");
   const [uomQuantity, setUomQuantity] = useState("");
@@ -50,10 +52,10 @@ const UnitOfMeasurement = () => {
       };
 
       if (actionType === "save") {
-        await axios.post("/api/UOM/CreateUOM", payload);
+        await axios.post(API_URLS.CreateUOM, payload);
         toast.success("UOM saved successfully!");
       } else {
-        await axios.put("/api/UOM/UpdateUOM", payload);
+        await axios.put(API_URLS.UOM.UpdateUOM, payload);
         toast.success("UOM updated successfully!");
       }
 
