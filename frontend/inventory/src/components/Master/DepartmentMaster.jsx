@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { API_URLS } from "../../reusable inputs/config";
 
-// Reusable DialogBox component
 const DialogBox = ({ isOpen, onClose, onConfirm, title, message }) => {
   if (!isOpen) return null;
 
@@ -31,34 +31,19 @@ const DialogBox = ({ isOpen, onClose, onConfirm, title, message }) => {
 };
 
 const DepartmentMaster = () => {
-  const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [isCreating, setIsCreating] = useState(true); // Flag to differentiate between creating and modifying
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // To toggle dialog visibility
-  const [dialogMessage, setDialogMessage] = useState(""); // Message for the dialog
-  const [dialogTitle, setDialogTitle] = useState(""); // Title for the dialog
-
-  // Fetch departments from the backend
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const response = await fetch("/api/departments");
-        const data = await response.json();
-        setDepartments(data); // Assuming data is an array of department objects
-      } catch (error) {
-        console.error("Error fetching departments:", error);
-      }
-    };
-
-    fetchDepartments();
-  }, []);
+  const [isCreating, setIsCreating] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogTitle, setDialogTitle] = useState("");
+  const [transId, setTransId] = useState(null); // ✅ added
 
   const handleChange = (e) => {
     setSelectedDepartment(e.target.value);
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     setDialogTitle(isCreating ? "Create Department" : "Modify Department");
     setDialogMessage(
       isCreating
@@ -70,48 +55,79 @@ const DepartmentMaster = () => {
 
   const handleConfirmSave = async () => {
     try {
+      const departmentData = {
+        DeptName: selectedDepartment,
+        // Send other necessary fields for creation, leave out DeptId and let backend generate it
+        DeptId: "", // Backend will handle this for creation
+        EnteredDate: new Date().toISOString(), // Ensure it's a valid date format
+        EnteredBy: "system", // or dynamically fetch the user info if needed
+        EnteredSys: window.navigator.userAgent, // or system identifier
+      };
+  
+      let response;
+      
+      // If creating a new department
       if (isCreating) {
-        // Call API to create a new department
-        const response = await fetch("/api/Department/CreateDepartment", {
+        response = await fetch(API_URLS.CreateDepartment, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: selectedDepartment }),
+          body: JSON.stringify(departmentData),
         });
+  
         if (response.ok) {
           toast.success(`Department "${selectedDepartment}" created successfully!`);
         } else {
-          toast.error("Error creating department");
+          const error = await response.text();
+          toast.error(`Error creating department: ${error}`);
         }
-      } else {
-        // Call API to update the existing department
-        const response = await fetch(`/api/Department/UpdateDepartment/${selectedDepartment}`, {
+      }
+      // If updating an existing department
+      else {
+        response = await fetch(`${API_URLS.UpdateDepartment}/${transId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: selectedDepartment }),
+          body: JSON.stringify({
+            DeptName: selectedDepartment,
+            TransID: transId, // Ensure you're sending the correct TransID for the department you're updating
+          }),
         });
+  
         if (response.ok) {
           toast.success(`Department "${selectedDepartment}" updated successfully!`);
         } else {
-          toast.error("Error updating department");
+          const error = await response.text();
+          toast.error(`Error updating department: ${error}`);
         }
       }
+  
+      // Reset state after successful action
       setIsEditable(false);
-      setSelectedDepartment(""); // Optionally reset selected department after saving
+      setSelectedDepartment("");
+      setTransId(null);
+      setIsCreating(true);
     } catch (error) {
       console.error("Error saving department:", error);
       toast.error("An error occurred while saving the department.");
     }
+  
     setIsDialogOpen(false);
   };
+  
 
   const handleModify = () => {
+    // 🔁 Replace these with real selected department values from a list/table
+    setSelectedDepartment("HR");  // for example
+    setTransId(1);                // existing department's TransID
+
+    setIsCreating(false);
     setIsEditable(true);
-    setIsCreating(false); // Set to false to indicate we're modifying
   };
 
   const handleCancel = () => {
-    setIsEditable(false);
     setSelectedDepartment("");
+    setIsCreating(true);
+    setIsEditable(false);
+    setTransId(null);
   };
 
   return (
@@ -126,7 +142,6 @@ const DepartmentMaster = () => {
             {isCreating ? "Create Department" : "Modify Department"}
           </div>
 
-          {/* Department Input */}
           <div className="flex items-center mb-4">
             <label htmlFor="department" className="w-48 text-black text-lg">
               Department:
@@ -137,28 +152,26 @@ const DepartmentMaster = () => {
               type="text"
               value={selectedDepartment}
               onChange={handleChange}
-              
               placeholder="Enter department name"
               className="flex-1 border border-gray-300 rounded px-3 py-2 text-lg focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex justify-center mt-6 space-x-6">
           <button
             onClick={handleModify}
             className="bg-yellow-600 text-white text-lg px-8 py-3 rounded hover:bg-yellow-700 focus:outline-none"
-            disabled={selectedDepartment === ""}
+            disabled={!selectedDepartment || isEditable}
           >
             Modify
           </button>
 
           <button
             onClick={handleSave}
-            disabled={!selectedDepartment || !isEditable}
+            disabled={!selectedDepartment || (!isCreating && !isEditable)}
             className={`text-lg px-8 py-3 rounded focus:outline-none ${
-              selectedDepartment && isEditable
+              selectedDepartment && (isCreating || isEditable)
                 ? "bg-green-600 text-white hover:bg-green-700"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
@@ -168,9 +181,9 @@ const DepartmentMaster = () => {
 
           <button
             onClick={handleCancel}
-            disabled={!isEditable}
+            disabled={!isEditable && isCreating}
             className={`text-lg px-8 py-3 rounded focus:outline-none ${
-              isEditable
+              isEditable || !isCreating
                 ? "bg-red-600 text-white hover:bg-red-700"
                 : "bg-gray-300 text-gray-700 cursor-not-allowed"
             }`}
@@ -180,7 +193,6 @@ const DepartmentMaster = () => {
         </div>
       </div>
 
-      {/* Dialog Box */}
       <DialogBox
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
@@ -189,7 +201,6 @@ const DepartmentMaster = () => {
         message={dialogMessage}
       />
 
-      {/* Toast Notifications */}
       <ToastContainer />
     </div>
   );
