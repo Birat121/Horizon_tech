@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { API_URLS } from "../../../reusable inputs/config";
 
 // Reusable InputField component for form fields
 const InputField = ({ label, name, value, onChange, type = "text" }) => (
@@ -50,24 +51,7 @@ const CustomerMaster = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("https://api.example.com/customers");
-        if (!response.ok) throw new Error("Failed to fetch customers");
-        const data = await response.json();
-        setCustomers(data);
-      } catch (error) {
-        console.error("Error fetching customers:", error);
-       
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCustomers();
-  }, []);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,21 +70,53 @@ const CustomerMaster = () => {
     return true;
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted:", formData);
+      const requestData = {
+        customerName: formData.customerName,
+        creditLimit: formData.creditLimit,
+        terms: formData.terms,
+        discount: formData.discount,
+        address: formData.address,
+        phoneNo: formData.phoneNo,
+        mobileNo: formData.mobileNo,
+        emailId: formData.emailId,
+        membershipNo: formData.membershipNo,
+        tpinNo: formData.tpinNo,
+        contactName: formData.contactName,
+        salesAreaName: formData.salesAreaName,
+      };
+      try {
+        const response = await fetch(API_URLS.Customer, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert("Customer created successfully!");
+          setCustomers([...customers, result]);
+          handleCancel();
+        } else {
+          alert(result.message || "Error creating customer");
+        }
+      } catch (error) {
+        console.error("Error submitting customer data:", error);
+      }
     }
   };
 
   const handleSave = () => {
     console.log("Save clicked:", formData);
-    // Add save logic here
+    handleFormSubmit();
   };
 
   const handleModify = () => {
     console.log("Modify clicked");
-    // Add modify logic here
+    // Modify logic here
   };
 
   const handleCancel = () => {
@@ -123,18 +139,17 @@ const CustomerMaster = () => {
 
   return (
     <div className="flex items-center justify-center h-full p-4">
-      {/* Main Container */}
       <div className="bg-white border-2 rounded-lg shadow-lg p-6 w-full max-w-6xl">
-      <h2 className="  text-2xl text-center font-semibold p-2 rounded-md mb-2">
-            Customer Master
-          </h2>
+        <h2 className="text-2xl text-center font-semibold p-2 rounded-md mb-2">
+          Customer Master
+        </h2>
 
         <div className="flex flex-col md:flex-row gap-6">
           {/* Input Section */}
           <div className="flex-1 bg-gray-50 shadow-md rounded-md p-6 overflow-auto max-h-[600px]">
-          <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
-            Create/Modify Customer Information
-          </div>
+            <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+              Create/Modify Customer Information
+            </div>
             <form onSubmit={handleFormSubmit} className="space-y-4">
               <InputField
                 label="Customer Name"
@@ -215,7 +230,6 @@ const CustomerMaster = () => {
 
           {/* Table Section */}
           <div className="flex-1 bg-gray-50 shadow-md rounded-md p-6 overflow-auto max-h-[600px]">
-            
             <div className="overflow-y-auto max-h-[400px] border border-gray-300 rounded-md">
               {loading ? (
                 <div className="text-center py-4">Loading...</div>
@@ -263,3 +277,4 @@ const CustomerMaster = () => {
 };
 
 export default CustomerMaster;
+
