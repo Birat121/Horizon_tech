@@ -1,108 +1,250 @@
 import React, { useState } from "react";
+import { API_URLS } from "../../../reusable inputs/config"; // Adjust this import as needed
+import axios from "axios"; // Make sure to install axios for API calls
+import DialogBox from "../../../reusable inputs/DialogBox"; // Dialog box component
+import { toast } from "react-toastify";
 
-function VendorMaster() {
-  const [isModifyMode, setIsModifyMode] = useState(false);
-  const [vendorName, setVendorName] = useState("");
-  const [cityName, setCityName] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [mobileNo, setMobileNo] = useState("");
-  const [tpinNo, setTpinNo] = useState("");
-  const [email, setEmail] = useState("");
-  const [contactName, setContactName] = useState("");
+// Reusable input and button components (same as CustomerMaster)
+const InputField = ({ label, name, value, onChange, type = "text" }) => (
+  <div>
+    <label className="block text-sm font-medium">{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+    />
+  </div>
+);
 
-  const handleModifyClick = () => setIsModifyMode(true);
-  const handleCancelClick = () => setIsModifyMode(false);
+const Button = ({ label, onClick, variant = "primary" }) => {
+  const variantClasses = {
+    primary: "bg-blue-500 hover:bg-blue-600",
+    success: "bg-green-500 hover:bg-green-600",
+    danger: "bg-red-500 hover:bg-red-600",
+  };
+  return (
+    <button
+      onClick={onClick}
+      className={`${variantClasses[variant]} text-white px-6 py-2 rounded-md`}
+    >
+      {label}
+    </button>
+  );
+};
 
-  const vendorOptions = ["Vendor 1", "Vendor 2", "Vendor 3"];
-  const cityOptions = ["City 1", "City 2", "City 3"];
+const VendorMaster = () => {
+  const [vendors, setVendors] = useState([]);
+  const [formData, setFormData] = useState({
+    vendorName: "",
+    cityName: "",
+    phoneNo: "",
+    mobileNo: "",
+    tpinNo: "",
+    email: "",
+    contactName: "",
+  });
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogAction, setDialogAction] = useState(null);
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Validate form fields before saving
+  const validateForm = () => {
+    const { vendorName, cityName, phoneNo, mobileNo, email, contactName } = formData;
+    if (!vendorName || !cityName || (!phoneNo && !mobileNo) || !email || !contactName) {
+      return "All fields are required.";
+    }
+    return null;
+  };
+
+  // Handle Save logic and API call
+  const handleSave = () => {
+    const validationMessage = validateForm();
+    if (validationMessage) {
+      toast.error(validationMessage); // Show alert if validation fails
+      return;
+    }
+
+    setDialogMessage("Are you sure you want to save the vendor information?");
+    setDialogAction("save");
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogConfirm = async () => {
+    if (dialogAction === "save") {
+      try {
+        const response = await axios.post(API_URLS.VendorMasterAPI, formData);
+        if (response.status === 200) {
+          setVendors((prev) => [...prev, formData]);
+          toast.success("Vendor saved successfully!");
+          setFormData({
+            vendorName: "",
+            cityName: "",
+            phoneNo: "",
+            mobileNo: "",
+            tpinNo: "",
+            email: "",
+            contactName: "",
+          });
+        }
+      } catch (error) {
+        console.error("Error saving vendor:", error);
+        toast.error("Failed to save vendor!");
+      }
+    }
+    setIsDialogOpen(false);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleModify = () => {
+    console.log("Modify clicked");
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      vendorName: "",
+      cityName: "",
+      phoneNo: "",
+      mobileNo: "",
+      tpinNo: "",
+      email: "",
+      contactName: "",
+    });
+  };
 
   return (
-    <div className="flex flex-col h-full w-full bg-white border rounded-lg shadow-md p-6 overflow-hidden ml-12">
-      <div className="flex-1 flex gap-6 overflow-hidden">
-        {/* Left Section: Form */}
-        <div className="w-1/3 bg-gray-100 p-6 border-r border-gray-300 rounded-lg h-full overflow-auto">
-          <h1 className="text-white text-lg font-semibold p-3 mb-4 shadow-sm  rounded-md">
-            Create / Modify Vendor Information
-          </h1>
-          <div className="bg-white shadow-md rounded-lg p-6 space-y-6">
-            {/* Vendor Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Vendor Name</label>
-              {isModifyMode ? (
-                <select
-                  value={vendorName}
-                  onChange={(e) => setVendorName(e.target.value)}
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-green-500"
-                >
-                  <option value="" disabled></option>
-                  {vendorOptions.map((vendor, index) => (
-                    <option key={index} value={vendor}>{vendor}</option>
-                  ))}
-                </select>
-              ) : (
-                <input 
-                  type="text"
-                  placeholder="Enter vendor name"
-                  value={vendorName}
-                  onChange={(e) => setVendorName(e.target.value)}
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-green-500"
-                />
-              )}
+    <div className="flex items-center justify-center h-full p-4">
+      <div className="bg-white border-2 rounded-lg shadow-lg p-6 w-full max-w-6xl">
+        <h2 className="text-2xl text-center font-semibold p-2 mb-2">
+          Vendor Master
+        </h2>
+
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Left Form Panel */}
+          <div className="flex-1 bg-gray-50 shadow-md rounded-md p-6 max-h-[600px] overflow-auto">
+            <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
+              Create/Modify Vendor Information
             </div>
-            {/* Other Fields */}
-            {[{ label: "City Name", value: cityName, setValue: setCityName, options: cityOptions },
-              { label: "Phone No", value: phoneNo, setValue: setPhoneNo },
-              { label: "Mobile No", value: mobileNo, setValue: setMobileNo },
-              { label: "TPIN No", value: tpinNo, setValue: setTpinNo },
-              { label: "Email ID", value: email, setValue: setEmail },
-              { label: "Contact Name", value: contactName, setValue: setContactName }]
-              .map((field, index) => (
-                <div key={index}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
-                  {field.options ? (
-                    <select
-                      value={field.value}
-                      onChange={(e) => field.setValue(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-green-500"
-                    >
-                      <option value="" disabled></option>
-                      {field.options.map((option, i) => (
-                        <option key={i} value={option}>{option}</option>
-                      ))}
-                    </select>
+            <form className="space-y-4">
+              <InputField
+                label="Vendor Name"
+                name="vendorName"
+                value={formData.vendorName}
+                onChange={handleInputChange}
+              />
+              <InputField
+                label="City Name"
+                name="cityName"
+                value={formData.cityName}
+                onChange={handleInputChange}
+              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <InputField
+                  label="Phone No"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleInputChange}
+                />
+                <InputField
+                  label="Mobile No"
+                  name="mobileNo"
+                  value={formData.mobileNo}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <InputField
+                label="Email ID"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                type="email"
+              />
+              <InputField
+                label="TPIN No"
+                name="tpinNo"
+                value={formData.tpinNo}
+                onChange={handleInputChange}
+              />
+              <InputField
+                label="Contact Name"
+                name="contactName"
+                value={formData.contactName}
+                onChange={handleInputChange}
+              />
+            </form>
+          </div>
+
+          {/* Right Table Panel */}
+          <div className="flex-1 bg-gray-50 shadow-md rounded-md p-6 max-h-[600px] overflow-auto">
+            <div className="overflow-y-auto max-h-[400px] border border-gray-300 rounded-md">
+              <table className="w-full border-collapse border border-gray-300">
+                <thead>
+                  <tr className="bg-gray-200 sticky top-0">
+                    <th className="border px-4 py-2">Sr.</th>
+                    <th className="border px-4 py-2">Vendor Name</th>
+                    <th className="border px-4 py-2">City</th>
+                    <th className="border px-4 py-2">Contact</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vendors.length > 0 ? (
+                    vendors.map((vendor, index) => (
+                      <tr key={index} className="odd:bg-white even:bg-gray-50">
+                        <td className="border px-4 py-2">{index + 1}</td>
+                        <td className="border px-4 py-2">{vendor.vendorName}</td>
+                        <td className="border px-4 py-2">{vendor.cityName}</td>
+                        <td className="border px-4 py-2">{vendor.phoneNo || vendor.mobileNo}</td>
+                      </tr>
+                    ))
                   ) : (
-                    <input
-                      type="text"
-                      placeholder={`Enter ${field.label.toLowerCase()}`}
-                      value={field.value}
-                      onChange={(e) => field.setValue(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-green-500"
-                    />
+                    <tr>
+                      <td colSpan="4" className="text-center py-4">
+                        No Vendors Found
+                      </td>
+                    </tr>
                   )}
-                </div>
-              ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        {/* Right Section: Table */}
-        <div className="flex-1 bg-white p-6 shadow-md rounded-lg h-full overflow-auto">
-          <h2 className="text-gray-900 text-lg font-semibold mb-4">Vendor List</h2>
-          <table className="table-auto w-full border-collapse border border-gray-300 text-sm">
-            {/* Table Content Placeholder */}
-          </table>
+        {/* Footer Buttons */}
+        <div className="flex justify-end gap-4 mt-4">
+          <Button label="Save" onClick={handleSave} variant="success" />
+          <Button label="Modify" onClick={handleModify} variant="primary" />
+          <Button label="Cancel" onClick={handleCancel} variant="danger" />
         </div>
       </div>
 
-      {/* Footer Section: Buttons */}
-      <div className="bg-gray-100 border-t border-gray-300 p-4 flex justify-center space-x-4">
-        <button className="px-6 py-3 bg-green-500 text-white text-base rounded shadow-md hover:bg-green-600">Save</button>
-        <button className="px-6 py-3 bg-blue-500 text-white text-base rounded shadow-md hover:bg-blue-600" onClick={handleModifyClick}>Modify</button>
-        <button className="px-6 py-3 bg-red-500 text-white text-base rounded shadow-md hover:bg-red-600" onClick={handleCancelClick}>Cancel</button>
-      </div>
+      {/* DialogBox - Confirmation */}
+      <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
+        <p>{dialogMessage}</p>
+        <div className="flex justify-end space-x-4 mt-4">
+          <Button onClick={handleDialogClose} type="cancel" className="px-5 py-3 bg-gray-200">
+            Close
+          </Button>
+          <Button
+            onClick={handleDialogConfirm}
+            type="save"
+            className="px-5 py-3 bg-purple-600 text-white"
+          >
+            OK
+          </Button>
+        </div>
+      </DialogBox>
     </div>
   );
-}
+};
 
 export default VendorMaster;
-
-

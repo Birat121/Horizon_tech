@@ -15,11 +15,20 @@ const CounterSetting = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCounterData({ ...counterData, [name]: value });
+    setCounterData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSave = async () => {
-    setShowDialog(true); // Open confirmation dialog
+  const handleSave = () => {
+    const { counter, pcName, macId } = counterData;
+    if (!counter.trim() || !pcName.trim() || !macId.trim()) {
+      toast.error("All fields are required before saving.");
+      return;
+    }
+
+    setShowDialog(true);
   };
 
   const handleConfirmSave = async () => {
@@ -30,19 +39,20 @@ const CounterSetting = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          CountNo: counterData.counter,
-          PCName: counterData.pcName,
-          MacID: counterData.macId,
+          CountNo: counterData.counter.trim(),
+          PCName: counterData.pcName.trim(),
+          MacID: counterData.macId.trim(),
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to save counter data");
-      }
+      if (!response.ok) throw new Error("Failed to save counter data");
 
       toast.success("Counter data saved successfully!");
       setIsEditable(false);
       setShowDialog(false);
+
+      // Optional: Clear form after saving
+      setCounterData({ counter: "", pcName: "", macId: "" });
     } catch (error) {
       console.error("Error saving counter data:", error);
       toast.error("Failed to save counter data.");
@@ -60,47 +70,27 @@ const CounterSetting = () => {
         <h2 className="text-xl text-center font-semibold p-2 rounded-md mb-10">
           Counter Setting
         </h2>
+
         <div className="text-xl font-semibold text-black mb-4">Counter Details</div>
+
         <div className="bg-white shadow-md rounded-b-md p-4 mb-4">
           <div className="space-y-3">
-            <div className="flex items-center">
-              <label htmlFor="counter" className="w-40 text-black">Counter#:</label>
-              <input
-                type="text"
-                id="counter"
-                name="counter"
-                value={counterData.counter}
-                onChange={handleChange}
-                disabled={!isEditable}
-                className="flex-1 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
-
-            <div className="flex items-center">
-              <label htmlFor="pcName" className="w-40 text-black">PC Name:</label>
-              <input
-                type="text"
-                id="pcName"
-                name="pcName"
-                value={counterData.pcName}
-                onChange={handleChange}
-                disabled={!isEditable}
-                className="flex-1 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
-
-            <div className="flex items-center">
-              <label htmlFor="macId" className="w-40 text-black">Mac Id:</label>
-              <input
-                type="text"
-                id="macId"
-                name="macId"
-                value={counterData.macId}
-                onChange={handleChange}
-                disabled={!isEditable}
-                className="flex-1 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </div>
+            {["counter", "pcName", "macId"].map((field) => (
+              <div className="flex items-center" key={field}>
+                <label htmlFor={field} className="w-40 text-black capitalize">
+                  {field === "macId" ? "Mac ID" : field === "pcName" ? "PC Name" : "Counter#"}:
+                </label>
+                <input
+                  type="text"
+                  id={field}
+                  name={field}
+                  value={counterData[field]}
+                  onChange={handleChange}
+                  disabled={!isEditable}
+                  className="flex-1 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring focus:ring-blue-300"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -114,7 +104,7 @@ const CounterSetting = () => {
 
           <button
             onClick={handleSave}
-            disabled={!isEditable || !counterData.counter || !counterData.pcName || !counterData.macId}
+            disabled={!isEditable}
             className={`px-8 py-2 rounded focus:outline-none ${
               isEditable
                 ? "bg-green-600 text-white hover:bg-green-700"

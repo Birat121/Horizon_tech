@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_URLS } from "../../../reusable inputs/config";
-
-// Reusable InputField component for form fields
+import { toast } from "react-toastify";
+// Reusable InputField component
 const InputField = ({ label, name, value, onChange, type = "text" }) => (
   <div>
     <label className="block text-sm font-medium">{label}</label>
@@ -15,14 +15,13 @@ const InputField = ({ label, name, value, onChange, type = "text" }) => (
   </div>
 );
 
-// Reusable Button component for actions
+// Reusable Button component
 const Button = ({ label, onClick, variant = "primary" }) => {
   const variantClasses = {
     primary: "bg-green-500 hover:bg-green-600",
     success: "bg-orange-500 hover:bg-orange-600",
     danger: "bg-red-500 hover:bg-red-600",
   };
-
   return (
     <button
       onClick={onClick}
@@ -30,6 +29,27 @@ const Button = ({ label, onClick, variant = "primary" }) => {
     >
       {label}
     </button>
+  );
+};
+
+// Dialog Box Component
+const DialogBox = ({ open, title, message, onClose }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white rounded-md shadow-lg p-6 w-full max-w-sm">
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <p className="mb-4">{message}</p>
+        <div className="flex justify-end">
+          <button
+            onClick={onClose}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -50,8 +70,31 @@ const CustomerMaster = () => {
     salesAreaName: "",
   });
   const [loading, setLoading] = useState(false);
+  const [dialog, setDialog] = useState({ open: false, title: "", message: "" });
 
-  
+  const showDialog = (title, message) => {
+    setDialog({ open: true, title, message });
+  };
+
+  const closeDialog = () => {
+    setDialog({ ...dialog, open: false });
+  };
+
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(API_URLS.Customer);
+        const data = await response.json();
+        setCustomers(data || []);
+      } catch (error) {
+        toast.error("Error fetching customers.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCustomers();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,63 +103,46 @@ const CustomerMaster = () => {
 
   const validateForm = () => {
     if (!formData.customerName) {
-      alert("Customer Name is required");
+      showDialog("Validation Error", "Customer Name is required.");
       return false;
     }
     if (!formData.phoneNo && !formData.mobileNo) {
-      alert("At least one contact number is required");
+      showDialog("Validation Error", "At least one contact number is required.");
       return false;
     }
     return true;
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      const requestData = {
-        customerName: formData.customerName,
-        creditLimit: formData.creditLimit,
-        terms: formData.terms,
-        discount: formData.discount,
-        address: formData.address,
-        phoneNo: formData.phoneNo,
-        mobileNo: formData.mobileNo,
-        emailId: formData.emailId,
-        membershipNo: formData.membershipNo,
-        tpinNo: formData.tpinNo,
-        contactName: formData.contactName,
-        salesAreaName: formData.salesAreaName,
-      };
-      try {
-        const response = await fetch(API_URLS.Customer, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
-        const result = await response.json();
-        if (response.ok) {
-          alert("Customer created successfully!");
-          setCustomers([...customers, result]);
-          handleCancel();
-        } else {
-          alert(result.message || "Error creating customer");
-        }
-      } catch (error) {
-        console.error("Error submitting customer data:", error);
+  const handleFormSubmit = async () => {
+    if (!validateForm()) return;
+
+    try {
+      const response = await fetch(API_URLS.Customer, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        showDialog("Success", "Customer created successfully!");
+        setCustomers((prev) => [...prev, result]);
+        toast.success("Customer created successfully!");
+        handleCancel();
+      } else {
+        showDialog("Error", result.message || "Error creating customer.");
       }
+    } catch (error) {
+      showDialog("Network Error", "Failed to submit customer data.");
+      toast.error("Failed to submit customer data.");
     }
   };
 
   const handleSave = () => {
-    console.log("Save clicked:", formData);
     handleFormSubmit();
   };
 
   const handleModify = () => {
-    console.log("Modify clicked");
-    // Modify logic here
+    showDialog("Modify", "Modify logic not implemented yet.");
   };
 
   const handleCancel = () => {
@@ -134,7 +160,6 @@ const CustomerMaster = () => {
       contactName: "",
       salesAreaName: "",
     });
-    console.log("Form reset");
   };
 
   return (
@@ -150,7 +175,7 @@ const CustomerMaster = () => {
             <div className="bg-green-600 text-white text-lg font-semibold p-2 rounded-md mb-2">
               Create/Modify Customer Information
             </div>
-            <form onSubmit={handleFormSubmit} className="space-y-4">
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
               <InputField
                 label="Customer Name"
                 name="customerName"
@@ -237,25 +262,29 @@ const CustomerMaster = () => {
                 <table className="w-full border-collapse border border-gray-300">
                   <thead>
                     <tr className="bg-gray-200 sticky top-0">
-                      <th className="border border-gray-300 px-4 py-2">Sr.</th>
-                      <th className="border border-gray-300 px-4 py-2">Customer Name</th>
-                      <th className="border border-gray-300 px-4 py-2">Address</th>
-                      <th className="border border-gray-300 px-4 py-2">Contact No</th>
+                      <th className="border px-4 py-2">Sr.</th>
+                      <th className="border px-4 py-2">Customer Name</th>
+                      <th className="border px-4 py-2">Address</th>
+                      <th className="border px-4 py-2">Contact No</th>
                     </tr>
                   </thead>
                   <tbody>
                     {customers.length > 0 ? (
                       customers.map((customer, index) => (
                         <tr key={index} className="odd:bg-white even:bg-gray-50">
-                          <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
-                          <td className="border border-gray-300 px-4 py-2">{customer.name}</td>
-                          <td className="border border-gray-300 px-4 py-2">{customer.address}</td>
-                          <td className="border border-gray-300 px-4 py-2">{customer.contact}</td>
+                          <td className="border px-4 py-2">{index + 1}</td>
+                          <td className="border px-4 py-2">{customer.customerName}</td>
+                          <td className="border px-4 py-2">{customer.address}</td>
+                          <td className="border px-4 py-2">
+                            {customer.phoneNo || customer.mobileNo}
+                          </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="4" className="text-center py-4">No Customers Found</td>
+                        <td colSpan="4" className="text-center py-4">
+                          No Customers Found
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -271,10 +300,17 @@ const CustomerMaster = () => {
           <Button label="Modify" onClick={handleModify} variant="primary" />
           <Button label="Cancel" onClick={handleCancel} variant="danger" />
         </div>
+
+        {/* Dialog Box */}
+        <DialogBox
+          open={dialog.open}
+          title={dialog.title}
+          message={dialog.message}
+          onClose={closeDialog}
+        />
       </div>
     </div>
   );
 };
 
 export default CustomerMaster;
-

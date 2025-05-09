@@ -7,6 +7,7 @@ import LoginPage from "./pages/Login";
 import Navbar from "./pages/Navbar";
 import ErrorPage from "./pages/Error";
 
+
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -17,7 +18,7 @@ import SubLedgerMaster from "./components/Master/SubLedgerMaster";
 import AccountReGrouping from "./components/Master/AccountReGrouping";
 import DepartmentMaster from "./components/Master/DepartmentMaster";
 import CounterSetting from "./components/Master/CounterSetting";
-import PointCollectionSetting from "./components/Master/PointCollectionSetting";
+
 import ChangeAccountType from "./components/Master/ChangeAccountType";
 import ServiceItemMaster from "./components/Master/InventoryMaster/ServiceItemMaster";
 import StockLocationMaster from "./components/Master/InventoryMaster/StockLocationMaster";
@@ -120,27 +121,38 @@ import { ToastContainer } from "react-toastify";
 
 
 
+
 {/* System Security */}
 
 function App() {
+
+  
   const location = useLocation(); // Get the current route
   const isLoginPage = location.pathname === "/login";
   const isErrorPage = location.pathname === "*";
 
+  
+
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen overflow-x-hidden'>
       <ToastContainer />
       {!isLoginPage && !isErrorPage && <Navbar />}
       <hr/>
       <div className="flex w-full">
       {!isLoginPage && !isErrorPage && <Sidebar />}
         
-        <div className='w-8/12 mx-auto ml-[max(5vw,25px] my-4 text-gray-600 text-base'>
+        {/* Main content area */}
+    <div className="flex-1 overflow-x-auto px-4 py-4 text-gray-600 text-base">
+      <div className="min-w-[768px] md:min-w-full">
         <Routes>
+        <Route path="/login" element={<LoginPage />} />
+
+        
+        
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/exit" element={<Exit />} />
-        <Route path="/login" element={<LoginPage />} />
+        
         <Route path="/reports" element={<Reports/>} />
         <Route path ='/systemsecurity' element={<SystemSecurity />} />
         <Route path="*" element={<ErrorPage />} />
@@ -153,7 +165,7 @@ function App() {
           <Route path="/master/suboption5" element={<AccountReGrouping/>} />
           <Route path="/master/suboption7" element={<DepartmentMaster />} />
           <Route path="/master/suboption8" element={<CounterSetting />} />
-          <Route path="/master/suboption9" element={<PointCollectionSetting />} />
+          
           <Route path="/master/suboption6/suboption5" element={<CategoryMaster/>} />
           <Route path="/master/suboption6/suboption6" element={<SubCategoryMaster/>} />
           <Route path="/master/suboption6/suboption7" element={<UnitOfMeasurement/>} />
@@ -258,11 +270,11 @@ function App() {
 
           
 
-          
+         
         </Routes>
       </div>
     </div>
-    
+    </div>
     </div>
   );
 

@@ -1,99 +1,236 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { API_URLS } from "../../reusable inputs/config";
+import { toast } from "react-toastify";
 
 const JournalVoucher = () => {
+  const [transactionDate, setTransactionDate] = useState("");
+  const [docNo, setDocNo] = useState("");
+  const [rows, setRows] = useState([
+    { sr: 1, accountName: "", particulars: "", debit: "", credit: "" },
+  ]);
+  const [difference, setDifference] = useState(0);
+  const [loading, setLoading] = useState(false);  // Loading state
+
+  const handleRowChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index][field] = value;
+    setRows(updatedRows);
+
+    const isLastRow = index === rows.length - 1;
+    const filled = Object.values(updatedRows[index]).some((v) => v !== "");
+
+    if (isLastRow && filled) {
+      setRows([
+        ...updatedRows,
+        { sr: rows.length + 1, accountName: "", particulars: "", debit: "", credit: "" },
+      ]);
+    }
+
+    calculateDifference(updatedRows);
+  };
+
+  const calculateDifference = (rows) => {
+    const debit = rows.reduce((sum, r) => sum + parseFloat(r.debit || 0), 0);
+    const credit = rows.reduce((sum, r) => sum + parseFloat(r.credit || 0), 0);
+    setDifference((debit - credit).toFixed(2));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      const form = e.target.form;
+      const index = Array.prototype.indexOf.call(form, e.target);
+      form.elements[index + 1]?.focus();
+      e.preventDefault();
+    }
+  };
+
+  const handleSave = async () => {
+    // Validation check: Ensure at least one debit or credit is filled in each row
+    const invalidRow = rows.some(
+      (row) => (row.debit === "" && row.credit === "") || row.accountName === "" || row.particulars === ""
+    );
+    if (invalidRow) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const payload = {
+      transactionDate,
+      docNo,
+      voucherNo: "JV81-8200154",
+      entries: rows.filter(
+        (r) => r.accountName || r.particulars || r.debit || r.credit
+      ),
+    };
+
+    setLoading(true);  // Set loading state to true
+
+    try {
+      const res = await axios.post(API_URLS.CREATE_JOURNAL_VOUCHER, payload);
+      if (res.status === 200) {
+        toast.success("Voucher saved successfully!");
+        handleCancel();  // Reset the form after successful save
+      }
+    } catch (err) {
+      toast.error("Failed to save voucher!");
+      console.error(err);
+    } finally {
+      setLoading(false);  // Set loading state to false after API response
+    }
+  };
+
+  const handleCancel = () => {
+    setTransactionDate("");
+    setDocNo("");
+    setRows([{ sr: 1, accountName: "", particulars: "", debit: "", credit: "" }]);
+    setDifference(0);
+  };
+
   return (
     <div className="flex items-center justify-center h-[85vh] ml-12 p-6">
       <div className="bg-white border border-gray-300 rounded-2xl shadow-xl p-8 w-full max-w-5xl">
-        {/* Header Section */}
-        <div className="flex flex-wrap items-center justify-between mb-6">
-          <h2 className=" text-xl font-semibold p-2 rounded-md mb-2">Journal Voucher Entry</h2>
-          <button className="bg-yellow-500 text-white px-5 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition">
-            Create Account Ledger
-          </button>
+        {/* Header */}
+        <div className="flex justify-between mb-6">
+          <h2 className="text-xl font-semibold">Journal Voucher Entry</h2>
         </div>
 
-        {/* Form Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Transaction Date</label>
-            <input
-              type="date"
-              className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 text-lg"
-            />
-          </div>
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Voucher No.</label>
-            <input
-              type="text"
-              className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 text-lg"
-              value="JV81-8200154"
-            />
-          </div>
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Doc No.</label>
-            <input
-              type="text"
-              className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 text-lg"
-            />
-          </div>
-        </div>
-
-        {/* Table Section */}
-        <div className="overflow-x-auto mb-6">
-          <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow">
-            <thead>
-              <tr className="bg-gray-100 text-lg">
-                <th className="px-6 py-3 border text-left">Sr.</th>
-                <th className="px-6 py-3 border text-left">Account Name</th>
-                <th className="px-6 py-3 border text-left">Particulars</th>
-                <th className="px-6 py-3 border text-left">Debit</th>
-                <th className="px-6 py-3 border text-left">Credit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="px-6 py-3 border text-lg">1</td>
-                <td className="px-6 py-3 border"></td>
-                <td className="px-6 py-3 border"></td>
-                <td className="px-6 py-3 border"></td>
-                <td className="px-6 py-3 border"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Footer Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Attach File</label>
-            <input
-              type="file"
-              className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 text-lg"
-            />
+        {/* Form */}
+        <form>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+            <div>
+              <label className="block text-lg font-medium">Transaction Date</label>
+              <input
+                type="date"
+                value={transactionDate}
+                onChange={(e) => setTransactionDate(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="mt-2 w-full p-3 border rounded text-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-medium">Voucher No.</label>
+              <input
+                type="text"
+                value="JV81-8200154"
+                className="mt-2 w-full p-3 border rounded text-lg bg-gray-100"
+                readOnly
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-medium">Doc No.</label>
+              <input
+                type="text"
+                value={docNo}
+                onChange={(e) => setDocNo(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="mt-2 w-full p-3 border rounded text-lg"
+              />
+            </div>
           </div>
 
-          <div className="col-span-2 flex justify-end items-center gap-6">
-            <span className="text-lg font-medium text-gray-700">Difference: </span>
-            <span className="text-red-600 text-xl font-bold border-2 border-gray-400 rounded-lg px-5 py-2">
-              0.00
-            </span>
+          {/* Table */}
+          <div className="overflow-y-auto max-h-64 mb-6">
+            <table className="w-full table-auto border border-gray-300">
+              <thead className="bg-gray-100 text-left text-lg">
+                <tr>
+                  <th className="px-4 py-2 border">Sr.</th>
+                  <th className="px-4 py-2 border">Account Name</th>
+                  <th className="px-4 py-2 border">Particulars</th>
+                  <th className="px-4 py-2 border">Debit</th>
+                  <th className="px-4 py-2 border">Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, i) => (
+                  <tr key={i}>
+                    <td className="px-4 py-2 border">{row.sr}</td>
+                    <td className="px-4 py-2 border">
+                      <input
+                        type="text"
+                        value={row.accountName}
+                        onChange={(e) => handleRowChange(i, "accountName", e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className="w-full p-2 border rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2 border">
+                      <input
+                        type="text"
+                        value={row.particulars}
+                        onChange={(e) => handleRowChange(i, "particulars", e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className="w-full p-2 border rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2 border">
+                      <input
+                        type="number"
+                        value={row.debit}
+                        onChange={(e) => handleRowChange(i, "debit", e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className="w-full p-2 border rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-2 border">
+                      <input
+                        type="number"
+                        value={row.credit}
+                        onChange={(e) => handleRowChange(i, "credit", e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className="w-full p-2 border rounded"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-between mt-8">
-          <div className="flex gap-4">
-            <button className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-green-600 transition">
-              Save
-            </button>
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-blue-600 transition">
-              Modify
-            </button>
-            <button className="bg-red-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-red-600 transition">
-              Cancel
-            </button>
+          {/* Footer */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 items-center">
+            <div>
+              <label className="block text-lg font-medium">Attach File</label>
+              <input
+                type="file"
+                className="mt-2 w-full p-3 border rounded text-lg"
+              />
+            </div>
+            <div className="col-span-2 flex justify-end gap-4 items-center">
+              <span className="text-lg font-medium">Difference:</span>
+              <span className="text-red-600 text-xl font-bold border px-4 py-2 rounded">
+                {difference}
+              </span>
+            </div>
           </div>
-        </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-between mt-6">
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={handleSave}
+                className={`bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 ${loading ? "cursor-not-allowed opacity-50" : ""}`}
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save"}
+              </button>
+              <button
+                type="button"
+                className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+              >
+                Modify
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );

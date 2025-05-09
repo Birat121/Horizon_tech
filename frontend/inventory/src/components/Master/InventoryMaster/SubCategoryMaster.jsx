@@ -1,40 +1,32 @@
 import React, { useState } from "react";
-import axios from "axios";  // Import Axios
+import DialogBox from "../../../reusable inputs/DialogBox";
+import Button from "../../../reusable inputs/buttons";
 import { toast } from "react-toastify";
-
-import Button from "../../../reusable inputs/buttons";  // Assuming you have a Button component
-import DialogBox from "../../../reusable inputs/DialogBox";  // Import DialogBox component
+import axios from "axios";
 import { API_URLS } from "../../../reusable inputs/config";
-
 
 const SubCategoryMaster = () => {
   const [categoryName, setCategoryName] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [vatRate, setVatRate] = useState(0.0);
   const [isVatable, setIsVatable] = useState(false);
-  const [isCategorySelectMode, setIsCategorySelectMode] = useState(true); // Category select/input mode
-  const [isSubCategorySelectMode, setIsSubCategorySelectMode] = useState(true); // SubCategory select/input mode
   const [actionType, setActionType] = useState("");
   const [showDialog, setShowDialog] = useState(false);
 
-  // Handle Category Name change
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
   };
 
-  // Handle SubCategory Name change
   const handleSubCategoryNameChange = (e) => {
     setSubCategoryName(e.target.value);
   };
 
-  // Toggle Vatable status
   const handleVatableChange = () => {
     setIsVatable(!isVatable);
-    setVatRate(!isVatable ? 13.0 : 0.0); // Example VAT rate of 13%
+    setVatRate(!isVatable ? 13.0 : 0.0);
   };
 
-  // Handle action buttons (Save, Modify)
-  const handleSave = async () => {
+  const handleSave = () => {
     if (!categoryName || !subCategoryName) {
       toast.error("Both Category and Sub Category names are required!");
       return;
@@ -43,7 +35,7 @@ const SubCategoryMaster = () => {
     setShowDialog(true);
   };
 
-  const handleModify = async () => {
+  const handleModify = () => {
     if (!categoryName || !subCategoryName) {
       toast.error("Both Category and Sub Category names are required!");
       return;
@@ -55,8 +47,6 @@ const SubCategoryMaster = () => {
   const handleCancel = () => {
     setCategoryName("");
     setSubCategoryName("");
-    setIsCategorySelectMode(true);
-    setIsSubCategorySelectMode(true);
     setIsVatable(false);
     setVatRate(0.0);
   };
@@ -72,7 +62,7 @@ const SubCategoryMaster = () => {
 
       if (response.status === 200) {
         toast.success("Subcategory saved successfully!");
-        handleCancel(); // Reset form after saving
+        handleCancel();
       }
     } catch (error) {
       toast.error("Failed to save subcategory!");
@@ -120,94 +110,60 @@ const SubCategoryMaster = () => {
         </h1>
         <h2 className="text-2xl font-bold mb-6 text-center">Create / Modify Sub Category</h2>
         <div className="space-y-6">
-          {/* Category Name */}
+          {/* Category Name (Select Only) */}
           <div>
             <label className="block text-gray-700 font-medium text-lg">Category Name:</label>
-            {/* Select and Input Mode toggle for Category */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsCategorySelectMode(true)}
-                className={`px-4 py-2 border rounded-lg ${isCategorySelectMode ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                Select
-              </button>
-              <button
-                onClick={() => setIsCategorySelectMode(false)}
-                className={`px-4 py-2 border rounded-lg ${!isCategorySelectMode ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                Input
-              </button>
-            </div>
-
-            {/* Conditional Rendering for Category Select/Input */}
-            {isCategorySelectMode ? (
-              <select
-                value={categoryName}
-                onChange={handleCategoryNameChange}
-                className="w-full p-3 border rounded-md text-lg mt-4"
-              >
-                <option value="" disabled>Select Category</option>
-                <option>Electronics</option>
-                <option>Furniture</option>
-                <option>Clothing</option>
-              </select>
-            ) : (
-              <input
-                type="text"
-                value={categoryName}
-                onChange={handleCategoryNameChange}
-                className="w-full p-3 border rounded-md text-lg mt-4"
-                placeholder="Enter category name"
-              />
-            )}
+            <select
+              value={categoryName}
+              onChange={handleCategoryNameChange}
+              className="w-full p-3 border rounded-md text-lg mt-4"
+            >
+              <option value="" disabled>Select Category</option>
+              <option>Electronics</option>
+              <option>Furniture</option>
+              <option>Clothing</option>
+            </select>
           </div>
 
-          {/* Sub Category Name */}
+          {/* Sub Category Name (Input Only) */}
           <div>
             <label className="block text-gray-700 font-medium text-lg">Sub Category Name:</label>
-            {/* Select and Input Mode toggle for SubCategory */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsSubCategorySelectMode(true)}
-                className={`px-4 py-2 border rounded-lg ${isSubCategorySelectMode ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                Select
-              </button>
-              <button
-                onClick={() => setIsSubCategorySelectMode(false)}
-                className={`px-4 py-2 border rounded-lg ${!isSubCategorySelectMode ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                Input
-              </button>
-            </div>
-
-            {/* Conditional Rendering for SubCategory Select/Input */}
-            {isSubCategorySelectMode ? (
-              <select
-                value={subCategoryName}
-                onChange={handleSubCategoryNameChange}
-                className="w-full p-3 border rounded-md text-lg mt-4"
-              >
-                <option value="" disabled>Select Sub Category</option>
-                <option>Mobile Phones</option>
-                <option>Sofas</option>
-                <option>Men's Wear</option>
-              </select>
-            ) : (
-              <input
-                type="text"
-                value={subCategoryName}
-                onChange={handleSubCategoryNameChange}
-                className="w-full p-3 border rounded-md text-lg mt-4"
-                placeholder="Enter sub category name"
-              />
-            )}
+            <input
+              type="text"
+              value={subCategoryName}
+              onChange={handleSubCategoryNameChange}
+              className="w-full p-3 border rounded-md text-lg mt-4"
+              placeholder="Enter sub category name"
+            />
           </div>
 
-          {/* VAT Rate */}
-          <div>
-            <label className="block text-gray-700 font-medium text-lg">Vat Rate:</label>
-            <p className="text-red-500 font-medium text-lg">{vatRate.toFixed(2)} %</p>
+          {/* Vatable and Vat Rate */}
+          <div className="flex items-center justify-between text-lg">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="vatable"
+                checked={isVatable}
+                onChange={handleVatableChange}
+                className="mr-3 w-5 h-5"
+              />
+              <label htmlFor="vatable" className="text-gray-700 font-medium">
+                Vatable Item
+              </label>
+            </div>
+            <p className="text-red-500 font-bold">{vatRate.toFixed(2)} %</p>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="non-vatable"
+                checked={!isVatable}
+                onChange={handleVatableChange}
+                className="mr-3 w-5 h-5"
+              />
+              <label htmlFor="non-vatable" className="text-gray-700 font-medium">
+                Non Vatable Item
+              </label>
+            </div>
           </div>
         </div>
 
@@ -238,3 +194,4 @@ const SubCategoryMaster = () => {
 };
 
 export default SubCategoryMaster;
+

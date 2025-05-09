@@ -4,9 +4,6 @@ import DialogBox from "../../../reusable inputs/DialogBox";
 import { toast } from "react-toastify";
 import { API_URLS } from "../../../reusable inputs/config";
 
-
-
-
 const CategoryMaster = () => {
   const [categoryName, setCategoryName] = useState("");
   const [isVatable, setIsVatable] = useState(false);
@@ -15,7 +12,6 @@ const CategoryMaster = () => {
   const [isModifying, setIsModifying] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [actionType, setActionType] = useState("");
-  const [isSelectMode, setIsSelectMode] = useState(true); // Track if in select mode or input mode
 
   const handleVatableChange = () => {
     setIsVatable(!isVatable);
@@ -50,16 +46,15 @@ const CategoryMaster = () => {
     setCategoryName("");
     setIsVatable(false);
     setVatRate(0.0);
-    setIsSelectMode(true); // Reset to select mode
   };
 
   const confirmAction = async () => {
     setShowDialog(false);
 
+    const categoryData = { name: categoryName, isVatable, vatRate };
+
     if (actionType === "save") {
       setIsSaving(true);
-      const categoryData = { name: categoryName, isVatable, vatRate };
-
       try {
         const response = await fetch(API_URLS.CreateCategory, {
           method: "POST",
@@ -72,10 +67,7 @@ const CategoryMaster = () => {
         if (!response.ok) throw new Error("Failed to save category data");
 
         toast.success("Category created successfully!");
-        setCategoryName("");
-        setIsVatable(false);
-        setVatRate(0.0);
-        setIsSelectMode(true); // Reset to select mode
+        handleCancel();
       } catch (error) {
         console.error("Error saving category data:", error);
         toast.error("Failed to save category data");
@@ -84,8 +76,6 @@ const CategoryMaster = () => {
       }
     } else if (actionType === "modify") {
       setIsModifying(true);
-      const categoryData = { name: categoryName, isVatable, vatRate };
-
       try {
         const response = await fetch(`${API_URLS.UpdateCategory}/${categoryName}`, {
           method: "PUT",
@@ -111,15 +101,6 @@ const CategoryMaster = () => {
     setShowDialog(false);
   };
 
-  const handleSelectModeChange = () => {
-    setIsSelectMode(true);
-    setCategoryName("");
-  };
-
-  const handleInputModeChange = () => {
-    setIsSelectMode(false);
-  };
-
   return (
     <div className="flex items-center justify-center h-[90vh]">
       <div className="bg-white border-2 p-10 rounded-lg shadow-xl w-full max-w-2xl">
@@ -130,54 +111,18 @@ const CategoryMaster = () => {
           Create / Modify Category
         </h2>
         <div className="space-y-6">
-          {/* Category Name */}
+          {/* Category Name Input Only */}
           <div>
             <label className="block text-gray-700 font-medium text-lg">
               Category Name:
             </label>
-            {/* Select and Input Mode toggle */}
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={handleSelectModeChange}
-                className={`px-4 py-2 border rounded-lg ${
-                  isSelectMode ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
-              >
-                Select
-              </button>
-              <button
-                onClick={handleInputModeChange}
-                className={`px-4 py-2 border rounded-lg ${
-                  !isSelectMode ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
-              >
-                Input
-              </button>
-            </div>
-
-            {/* Conditional Rendering for Select or Input */}
-            {isSelectMode ? (
-              <select
-                value={categoryName}
-                onChange={handleCategoryNameChange}
-                className="w-full p-3 border rounded-lg text-lg mt-4"
-              >
-                <option value="" disabled>
-                  Select Category
-                </option>
-                <option>Electronics</option>
-                <option>Furniture</option>
-                <option>Clothing</option>
-              </select>
-            ) : (
-              <input
-                type="text"
-                value={categoryName}
-                onChange={handleCategoryNameChange}
-                className="w-full p-3 border rounded-lg text-lg mt-4"
-                placeholder="Enter category name"
-              />
-            )}
+            <input
+              type="text"
+              value={categoryName}
+              onChange={handleCategoryNameChange}
+              className="w-full p-3 border rounded-lg text-lg mt-4"
+              placeholder="Enter category name"
+            />
           </div>
 
           {/* Vatable and Non-Vatable Options */}

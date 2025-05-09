@@ -21,10 +21,10 @@ const MaterialIssue = () => {
   };
 
   return (
-    <div className="h-[85vh] flex items-center justify-center  p-6">
+    <div className="h-[85vh] flex items-center justify-center p-6">
       <div className="w-full max-w-4xl p-8 bg-white border border-gray-300 rounded-2xl shadow-lg">
         {/* Title Section */}
-        <h2 className=" text-center text-xl font-semibold p-2 rounded-md mb-2">
+        <h2 className="text-center text-xl font-semibold p-2 rounded-md mb-2">
           Material Issue
         </h2>
 
@@ -35,6 +35,15 @@ const MaterialIssue = () => {
             <input
               type="date"
               className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+            />
+          </div>
+          <div>
+            <label className="block text-lg font-medium text-gray-700">Issue No.</label>
+            <input
+              type="text"
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              value="MI-2025-001" // Set dynamically as needed
+              readOnly
             />
           </div>
           <div>
@@ -84,7 +93,7 @@ const MaterialIssue = () => {
           >
             Get Excel Format
           </button>
-          <div>
+          <div className="flex gap-3">
             <input
               type="file"
               accept=".xlsx, .xls"
@@ -98,6 +107,12 @@ const MaterialIssue = () => {
             >
               Upload Excel
             </label>
+            <button className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md text-lg hover:bg-blue-600 transition">
+              Save
+            </button>
+            <button className="px-6 py-3 bg-gray-500 text-white rounded-lg shadow-md text-lg hover:bg-gray-600 transition">
+              Cancel
+            </button>
           </div>
         </div>
       </div>

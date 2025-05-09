@@ -4,17 +4,13 @@ export const menus = [
     items: [
       { path: "/master/suboption1", label: "Create Account Ledger",disabled: false },
       { path: "/master/suboption2", label: "Sub Ledger Master" },
-      {
-        path: "/master/suboption3",
-        label: "Additional Expenses Ledger Mapping",
-        disabled: true,
-      },
+      
       { path: "/master/suboption4", label: "Change Account Type" },
       { path: "/master/suboption5", label: "Account Re-Grouping" },
       { label: "Inventory Master",
       subOptions: [
         { path: "/master/suboption6/suboption1", label: "Inventory Item Master"},
-        { path: "/master/suboption6/suboption2", label: "Inventory Item Master - From Excel"},
+        
         { path: "/master/suboption6/suboption3", label: "Vendor Master"},
         { path: "/master/suboption6/suboption4", label: "Customer Master"},
         { path: "/master/suboption6/suboption5", label: "Category Master"},
@@ -29,9 +25,7 @@ export const menus = [
     },
       { path: "/master/suboption7", label: "Department Master" },
       { path: "/master/suboption8", label: "Counter Setting" },
-      { path: "/master/suboption9", label: "Point Collection Setting",
-        disabled: true,
-       },
+      
     ],
   },
   {
@@ -43,22 +37,18 @@ export const menus = [
       { path: "/transaction/suboption6", label: "PDC Entry" },
       { path: "/transaction/suboption7", label: "BG Entry" },
       { path: "/transaction/suboption8", label: "Price Change" },
-      { path: "/transaction/suboption9", label: "Invoice Generate" },
+     
       { path: "/transaction/suboption10", label: "Material Issue" },
       { path: "/transaction/suboption11", label: "Goods Receipt By Product" },
       { path: "/transaction/suboption12", label: "Issue Return" },
       { path: "/transaction/suboption13", label: "Barcode Label Print" },
-      {
-        path: "/transaction/suboption14",
-        label: "Barcode Print With Expire Date",
-        disabled: true,
-      },
+      
       { path: "/transaction/suboption15", label: "Opening Balance Entry" },
       { path: "/transaction/suboption16", label: "Opening Stock Entry" },
       {  label: "Import Data From Excel",
         subOptions: [
           { path: "/transaction/suboption17/suboption1", label: "Chart Of Account Excel"},
-          { path: "/transaction/suboption17/suboption2", label: "Category and Subcategory Excel"},
+          
           { path: "/transaction/suboption17/suboption3", label: "Product Information Excel"},
           { path: "/transaction/suboption17/suboption4", label: "Vendor List Excel"},
           { path: "/transaction/suboption17/suboption5", label: "Customer List Excel"},

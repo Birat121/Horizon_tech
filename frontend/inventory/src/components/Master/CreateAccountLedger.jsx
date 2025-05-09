@@ -1,8 +1,141 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "../../reusable inputs/buttons";
+import DialogBox from "../../reusable inputs/DialogBox";
+import { API_URLS } from "../../reusable inputs/config";
+import { toast } from "react-toastify";
 
 function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
+  const [groupCode, setGroupCode] = useState("");
+  const [formData, setFormData] = useState({
+    groupName: "",
+    ledgerName: "",
+    selectedAccountType: "",
+    selectedGroupAc: "",
+    subLedgerEnable: false,
+    isVat: false,
+  });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogAction, setDialogAction] = useState(null);
+
+  useEffect(() => {
+    fetchNextGroupCode();
+  }, []);
+
+  const fetchNextGroupCode = async () => {
+    try {
+      const response = await axios.get(API_URLS.GetGroupCode);
+      setGroupCode(response.data.nextCode);
+    } catch (error) {
+      toast.error("Failed to fetch next group code.");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const validateForm = () => {
+    if (accountType === "Group Account") {
+      if (!formData.groupName.trim()) {
+        toast.error("Group Name is required.");
+        return false;
+      }
+      if (!formData.selectedAccountType) {
+        toast.error("Account Type is required for Group Account.");
+        return false;
+      }
+    } else if (accountType === "Sub Group / Ledger") {
+      if (!formData.selectedGroupAc) {
+        toast.error("Group selection is required.");
+        return false;
+      }
+      if (!formData.ledgerName.trim()) {
+        toast.error("Child Name is required.");
+        return false;
+      }
+      if (!formData.selectedAccountType) {
+        toast.error("Account Type is required for Ledger.");
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const handleSave = () => {
+    if (!validateForm()) return;
+
+    setDialogMessage("Are you sure you want to save this account?");
+    setDialogAction("save");
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogConfirm = async () => {
+    if (dialogAction === "save") {
+      const payload =
+        accountType === "Group Account"
+          ? {
+              type: "group",
+              code: groupCode,
+              name: formData.groupName,
+              accountType: formData.selectedAccountType,
+            }
+          : {
+              type: "ledger",
+              group: formData.selectedGroupAc,
+              name: formData.ledgerName,
+              accountType: formData.selectedAccountType,
+              subLedgerEnable: formData.subLedgerEnable,
+              isVat: formData.isVat,
+            };
+
+      try {
+        const apiUrl =
+          accountType === "Group Account"
+            ? API_URLS.CreateGroupAccount
+            : API_URLS.CreateSubGroupAccount;
+
+        await axios.post(apiUrl, payload);
+        toast.success("Account saved successfully!");
+        setDialogMessage("Account saved successfully!");
+        fetchNextGroupCode();
+
+        // Reset form
+        setFormData({
+          groupName: "",
+          ledgerName: "",
+          selectedAccountType: "",
+          selectedGroupAc: "",
+          subLedgerEnable: false,
+          isVat: false,
+        });
+      } catch (error) {
+        toast.error("Failed to save account.");
+        setDialogMessage("Failed to save. Try again!");
+      }
+    }
+    setIsDialogOpen(false);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    if (dialogAction === "cancel") {
+      setFormData({
+        groupName: "",
+        ledgerName: "",
+        selectedAccountType: "",
+        selectedGroupAc: "",
+        subLedgerEnable: false,
+        isVat: false,
+      });
+    }
+  };
 
   return (
     <div className="flex items-center justify-center h-[90vh] overflow-y-hidden">
@@ -12,7 +145,7 @@ function CreateAccountLedger() {
         </h2>
 
         {/* Account Type Selector */}
-        <div className="bg-white  shadow-md rounded-md p-5 mb-6">
+        <div className="bg-white shadow-md rounded-md p-5 mb-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-3">
             Select Group / Child Account
           </h2>
@@ -35,12 +168,14 @@ function CreateAccountLedger() {
                 onChange={() => setAccountType("Sub Group / Ledger")}
                 className="form-radio text-purple-600"
               />
-              <span className="text-gray-700 font-medium">Sub Group / Ledger</span>
+              <span className="text-gray-700 font-medium">
+                Sub Group / Ledger
+              </span>
             </label>
           </div>
         </div>
 
-        {/* Conditionally Render Sections */}
+        {/* Group Account Form */}
         {accountType === "Group Account" && (
           <div className="bg-white shadow-md rounded-md p-5 mb-6">
             <h2 className="text-xl font-semibold text-black">Group Account</h2>
@@ -48,7 +183,7 @@ function CreateAccountLedger() {
               <label className="text-gray-600 font-medium">Group Code:</label>
               <input
                 type="text"
-                value="HX41"
+                value={groupCode}
                 readOnly
                 className="col-span-2 p-3 bg-gray-200 border border-gray-300 rounded-lg"
               />
@@ -56,28 +191,42 @@ function CreateAccountLedger() {
               <label className="text-gray-600 font-medium">Group Name:</label>
               <input
                 type="text"
+                name="groupName"
+                value={formData.groupName}
+                onChange={handleChange}
                 placeholder="Enter Group Name"
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
               <label className="text-gray-600 font-medium">Account Type:</label>
-              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select
+                name="selectedAccountType"
+                value={formData.selectedAccountType}
+                onChange={handleChange}
+                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              >
                 <option value="">Select Account Type</option>
-                <option value="Type1">Assets</option>
-                <option value="Type2">Liabilities</option>
-                <option value="Type3">Income</option>
-                <option value="Type4">Expenses</option>
+                <option value="Assets">Assets</option>
+                <option value="Liabilities">Liabilities</option>
+                <option value="Income">Income</option>
+                <option value="Expenses">Expenses</option>
               </select>
             </div>
           </div>
         )}
 
+        {/* Sub Group / Ledger Form */}
         {accountType === "Sub Group / Ledger" && (
           <div className="bg-white shadow-md rounded-md p-5 mb-6">
             <h2 className="text-xl font-semibold text-black">Child Account</h2>
             <div className="grid grid-cols-3 gap-6 items-center">
               <label className="text-gray-600 font-medium">Select GroupAc:</label>
-              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select
+                name="selectedGroupAc"
+                value={formData.selectedGroupAc}
+                onChange={handleChange}
+                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              >
                 <option value="">Select Group</option>
                 <option value="Group1">Group 1</option>
                 <option value="Group2">Group 2</option>
@@ -86,12 +235,20 @@ function CreateAccountLedger() {
               <label className="text-gray-600 font-medium">Enter Child Name:</label>
               <input
                 type="text"
+                name="ledgerName"
+                value={formData.ledgerName}
+                onChange={handleChange}
                 placeholder="Enter Child Name"
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
               <label className="text-gray-600 font-medium">Account Type:</label>
-              <select className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+              <select
+                name="selectedAccountType"
+                value={formData.selectedAccountType}
+                onChange={handleChange}
+                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              >
                 <option value="">Select Account Type</option>
                 <option value="Assets">Assets</option>
                 <option value="Liabilities">Liabilities</option>
@@ -102,11 +259,23 @@ function CreateAccountLedger() {
               <label className="col-span-1"></label>
               <div className="col-span-2 flex space-x-5">
                 <label className="flex items-center space-x-2">
-                  <input type="checkbox" className="form-checkbox text-purple-600" />
+                  <input
+                    type="checkbox"
+                    name="subLedgerEnable"
+                    checked={formData.subLedgerEnable}
+                    onChange={handleChange}
+                    className="form-checkbox text-purple-600"
+                  />
                   <span className="text-gray-700">Sub Ledger Enable</span>
                 </label>
                 <label className="flex items-center space-x-2">
-                  <input type="checkbox" className="form-checkbox text-purple-600" />
+                  <input
+                    type="checkbox"
+                    name="isVat"
+                    checked={formData.isVat}
+                    onChange={handleChange}
+                    className="form-checkbox text-purple-600"
+                  />
                   <span className="text-gray-700">Is VAT</span>
                 </label>
               </div>
@@ -116,14 +285,42 @@ function CreateAccountLedger() {
 
         {/* Buttons */}
         <div className="flex justify-center space-x-4 mt-10">
-          <button className="px-5 py-3 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200">
-            Add New
+          <button
+            className="px-5 py-3 bg-gray-100 text-gray-700 border rounded-lg shadow hover:bg-gray-200"
+            onClick={() => {
+              setDialogAction("cancel");
+              setIsDialogOpen(true);
+              setDialogMessage("Are you sure you want to cancel and clear the form?");
+            }}
+          >
+            Cancel
           </button>
-          <Button type="modify">Modify</Button>
-          <Button type="save">Save</Button>
-          <Button type="cancel">Cancel</Button>
+          <Button onClick={handleSave} type="save">
+            Save
+          </Button>
         </div>
       </div>
+
+      {/* DialogBox - Confirmation */}
+      <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
+        <p>{dialogMessage}</p>
+        <div className="flex justify-end space-x-4 mt-4">
+          <Button
+            onClick={handleDialogClose}
+            type="cancel"
+            className="px-5 py-3 bg-gray-200"
+          >
+            Close
+          </Button>
+          <Button
+            onClick={handleDialogConfirm}
+            type="save"
+            className="px-5 py-3 bg-purple-600 text-white"
+          >
+            OK
+          </Button>
+        </div>
+      </DialogBox>
     </div>
   );
 }
