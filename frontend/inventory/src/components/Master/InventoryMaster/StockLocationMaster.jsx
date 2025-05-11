@@ -36,8 +36,9 @@ const StockLocationMaster = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogTitle, setDialogTitle] = useState("");
+  const [nextLocId, setNextLocId] = useState(1); // Counter to generate LocId
 
-  // Fetch stock locations on component mount
+  // Fetch stock locations and the latest LocId on component mount
   useEffect(() => {
     const fetchStockLocations = async () => {
       const response = await fetch(API_URLS.GetStockLocs);
@@ -49,7 +50,24 @@ const StockLocationMaster = () => {
       }
     };
 
+    const fetchLatestLocId = async () => {
+      const response = await fetch(API_URLS.GetLatestLocId); // Get the latest LocId
+      if (response.ok) {
+        const data = await response.json();
+        const lastLocId = data.LocId; // The latest LocId returned from the backend
+
+        // Extract numeric part of LocId and increment
+        const lastIdPart = lastLocId.substring(4); // Extract the numeric part after "StkL"
+        const newId = parseInt(lastIdPart, 10) + 1;
+
+        setNextLocId(newId); // Set the next available LocId
+      } else {
+        toast.error("Error fetching the latest LocId");
+      }
+    };
+
     fetchStockLocations();
+    fetchLatestLocId(); // Fetch the latest LocId
   }, []);
 
   const handleChange = (e) => {
@@ -67,7 +85,9 @@ const StockLocationMaster = () => {
   };
 
   const handleConfirmSave = async () => {
+    const locId = `StkL${nextLocId.toString().padStart(5, "0")}`; // Generate the LocId
     const locationData = {
+      LocId: locId, // Add LocId to the locationData
       LocName: locationName,
       EnteredDate: new Date().toISOString(),
       EnteredBy: "system", // Can be dynamically fetched
@@ -92,14 +112,15 @@ const StockLocationMaster = () => {
           },
         ]);
         toast.success(`Location "${locationName}" created successfully!`);
+        setNextLocId(nextLocId + 1); // Increment the LocId counter for next entry
       } else {
         const error = await response.text();
         toast.error(`Error creating location: ${error}`);
       }
     } else {
-      // If modifying an existing location, send the location ID (TransID) to update
+      // If modifying an existing location, send the location ID (LocId) to update
       const locationToUpdate = stockLocations.find(loc => loc.LocName === locationName);
-      locationData.TransID = locationToUpdate.TransID; // Ensure the correct TransID is sent for update
+      locationData.LocId = locationToUpdate.LocId; // Ensure the correct LocId is sent for update
 
       response = await fetch(API_URLS.UpdateStockLoc, {
         method: "PUT",

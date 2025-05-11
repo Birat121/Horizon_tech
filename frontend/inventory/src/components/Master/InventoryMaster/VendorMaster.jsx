@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { API_URLS } from "../../../reusable inputs/config"; // Adjust this import as needed
-import axios from "axios"; // Make sure to install axios for API calls
-import DialogBox from "../../../reusable inputs/DialogBox"; // Dialog box component
+import { API_URLS } from "../../../reusable inputs/config";
+import axios from "axios";
+import DialogBox from "../../../reusable inputs/DialogBox";
 import { toast } from "react-toastify";
 
-// Reusable input and button components (same as CustomerMaster)
 const InputField = ({ label, name, value, onChange, type = "text" }) => (
   <div>
     <label className="block text-sm font-medium">{label}</label>
@@ -18,7 +17,7 @@ const InputField = ({ label, name, value, onChange, type = "text" }) => (
   </div>
 );
 
-const Button = ({ label, onClick, variant = "primary" }) => {
+const Button = ({ label, onClick, variant = "primary", ...rest }) => {
   const variantClasses = {
     primary: "bg-blue-500 hover:bg-blue-600",
     success: "bg-green-500 hover:bg-green-600",
@@ -28,6 +27,7 @@ const Button = ({ label, onClick, variant = "primary" }) => {
     <button
       onClick={onClick}
       className={`${variantClasses[variant]} text-white px-6 py-2 rounded-md`}
+      {...rest}
     >
       {label}
     </button>
@@ -37,70 +37,75 @@ const Button = ({ label, onClick, variant = "primary" }) => {
 const VendorMaster = () => {
   const [vendors, setVendors] = useState([]);
   const [formData, setFormData] = useState({
-    vendorName: "",
-    cityName: "",
-    phoneNo: "",
-    mobileNo: "",
-    tpinNo: "",
-    email: "",
-    contactName: "",
+    VendName: "",
+    Add1: "",
+    CityName: "",
+    PhoneNo: "",
+    MobileNo: "",
+    EmailID: "",
+    PanNo: "",
+    ContactName: "",
+    
+    
   });
+
   const [dialogMessage, setDialogMessage] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogAction, setDialogAction] = useState(null);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Validate form fields before saving
   const validateForm = () => {
-    const { vendorName, cityName, phoneNo, mobileNo, email, contactName } = formData;
-    if (!vendorName || !cityName || (!phoneNo && !mobileNo) || !email || !contactName) {
-      return "All fields are required.";
+    const { VendName, Add1, PhoneNo } = formData;
+    if (!VendName || !Add1 || !PhoneNo) {
+      return "Vendor Name, Address, and Phone No are required.";
     }
     return null;
   };
 
-  // Handle Save logic and API call
   const handleSave = () => {
     const validationMessage = validateForm();
     if (validationMessage) {
-      toast.error(validationMessage); // Show alert if validation fails
+      toast.error(validationMessage);
       return;
     }
-
     setDialogMessage("Are you sure you want to save the vendor information?");
     setDialogAction("save");
     setIsDialogOpen(true);
   };
 
   const handleDialogConfirm = async () => {
-    if (dialogAction === "save") {
-      try {
-        const response = await axios.post(API_URLS.VendorMasterAPI, formData);
-        if (response.status === 200) {
-          setVendors((prev) => [...prev, formData]);
-          toast.success("Vendor saved successfully!");
-          setFormData({
-            vendorName: "",
-            cityName: "",
-            phoneNo: "",
-            mobileNo: "",
-            tpinNo: "",
-            email: "",
-            contactName: "",
-          });
-        }
-      } catch (error) {
-        console.error("Error saving vendor:", error);
-        toast.error("Failed to save vendor!");
-      }
+  if (dialogAction === "save") {
+    try {
+      const payload = {
+        ...formData,
+        EntryDate: new Date(),
+      };
+
+      await axios.post(API_URLS.CreateVendormaster, payload);
+
+      setVendors((prev) => [...prev, payload]);
+      toast.success("Vendor saved successfully!");
+      setFormData({
+        VendName: "",
+        Add1: "",
+        CityName: "",
+        PhoneNo: "",
+        MobileNo: "",
+        EmailID: "",
+        PanNo: "",
+        ContactName: "",
+      });
+    } catch (error) {
+      console.error("Error saving vendor:", error);
+      toast.error("Failed to save vendor!");
     }
-    setIsDialogOpen(false);
-  };
+  }
+  setIsDialogOpen(false);
+};
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -112,13 +117,15 @@ const VendorMaster = () => {
 
   const handleCancel = () => {
     setFormData({
-      vendorName: "",
-      cityName: "",
-      phoneNo: "",
-      mobileNo: "",
-      tpinNo: "",
-      email: "",
-      contactName: "",
+      VendName: "",
+      Add1: "",
+      CityName: "",
+      PhoneNo: "",
+      MobileNo: "",
+      EmailID: "",
+      PanNo: "",
+      ContactName: ""
+      
     });
   };
 
@@ -138,49 +145,56 @@ const VendorMaster = () => {
             <form className="space-y-4">
               <InputField
                 label="Vendor Name"
-                name="vendorName"
-                value={formData.vendorName}
+                name="VendName"
+                value={formData.VendName}
+                onChange={handleInputChange}
+              />
+              <InputField
+                label="Address"
+                name="Add1"
+                value={formData.Add1}
                 onChange={handleInputChange}
               />
               <InputField
                 label="City Name"
-                name="cityName"
-                value={formData.cityName}
+                name="CityName"
+                value={formData.CityName}
                 onChange={handleInputChange}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InputField
                   label="Phone No"
-                  name="phoneNo"
-                  value={formData.phoneNo}
+                  name="PhoneNo"
+                  value={formData.PhoneNo}
                   onChange={handleInputChange}
                 />
                 <InputField
                   label="Mobile No"
-                  name="mobileNo"
-                  value={formData.mobileNo}
+                  name="MobileNo"
+                  value={formData.MobileNo}
                   onChange={handleInputChange}
                 />
               </div>
               <InputField
                 label="Email ID"
-                name="email"
-                value={formData.email}
+                name="EmailID"
+                value={formData.EmailID}
                 onChange={handleInputChange}
                 type="email"
               />
               <InputField
-                label="TPIN No"
-                name="tpinNo"
-                value={formData.tpinNo}
+                label="PAN No"
+                name="PanNo"
+                value={formData.PanNo}
                 onChange={handleInputChange}
               />
               <InputField
                 label="Contact Name"
-                name="contactName"
-                value={formData.contactName}
+                name="ContactName"
+                value={formData.ContactName}
                 onChange={handleInputChange}
               />
+             
             </form>
           </div>
 
@@ -193,7 +207,7 @@ const VendorMaster = () => {
                     <th className="border px-4 py-2">Sr.</th>
                     <th className="border px-4 py-2">Vendor Name</th>
                     <th className="border px-4 py-2">City</th>
-                    <th className="border px-4 py-2">Contact</th>
+                    <th className="border px-4 py-2">Phone</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -201,9 +215,9 @@ const VendorMaster = () => {
                     vendors.map((vendor, index) => (
                       <tr key={index} className="odd:bg-white even:bg-gray-50">
                         <td className="border px-4 py-2">{index + 1}</td>
-                        <td className="border px-4 py-2">{vendor.vendorName}</td>
-                        <td className="border px-4 py-2">{vendor.cityName}</td>
-                        <td className="border px-4 py-2">{vendor.phoneNo || vendor.mobileNo}</td>
+                        <td className="border px-4 py-2">{vendor.VendName}</td>
+                        <td className="border px-4 py-2">{vendor.CityName}</td>
+                        <td className="border px-4 py-2">{vendor.PhoneNo || vendor.MobileNo}</td>
                       </tr>
                     ))
                   ) : (
@@ -227,20 +241,12 @@ const VendorMaster = () => {
         </div>
       </div>
 
-      {/* DialogBox - Confirmation */}
+      {/* DialogBox */}
       <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
         <p>{dialogMessage}</p>
         <div className="flex justify-end space-x-4 mt-4">
-          <Button onClick={handleDialogClose} type="cancel" className="px-5 py-3 bg-gray-200">
-            Close
-          </Button>
-          <Button
-            onClick={handleDialogConfirm}
-            type="save"
-            className="px-5 py-3 bg-purple-600 text-white"
-          >
-            OK
-          </Button>
+          <Button onClick={handleDialogClose} label="Close" variant="danger" />
+          <Button onClick={handleDialogConfirm} label="OK" variant="success" />
         </div>
       </DialogBox>
     </div>

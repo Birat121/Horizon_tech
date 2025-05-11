@@ -47,8 +47,8 @@ const UnitOfMeasurement = () => {
   const handleConfirm = async () => {
     try {
       const payload = {
-        description: uomDescription,
-        quantity: Number(uomQuantity),
+        UomDesc: uomDescription,
+        UomQty: Number(uomQuantity),
       };
 
       if (actionType === "save") {

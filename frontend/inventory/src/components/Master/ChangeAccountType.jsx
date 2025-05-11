@@ -1,34 +1,74 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../reusable inputs/buttons";
-import DialogBox from "../../reusable inputs/DialogBox"; // Assuming you have a DialogBox component
+import DialogBox from "../../reusable inputs/DialogBox";
 import axios from "axios";
-import { API_URLS } from "../../reusable inputs/config"; // Replace with your actual API URLs
+import { API_URLS } from "../../reusable inputs/config";
 import { toast } from "react-toastify";
 
 const ChangeAccountType = () => {
   const [groupName, setGroupName] = useState("");
   const [groupCode, setGroupCode] = useState("");
   const [accountType, setAccountType] = useState("");
+  const [groupOptions, setGroupOptions] = useState([]); // ✅ group name dropdown
+  const [accountTypeOptions, setAccountTypeOptions] = useState([]); // ✅ account type dropdown
   const [dialogMessage, setDialogMessage] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogAction, setDialogAction] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch group code based on group name
+  // Fetch group names and account types on mount
+  useEffect(() => {
+    fetchGroupNames();
+    fetchAccountTypes();
+  }, []);
+
+  // Fetch group code when group name changes
   useEffect(() => {
     if (groupName) {
-      fetchGroupCode();
+      fetchGroupCode(groupName);
+    } else {
+      setGroupCode("");
     }
   }, [groupName]);
 
-  const fetchGroupCode = async () => {
+  const fetchGroupNames = async () => {
+    try {
+      const response = await axios.get(API_URLS.GetGroupNames); // expected array of strings
+      if (Array.isArray(response.data)) {
+        setGroupOptions(response.data);
+      } else {
+        throw new Error("Group name response is not an array");
+      }
+    } catch (error) {
+      toast.error("Failed to fetch group names.");
+      setGroupOptions([]);
+    }
+  };
+
+  const fetchAccountTypes = async () => {
+    try {
+      const response = await axios.get(API_URLS.GetAccountTypes); // expected array of strings
+      if (Array.isArray(response.data)) {
+        setAccountTypeOptions(response.data);
+      } else {
+        throw new Error("Account types response is not an array");
+      }
+    } catch (error) {
+      toast.error("Failed to fetch account types.");
+      setAccountTypeOptions([]);
+    }
+  };
+
+  const fetchGroupCode = async (selectedGroup) => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_URLS.GetGroupCodeByName}/${groupName}`);
-      setGroupCode(response.data.groupCode); // Assuming the response contains groupCode
+      const response = await axios.get(
+        `${API_URLS.GetGroupCodeByName}/${selectedGroup}`
+      );
+      setGroupCode(response.data.groupCode || ""); // assuming response has groupCode
     } catch (error) {
-      toast.error("Failed to fetch Group Code.");
-      setGroupCode(""); // Clear group code on error
+      toast.error("Failed to fetch group code.");
+      setGroupCode("");
     } finally {
       setLoading(false);
     }
@@ -39,6 +79,11 @@ const ChangeAccountType = () => {
   };
 
   const handleSave = () => {
+    if (!groupName || !groupCode || !accountType) {
+      toast.warning("Please fill all fields before saving.");
+      return;
+    }
+
     setDialogMessage("Are you sure you want to save these changes?");
     setDialogAction("save");
     setIsDialogOpen(true);
@@ -47,14 +92,14 @@ const ChangeAccountType = () => {
   const handleDialogConfirm = async () => {
     if (dialogAction === "save") {
       const payload = {
-        groupName,
-        groupCode,
-        accountType,
+        Acn: groupName,
+        Acc: groupCode,
+        Actype: accountType,
       };
 
       try {
         setLoading(true);
-        await axios.post(API_URLS.ChangeAccountType, payload);
+        await axios.put(API_URLS.ChangeAccountType, payload);
         toast.success("Account type updated successfully!");
         setDialogMessage("Account type updated successfully!");
       } catch (error) {
@@ -84,43 +129,58 @@ const ChangeAccountType = () => {
           Change Account Type
         </h2>
         <div className="bg-white shadow-md rounded-md p-5 mb-6">
-          <label className="block font-semibold mb-3 text-lg">Select Account</label>
+          <label className="block font-semibold mb-3 text-lg">
+            Select Account
+          </label>
           <form className="space-y-6">
             <div className="mb-5">
-              <label className="block mb-2 text-gray-700 font-medium text-lg">Group Code:</label>
+              <label className="block mb-2 text-gray-700 font-medium text-lg">
+                Group Code:
+              </label>
               <input
                 className="border border-gray-300 rounded-lg px-3 py-2 w-full text-lg"
                 type="text"
                 value={groupCode}
                 readOnly
-                placeholder={loading ? "Loading..." : "Group Code will appear here"}
+                placeholder={
+                  loading ? "Loading..." : "Group Code will appear here"
+                }
               />
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-gray-700 font-medium text-lg">Group Name:</label>
+              <label className="block mb-2 text-gray-700 font-medium text-lg">
+                Group Name:
+              </label>
               <select
                 className="border border-gray-300 rounded-lg px-3 py-2 w-full text-lg"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
               >
                 <option value="">Select Group Name</option>
-                <option value="Group1">Group 1</option>
-                <option value="Group2">Group 2</option>
-                {/* Add other group options here */}
+                {Array.isArray(groupOptions) &&
+                  groupOptions.map((group, index) => (
+                    <option key={index} value={group}>
+                      {group}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="mb-5">
-              <label className="block mb-2 text-gray-700 font-medium text-lg">Account Type:</label>
+              <label className="block mb-2 text-gray-700 font-medium text-lg">
+                Account Type:
+              </label>
               <select
                 className="border border-gray-300 rounded-lg px-3 py-2 w-full text-lg"
                 value={accountType}
                 onChange={handleAccountTypeChange}
               >
                 <option value="">Select Account Type</option>
-                <option value="Assets">Assets</option>
-                <option value="Liabilities">Liabilities</option>
-                <option value="Income">Income</option>
-                <option value="Expenses">Expenses</option>
+                {Array.isArray(accountTypeOptions) &&
+                  accountTypeOptions.map((type, index) => (
+                    <option key={index} value={type}>
+                      {type}
+                    </option>
+                  ))}
               </select>
             </div>
           </form>
@@ -136,10 +196,18 @@ const ChangeAccountType = () => {
       </div>
 
       {/* DialogBox - Confirmation */}
-      <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
+      <DialogBox
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+        title="Confirmation"
+      >
         <p>{dialogMessage}</p>
         <div className="flex justify-end space-x-4 mt-4">
-          <Button onClick={handleDialogClose} type="cancel" className="px-5 py-3 bg-gray-200">
+          <Button
+            onClick={handleDialogClose}
+            type="cancel"
+            className="px-5 py-3 bg-gray-200"
+          >
             Close
           </Button>
           <Button

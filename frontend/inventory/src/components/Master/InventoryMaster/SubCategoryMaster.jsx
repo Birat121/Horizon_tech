@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DialogBox from "../../../reusable inputs/DialogBox";
 import Button from "../../../reusable inputs/buttons";
 import { toast } from "react-toastify";
@@ -6,12 +6,28 @@ import axios from "axios";
 import { API_URLS } from "../../../reusable inputs/config";
 
 const SubCategoryMaster = () => {
+  const [categoryNames, setCategoryNames] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [vatRate, setVatRate] = useState(0.0);
   const [isVatable, setIsVatable] = useState(false);
   const [actionType, setActionType] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+
+  // Fetch category names on component mount
+  useEffect(() => {
+    const fetchCategoryNames = async () => {
+      try {
+        const response = await axios.get(API_URLS.GET_CATEGORY_NAMES); // Update with your actual endpoint
+        setCategoryNames(response.data);
+      } catch (error) {
+        toast.error("Failed to fetch category names");
+        console.error(error);
+      }
+    };
+
+    fetchCategoryNames();
+  }, []);
 
   const handleCategoryNameChange = (e) => {
     setCategoryName(e.target.value);
@@ -54,8 +70,8 @@ const SubCategoryMaster = () => {
   const saveSubCategory = async () => {
     try {
       const response = await axios.post(API_URLS.SUBCATEGORY, {
-        categoryName,
-        subCategoryName,
+        CatName: categoryName,
+        SubCatName: subCategoryName,
         vatRate,
         isVatable,
       });
@@ -73,8 +89,8 @@ const SubCategoryMaster = () => {
   const modifySubCategory = async () => {
     try {
       const response = await axios.put(API_URLS.SUBCATEGORY, {
-        categoryName,
-        subCategoryName,
+        CatName:categoryName,
+        SubCatName:subCategoryName,
         vatRate,
         isVatable,
       });
@@ -110,7 +126,7 @@ const SubCategoryMaster = () => {
         </h1>
         <h2 className="text-2xl font-bold mb-6 text-center">Create / Modify Sub Category</h2>
         <div className="space-y-6">
-          {/* Category Name (Select Only) */}
+          {/* Category Name (Dropdown) */}
           <div>
             <label className="block text-gray-700 font-medium text-lg">Category Name:</label>
             <select
@@ -119,9 +135,11 @@ const SubCategoryMaster = () => {
               className="w-full p-3 border rounded-md text-lg mt-4"
             >
               <option value="" disabled>Select Category</option>
-              <option>Electronics</option>
-              <option>Furniture</option>
-              <option>Clothing</option>
+              {categoryNames.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -194,4 +212,3 @@ const SubCategoryMaster = () => {
 };
 
 export default SubCategoryMaster;
-

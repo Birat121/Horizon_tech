@@ -51,7 +51,7 @@ const CategoryMaster = () => {
   const confirmAction = async () => {
     setShowDialog(false);
 
-    const categoryData = { name: categoryName, isVatable, vatRate };
+    const categoryData = { CatName: categoryName, isVatable, vatRate };
 
     if (actionType === "save") {
       setIsSaving(true);

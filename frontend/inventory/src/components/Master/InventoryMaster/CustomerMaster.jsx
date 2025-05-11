@@ -102,12 +102,20 @@ const CustomerMaster = () => {
   };
 
   const validateForm = () => {
-    if (!formData.customerName) {
+    if (!formData.customerName.trim()) {
       showDialog("Validation Error", "Customer Name is required.");
       return false;
     }
-    if (!formData.phoneNo && !formData.mobileNo) {
-      showDialog("Validation Error", "At least one contact number is required.");
+    if (!formData.creditLimit) {
+      showDialog("Validation Error", "Credit Limit is required.");
+      return false;
+    }
+    if (!formData.address.trim()) {
+      showDialog("Validation Error", "Address is required.");
+      return false;
+    }
+    if (!formData.phoneNo.trim()) {
+      showDialog("Validation Error", "Phone Number is required.");
       return false;
     }
     return true;
@@ -117,10 +125,22 @@ const CustomerMaster = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch(API_URLS.Customer, {
+      const response = await fetch(API_URLS.CreateCustomer, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          CustomerName: formData.customerName,
+          CrLimit: parseFloat(formData.creditLimit),
+          TermsDays: formData.terms ? parseInt(formData.terms) : null,
+          DiscPer: formData.discount ? parseFloat(formData.discount) : null,
+          Add1: formData.address,
+          PhoneNo: formData.phoneNo,
+          MobileNo: formData.mobileNo || null,
+          EmailID: formData.emailId || null,
+          ContactName: formData.contactName || null,
+          PanNo: formData.tpinNo || null,
+         
+        }),
       });
       const result = await response.json();
       if (response.ok) {
@@ -271,10 +291,17 @@ const CustomerMaster = () => {
                   <tbody>
                     {customers.length > 0 ? (
                       customers.map((customer, index) => (
-                        <tr key={index} className="odd:bg-white even:bg-gray-50">
+                        <tr
+                          key={index}
+                          className="odd:bg-white even:bg-gray-50"
+                        >
                           <td className="border px-4 py-2">{index + 1}</td>
-                          <td className="border px-4 py-2">{customer.customerName}</td>
-                          <td className="border px-4 py-2">{customer.address}</td>
+                          <td className="border px-4 py-2">
+                            {customer.customerName}
+                          </td>
+                          <td className="border px-4 py-2">
+                            {customer.address}
+                          </td>
                           <td className="border px-4 py-2">
                             {customer.phoneNo || customer.mobileNo}
                           </td>

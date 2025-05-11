@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse"; // Import PapaParse for CSV parsing
+import { toast } from "react-toastify";
+import { API_URLS } from "../../reusable inputs/config";
 
 const OpeningBalanceEntry = () => {
   const [filePath, setFilePath] = useState("");
@@ -11,7 +13,7 @@ const OpeningBalanceEntry = () => {
   useEffect(() => {
     const fetchAccountHeads = async () => {
       try {
-        const response = await fetch("/api/accountHeads"); // Replace with your backend endpoint
+        const response = await fetch(API_URLS.GET_ACCOUNT_HEADS); // Replace with your backend endpoint
         const data = await response.json();
         setAccountHeads(data); // Assume the response is an array of account head names or IDs
       } catch (error) {
@@ -53,15 +55,69 @@ const OpeningBalanceEntry = () => {
   const handleAccountHeadChange = (e) => {
     setSelectedAccountHead(e.target.value); // Update the selected account head
   };
+  const handleDownloadTemplate = () => {
+  const csvHeaders = [
+    "AccountHead",
+    
+    "Debit",
+    "Credit",
+  ];
+  const csvContent = [csvHeaders.join(",")].join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "opening_balance_template.csv";
+  link.click();
+  window.URL.revokeObjectURL(url);
+};
+
+  // Handle the form submission and upload the CSV data to backend
+  const handleSave = async () => {
+    if (tableData.length === 0) {
+     toast.error("No data to upload.");
+      return;
+    }
+
+    try {
+      const response = await fetch(API_URLS.IMPORT_OPENING_BALANCE, {
+        method: "POST",
+        body: JSON.stringify(tableData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+       toast.success("Data uploaded successfully.");
+      } else {
+       toast.error("Failed to upload data.");
+      }
+    } catch (error) {
+      console.error("Error uploading data:", error);
+     toast.error("Failed to upload data.");
+    }
+
+    
+  };
+
+  
 
   return (
     <div className="flex flex-col md:flex-row h-[85vh] bg-white border-2 rounded-lg shadow-lg ml-8">
       {/* Sidebar */}
       <div className="w-full md:w-1/6 bg-gray-300 text-white flex md:flex-col flex-row md:items-center md:py-4 py-2">
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-save hover:bg-save-hover rounded text-sm md:text-base">
+        <button
+          onClick={handleSave}
+          className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-save hover:bg-save-hover rounded text-sm md:text-base"
+        >
           Save
         </button>
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-cancel hover:bg-cancel-hover rounded text-sm md:text-base">
+        <button
+          className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-cancel hover:bg-cancel-hover rounded text-sm md:text-base"
+        >
           Cancel
         </button>
         <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-modify hover:bg-modify-hover rounded text-sm md:text-base">
@@ -70,7 +126,9 @@ const OpeningBalanceEntry = () => {
         <button className="w-1/4 md:w-5/6 py-2 md:py-3 mb-2 md:mb-4 bg-blue-600 hover:bg-blue-800 rounded text-sm md:text-base">
           Delete
         </button>
-        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mt-2 md:mt-4 bg-green-600 hover:bg-green-800 rounded text-sm md:text-base">
+        <button className="w-1/4 md:w-5/6 py-2 md:py-3 mt-2 md:mt-4 bg-green-600 hover:bg-green-800 rounded text-sm md:text-base"
+         onClick={handleDownloadTemplate}>
+       
           Get Excel
         </button>
       </div>
@@ -120,7 +178,11 @@ const OpeningBalanceEntry = () => {
                   <td className="border border-gray-300 p-2">
                     <select
                       value={row.accountHead}
-                      onChange={handleAccountHeadChange}
+                      onChange={(e) => {
+                        const updatedTableData = [...tableData];
+                        updatedTableData[index].accountHead = e.target.value;
+                        setTableData(updatedTableData);
+                      }}
                       className="border border-gray-400 rounded p-2 w-full"
                     >
                       <option value="">Select Account Head</option>

@@ -129,16 +129,13 @@ const ServiceItemMaster = () => {
                 <label className="w-40 text-purple-600 font-medium text-lg">
                   Item Desc:
                 </label>
-                <select
+                <input
+                  type="text"
                   className="border border-gray-400 p-3 rounded w-full text-lg"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                >
-                  <option value="">Select Item</option>
-                  <option value="item1">Item 1</option>
-                  <option value="item2">Item 2</option>
-                  <option value="item3">Item 3</option>
-                </select>
+                  placeholder="Enter Item Description"
+                />
               </div>
 
               <div className="flex items-center">

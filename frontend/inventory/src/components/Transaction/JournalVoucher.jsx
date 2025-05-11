@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URLS } from "../../reusable inputs/config";
 import { toast } from "react-toastify";
@@ -6,11 +6,41 @@ import { toast } from "react-toastify";
 const JournalVoucher = () => {
   const [transactionDate, setTransactionDate] = useState("");
   const [docNo, setDocNo] = useState("");
+  const [voucherNo, setVoucherNo] = useState("");
+  const [accountOptions, setAccountOptions] = useState([]);
   const [rows, setRows] = useState([
     { sr: 1, accountName: "", particulars: "", debit: "", credit: "" },
   ]);
   const [difference, setDifference] = useState(0);
-  const [loading, setLoading] = useState(false);  // Loading state
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchVoucherNo();
+    fetchAccountNames();
+  }, []);
+
+  const fetchVoucherNo = async () => {
+    try {
+      const res = await axios.get(API_URLS.GET_VOUCHER_NO);
+      setVoucherNo(res.data.voucherNo); // assuming response is { voucherNo: "JV81-000123" }
+    } catch (error) {
+      toast.error("Failed to fetch voucher number");
+      console.error(error);
+    }
+  };
+
+  const fetchAccountNames = async () => {
+  try {
+    const res = await axios.get(API_URLS.GET_ACCOUNT_NAMES);
+    const accounts = Array.isArray(res.data) ? res.data : res.data.accounts || [];
+    setAccountOptions(accounts);
+  } catch (error) {
+    toast.error("Failed to fetch account names");
+    console.error(error);
+    setAccountOptions([]); // fallback to empty array
+  }
+};
+
 
   const handleRowChange = (index, field, value) => {
     const updatedRows = [...rows];
@@ -46,7 +76,6 @@ const JournalVoucher = () => {
   };
 
   const handleSave = async () => {
-    // Validation check: Ensure at least one debit or credit is filled in each row
     const invalidRow = rows.some(
       (row) => (row.debit === "" && row.credit === "") || row.accountName === "" || row.particulars === ""
     );
@@ -58,25 +87,26 @@ const JournalVoucher = () => {
     const payload = {
       transactionDate,
       docNo,
-      voucherNo: "JV81-8200154",
+      voucherNo,
       entries: rows.filter(
         (r) => r.accountName || r.particulars || r.debit || r.credit
       ),
     };
 
-    setLoading(true);  // Set loading state to true
+    setLoading(true);
 
     try {
       const res = await axios.post(API_URLS.CREATE_JOURNAL_VOUCHER, payload);
       if (res.status === 200) {
         toast.success("Voucher saved successfully!");
-        handleCancel();  // Reset the form after successful save
+        handleCancel();
+        fetchVoucherNo(); // Fetch new voucher number after successful save
       }
     } catch (err) {
       toast.error("Failed to save voucher!");
       console.error(err);
     } finally {
-      setLoading(false);  // Set loading state to false after API response
+      setLoading(false);
     }
   };
 
@@ -90,12 +120,10 @@ const JournalVoucher = () => {
   return (
     <div className="flex items-center justify-center h-[85vh] ml-12 p-6">
       <div className="bg-white border border-gray-300 rounded-2xl shadow-xl p-8 w-full max-w-5xl">
-        {/* Header */}
         <div className="flex justify-between mb-6">
           <h2 className="text-xl font-semibold">Journal Voucher Entry</h2>
         </div>
 
-        {/* Form */}
         <form>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             <div>
@@ -112,7 +140,7 @@ const JournalVoucher = () => {
               <label className="block text-lg font-medium">Voucher No.</label>
               <input
                 type="text"
-                value="JV81-8200154"
+                value={voucherNo}
                 className="mt-2 w-full p-3 border rounded text-lg bg-gray-100"
                 readOnly
               />
@@ -129,7 +157,6 @@ const JournalVoucher = () => {
             </div>
           </div>
 
-          {/* Table */}
           <div className="overflow-y-auto max-h-64 mb-6">
             <table className="w-full table-auto border border-gray-300">
               <thead className="bg-gray-100 text-left text-lg">
@@ -146,13 +173,17 @@ const JournalVoucher = () => {
                   <tr key={i}>
                     <td className="px-4 py-2 border">{row.sr}</td>
                     <td className="px-4 py-2 border">
-                      <input
-                        type="text"
+                      <select
                         value={row.accountName}
                         onChange={(e) => handleRowChange(i, "accountName", e.target.value)}
                         onKeyDown={handleKeyDown}
                         className="w-full p-2 border rounded"
-                      />
+                      >
+                        <option value="">Select Account</option>
+                        {accountOptions.map((account, idx) => (
+                          <option key={idx} value={account}>{account}</option>
+                        ))}
+                      </select>
                     </td>
                     <td className="px-4 py-2 border">
                       <input
@@ -187,14 +218,10 @@ const JournalVoucher = () => {
             </table>
           </div>
 
-          {/* Footer */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6 items-center">
             <div>
               <label className="block text-lg font-medium">Attach File</label>
-              <input
-                type="file"
-                className="mt-2 w-full p-3 border rounded text-lg"
-              />
+              <input type="file" className="mt-2 w-full p-3 border rounded text-lg" />
             </div>
             <div className="col-span-2 flex justify-end gap-4 items-center">
               <span className="text-lg font-medium">Difference:</span>
@@ -204,7 +231,6 @@ const JournalVoucher = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex justify-between mt-6">
             <div className="flex gap-4">
               <button
@@ -215,17 +241,10 @@ const JournalVoucher = () => {
               >
                 {loading ? "Saving..." : "Save"}
               </button>
-              <button
-                type="button"
-                className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-              >
+              <button type="button" className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
                 Modify
               </button>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600"
-              >
+              <button type="button" onClick={handleCancel} className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">
                 Cancel
               </button>
             </div>

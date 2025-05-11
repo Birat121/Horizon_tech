@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
   const [groupCode, setGroupCode] = useState("");
+  const [groupAccounts, setGroupAccounts] = useState([]);
+  const [selectedGroupType, setSelectedGroupType] = useState("");
   const [formData, setFormData] = useState({
     groupName: "",
     ledgerName: "",
@@ -22,6 +24,7 @@ function CreateAccountLedger() {
 
   useEffect(() => {
     fetchNextGroupCode();
+    fetchGroupAccounts();
   }, []);
 
   const fetchNextGroupCode = async () => {
@@ -30,6 +33,16 @@ function CreateAccountLedger() {
       setGroupCode(response.data.nextCode);
     } catch (error) {
       toast.error("Failed to fetch next group code.");
+    }
+  };
+
+  const fetchGroupAccounts = async () => {
+    try {
+      const response = await axios.get(API_URLS.GetGroupAccounts); // should return { GroupCode, GroupName, AccountType }
+      console.log("Fetched group accounts:", response.data); // ✅ Should show array
+      setGroupAccounts(response.data);
+    } catch (error) {
+      toast.error("Failed to load group accounts.");
     }
   };
 
@@ -60,8 +73,8 @@ function CreateAccountLedger() {
         toast.error("Child Name is required.");
         return false;
       }
-      if (!formData.selectedAccountType) {
-        toast.error("Account Type is required for Ledger.");
+      if (!selectedGroupType) {
+        toast.error("Account Type is missing for selected group.");
         return false;
       }
     }
@@ -90,7 +103,7 @@ function CreateAccountLedger() {
               type: "ledger",
               group: formData.selectedGroupAc,
               name: formData.ledgerName,
-              accountType: formData.selectedAccountType,
+              accountType: selectedGroupType,
               subLedgerEnable: formData.subLedgerEnable,
               isVat: formData.isVat,
             };
@@ -106,7 +119,6 @@ function CreateAccountLedger() {
         setDialogMessage("Account saved successfully!");
         fetchNextGroupCode();
 
-        // Reset form
         setFormData({
           groupName: "",
           ledgerName: "",
@@ -115,6 +127,7 @@ function CreateAccountLedger() {
           subLedgerEnable: false,
           isVat: false,
         });
+        setSelectedGroupType("");
       } catch (error) {
         toast.error("Failed to save account.");
         setDialogMessage("Failed to save. Try again!");
@@ -134,6 +147,7 @@ function CreateAccountLedger() {
         subLedgerEnable: false,
         isVat: false,
       });
+      setSelectedGroupType("");
     }
   };
 
@@ -215,24 +229,48 @@ function CreateAccountLedger() {
           </div>
         )}
 
-        {/* Sub Group / Ledger Form */}
         {accountType === "Sub Group / Ledger" && (
           <div className="bg-white shadow-md rounded-md p-5 mb-6">
             <h2 className="text-xl font-semibold text-black">Child Account</h2>
             <div className="grid grid-cols-3 gap-6 items-center">
-              <label className="text-gray-600 font-medium">Select GroupAc:</label>
+              {/* Select Group */}
+              <label className="text-gray-600 font-medium">
+                Select GroupAc:
+              </label>
               <select
                 name="selectedGroupAc"
                 value={formData.selectedGroupAc}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const selectedName = e.target.value;
+                  console.log("Selected Group Name:", selectedName); // Log selected name
+                  const selectedGroup = groupAccounts.find(
+                    (g) => g.GroupName === selectedName
+                  );
+                  console.log("Selected Group:", selectedGroup); // Log the selected group
+
+                  if (selectedGroup) {
+                    setFormData((prev) => ({
+                      ...prev,
+                      selectedGroupAc: selectedName,
+                    }));
+                    // Now correctly set the AccountType based on the selected group
+                    setSelectedGroupType(selectedGroup.AccountType || "");
+                  }
+                }}
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               >
                 <option value="">Select Group</option>
-                <option value="Group1">Group 1</option>
-                <option value="Group2">Group 2</option>
+                {groupAccounts.map((group, index) => (
+                  <option key={index} value={group.GroupName}>
+                    {group.GroupName}
+                  </option>
+                ))}
               </select>
 
-              <label className="text-gray-600 font-medium">Enter Child Name:</label>
+              {/* Child Name */}
+              <label className="text-gray-600 font-medium">
+                Enter Child Name:
+              </label>
               <input
                 type="text"
                 name="ledgerName"
@@ -242,20 +280,16 @@ function CreateAccountLedger() {
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
+              {/* Account Type (Read-only) */}
               <label className="text-gray-600 font-medium">Account Type:</label>
-              <select
-                name="selectedAccountType"
-                value={formData.selectedAccountType}
-                onChange={handleChange}
-                className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              >
-                <option value="">Select Account Type</option>
-                <option value="Assets">Assets</option>
-                <option value="Liabilities">Liabilities</option>
-                <option value="Income">Income</option>
-                <option value="Expenses">Expenses</option>
-              </select>
+              <input
+                type="text"
+                value={selectedGroupType}
+                readOnly
+                className="col-span-2 p-3 bg-gray-100 border border-gray-300 rounded-lg"
+              />
 
+              {/* Checkboxes */}
               <label className="col-span-1"></label>
               <div className="col-span-2 flex space-x-5">
                 <label className="flex items-center space-x-2">
@@ -290,7 +324,9 @@ function CreateAccountLedger() {
             onClick={() => {
               setDialogAction("cancel");
               setIsDialogOpen(true);
-              setDialogMessage("Are you sure you want to cancel and clear the form?");
+              setDialogMessage(
+                "Are you sure you want to cancel and clear the form?"
+              );
             }}
           >
             Cancel
@@ -302,7 +338,11 @@ function CreateAccountLedger() {
       </div>
 
       {/* DialogBox - Confirmation */}
-      <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
+      <DialogBox
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+        title="Confirmation"
+      >
         <p>{dialogMessage}</p>
         <div className="flex justify-end space-x-4 mt-4">
           <Button

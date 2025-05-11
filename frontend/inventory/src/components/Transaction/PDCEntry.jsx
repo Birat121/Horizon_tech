@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DialogBox from "../../reusable inputs/DialogBox";
 import { API_URLS } from "../../reusable inputs/config"; // Make sure your API_URLS are set up
 
 const PDCEntry = () => {
   const [formData, setFormData] = useState({
-    transactionNo: "PDC10081-82000001",
+    transactionNo: "",
     voucherType: "Advance Cheque",
     referenceNo: "",
     transactionDate: "",
@@ -28,6 +28,33 @@ const PDCEntry = () => {
     message: "",
   });
 
+  const [parties, setParties] = useState([]);
+
+  useEffect(() => {
+      const fetchParties = async () => {
+        try {
+          const response = await fetch(API_URLS.PARTY_LIST2); // Assuming the API endpoint is API_URLS.PARTY_LIST
+          const data = await response.json();
+          setParties(data); // Set the fetched parties to the state
+        } catch (error) {
+          console.error("Error fetching parties:", error);
+        }
+      };
+  
+      // Fetch the transaction number
+      const fetchTransactionNo = async () => {
+        try {
+          const res = await fetch(API_URLS.GET_NEXT_PDC_TRANSACTION_NO);
+          const no = await res.text(); // assuming response is plain string
+          setFormData((prev) => ({ ...prev, transactionNo: no }));
+        } catch (err) {
+          console.error("Failed to fetch transaction no:", err);
+        }
+      };
+  
+      fetchParties();
+      fetchTransactionNo();
+    }, []);
   // Handle input field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -97,7 +124,8 @@ const PDCEntry = () => {
           setDialog({
             open: true,
             title: "Error",
-            message: result.message || "An error occurred while saving the PDC Entry.",
+            message:
+              result.message || "An error occurred while saving the PDC Entry.",
           });
         }
       } catch (error) {
@@ -118,8 +146,10 @@ const PDCEntry = () => {
   return (
     <div className="p-6 h-[90vh] overflow-y-auto">
       <div className="bg-white border-2 rounded-lg shadow-lg p-2 max-w-7xl mx-auto">
-        <h2 className="text-2xl font-semibold p-4 text-center rounded-md mb-4">PDC Entry</h2>
-        
+        <h2 className="text-2xl font-semibold p-4 text-center rounded-md mb-4">
+          PDC Entry
+        </h2>
+
         {/* Party Info Section */}
         <div className="border p-6 rounded-lg mb-6">
           <h3 className="font-semibold mb-3 text-lg">Party Info</h3>
@@ -167,13 +197,19 @@ const PDCEntry = () => {
             </div>
             <div>
               <label className="block text-sm">Party Name</label>
-              <input
-                type="text"
+              <select
                 className="w-full border p-2 rounded"
                 name="partyName"
                 value={formData.partyName}
                 onChange={handleInputChange}
-              />
+              >
+                <option value="">Select Party</option>
+                {parties.map((party) => (
+                  <option key={party.id} value={party.name}>
+                    {party.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm">Remarks</label>
@@ -187,7 +223,7 @@ const PDCEntry = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Advance Cheque Section */}
         <div className="border p-6 rounded-lg mb-6">
           <h3 className="font-semibold mb-3 text-lg">Advance Cheque</h3>
@@ -303,13 +339,21 @@ const PDCEntry = () => {
           >
             Save
           </button>
-          <button className="bg-gray-500 text-white px-6 py-2 rounded">Cancel</button>
-          <button className="bg-red-500 text-white px-6 py-2 rounded">Close</button>
+          <button className="bg-gray-500 text-white px-6 py-2 rounded">
+            Cancel
+          </button>
+          <button className="bg-red-500 text-white px-6 py-2 rounded">
+            Close
+          </button>
         </div>
       </div>
 
       {/* DialogBox for Success/Error */}
-      <DialogBox isOpen={dialog.open} onClose={handleCloseDialog} title={dialog.title}>
+      <DialogBox
+        isOpen={dialog.open}
+        onClose={handleCloseDialog}
+        title={dialog.title}
+      >
         <div className="text-center mb-4">{dialog.message}</div>
         <div className="flex justify-center">
           <button
@@ -325,4 +369,3 @@ const PDCEntry = () => {
 };
 
 export default PDCEntry;
-
