@@ -36,38 +36,38 @@ const StockLocationMaster = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
   const [dialogTitle, setDialogTitle] = useState("");
-  const [nextLocId, setNextLocId] = useState(1); // Counter to generate LocId
+  const [nextLocId, setNextLocId] = useState(1);
 
-  // Fetch stock locations and the latest LocId on component mount
   useEffect(() => {
-    const fetchStockLocations = async () => {
-      const response = await fetch(API_URLS.GetStockLocs);
-      if (response.ok) {
-        const data = await response.json();
-        setStockLocations(data);
-      } else {
-        toast.error("Error fetching stock locations");
-      }
-    };
-
     const fetchLatestLocId = async () => {
-      const response = await fetch(API_URLS.GetLatestLocId); // Get the latest LocId
-      if (response.ok) {
-        const data = await response.json();
-        const lastLocId = data.LocId; // The latest LocId returned from the backend
+      try {
+        const response = await fetch(API_URLS.GetLatestLocId);
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("Failed to fetch latest LocId:", errorText);
+          toast.error("Error fetching the latest LocId");
+          return;
+        }
 
-        // Extract numeric part of LocId and increment
-        const lastIdPart = lastLocId.substring(4); // Extract the numeric part after "StkL"
+        const data = await response.json();
+
+        if (!data || typeof data.locId !== "string") {
+          console.error("Invalid data format received:", data);
+          toast.error("Invalid LocId format from server");
+          return;
+        }
+
+        const lastIdPart = data.locId.substring(4);
         const newId = parseInt(lastIdPart, 10) + 1;
 
-        setNextLocId(newId); // Set the next available LocId
-      } else {
-        toast.error("Error fetching the latest LocId");
+        setNextLocId(newId);
+      } catch (error) {
+        console.error("Exception during fetchLatestLocId:", error);
+        toast.error("Failed to fetch latest LocId due to a network error.");
       }
     };
 
-    fetchStockLocations();
-    fetchLatestLocId(); // Fetch the latest LocId
+    fetchLatestLocId();
   }, []);
 
   const handleChange = (e) => {
@@ -85,13 +85,12 @@ const StockLocationMaster = () => {
   };
 
   const handleConfirmSave = async () => {
-    const locId = `StkL${nextLocId.toString().padStart(5, "0")}`; // Generate the LocId
+    const locId = `StkL${nextLocId.toString().padStart(5, "0")}`;
     const locationData = {
-      LocId: locId, // Add LocId to the locationData
+      LocId: locId,
       LocName: locationName,
-      EnteredDate: new Date().toISOString(),
-      EnteredBy: "system", // Can be dynamically fetched
-      EnteredSys: window.navigator.userAgent, // Or system identifier
+      EnteredBy: "system",
+      EnteredSys: window.navigator.userAgent,
     };
 
     let response;
@@ -104,23 +103,24 @@ const StockLocationMaster = () => {
       });
 
       if (response.ok) {
-        const createdLocation = await response.json(); // Get response with generated ID
-        setStockLocations((prev) => [
-          ...prev,
-          {
-            ...createdLocation,
-          },
-        ]);
+        const createdLocation = await response.json();
+        setStockLocations((prev) => [...prev, { ...createdLocation }]);
         toast.success(`Location "${locationName}" created successfully!`);
-        setNextLocId(nextLocId + 1); // Increment the LocId counter for next entry
+        setNextLocId(nextLocId + 1);
       } else {
         const error = await response.text();
         toast.error(`Error creating location: ${error}`);
       }
     } else {
-      // If modifying an existing location, send the location ID (LocId) to update
-      const locationToUpdate = stockLocations.find(loc => loc.LocName === locationName);
-      locationData.LocId = locationToUpdate.LocId; // Ensure the correct LocId is sent for update
+      const locationToUpdate = stockLocations.find(
+        (loc) => loc.LocName === locationName
+      );
+      if (!locationToUpdate) {
+        toast.error("Location not found for update.");
+        return;
+      }
+
+      locationData.LocId = locationToUpdate.LocId;
 
       response = await fetch(API_URLS.UpdateStockLoc, {
         method: "PUT",
@@ -136,12 +136,12 @@ const StockLocationMaster = () => {
       }
     }
 
-    setShowDialog(false); // Close dialog after confirm
+    setShowDialog(false);
   };
 
   const handleModify = (loc) => {
-    setLocationName(loc.LocName); // Populate the input with the existing location name
-    setIsCreating(false); // Set to false to trigger update mode
+    setLocationName(loc.LocName);
+    setIsCreating(false);
     setDialogTitle("Modify Location");
     setDialogMessage(`Are you sure you want to update the location "${loc.LocName}"?`);
     setShowDialog(true);
@@ -178,7 +178,10 @@ const StockLocationMaster = () => {
             </button>
             <button
               className="flex items-center space-x-3 bg-cancel text-white px-6 py-3 rounded hover:bg-cancel-hover text-lg"
-              onClick={() => setLocationName("")} // Reset location name for cancel
+              onClick={() => {
+                setLocationName("");
+                setIsCreating(true);
+              }}
             >
               <i className="fa fa-undo"></i>
               <span>Cancel</span>
@@ -213,7 +216,9 @@ const StockLocationMaster = () => {
                   </td>
                   <td className="px-6 py-3 border">{loc.EnteredBy || "-"}</td>
                   <td className="px-6 py-3 border">
-                    {loc.EnteredDate ? new Date(loc.EnteredDate).toLocaleString() : "-"}
+                    {loc.EnteredDate
+                      ? new Date(loc.EnteredDate).toLocaleString()
+                      : "-"}
                   </td>
                 </tr>
               ))}
@@ -240,3 +245,4 @@ const StockLocationMaster = () => {
 };
 
 export default StockLocationMaster;
+

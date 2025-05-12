@@ -27,8 +27,7 @@ const ServiceItemMaster = () => {
       const serviceItemData = {
         Description: description,
         Rt: parseFloat(rt),
-        TransID: transId || 0,
-        EnteredDate: new Date().toISOString(),
+        
         EnteredBy: "system",
         EnteredSys: window.navigator.userAgent,
         Itemcode: "", // Let backend generate it

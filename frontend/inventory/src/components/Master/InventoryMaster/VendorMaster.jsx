@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { API_URLS } from "../../../reusable inputs/config";
 import axios from "axios";
-import DialogBox from "../../../reusable inputs/DialogBox";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { API_URLS } from "../../../reusable inputs/config";
+import CustomDialog from "../../../reusable inputs/customeDialog";
 
+// Reusable InputField
 const InputField = ({ label, name, value, onChange, type = "text" }) => (
   <div>
     <label className="block text-sm font-medium">{label}</label>
@@ -17,6 +18,7 @@ const InputField = ({ label, name, value, onChange, type = "text" }) => (
   </div>
 );
 
+// Reusable Button
 const Button = ({ label, onClick, variant = "primary", ...rest }) => {
   const variantClasses = {
     primary: "bg-blue-500 hover:bg-blue-600",
@@ -45,8 +47,6 @@ const VendorMaster = () => {
     EmailID: "",
     PanNo: "",
     ContactName: "",
-    
-    
   });
 
   const [dialogMessage, setDialogMessage] = useState("");
@@ -78,41 +78,41 @@ const VendorMaster = () => {
   };
 
   const handleDialogConfirm = async () => {
-  if (dialogAction === "save") {
-    try {
-      const payload = {
-        ...formData,
-        EntryDate: new Date(),
-      };
+    if (dialogAction === "save") {
+      try {
+        const payload = {
+          ...formData,
+          EntryDate: new Date(),
+        };
 
-      await axios.post(API_URLS.CreateVendormaster, payload);
+        await axios.post(API_URLS.CreateVendormaster, payload);
+        setVendors((prev) => [...prev, payload]);
 
-      setVendors((prev) => [...prev, payload]);
-      toast.success("Vendor saved successfully!");
-      setFormData({
-        VendName: "",
-        Add1: "",
-        CityName: "",
-        PhoneNo: "",
-        MobileNo: "",
-        EmailID: "",
-        PanNo: "",
-        ContactName: "",
-      });
-    } catch (error) {
-      console.error("Error saving vendor:", error);
-      toast.error("Failed to save vendor!");
+        toast.success("Vendor saved successfully!");
+        setFormData({
+          VendName: "",
+          Add1: "",
+          CityName: "",
+          PhoneNo: "",
+          MobileNo: "",
+          EmailID: "",
+          PanNo: "",
+          ContactName: "",
+        });
+      } catch (error) {
+        console.error("Error saving vendor:", error);
+        toast.error("Failed to save vendor!");
+      }
     }
-  }
-  setIsDialogOpen(false);
-};
+    setIsDialogOpen(false);
+  };
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
   };
 
   const handleModify = () => {
-    console.log("Modify clicked");
+    toast.info("Modify functionality is not implemented yet.");
   };
 
   const handleCancel = () => {
@@ -124,13 +124,13 @@ const VendorMaster = () => {
       MobileNo: "",
       EmailID: "",
       PanNo: "",
-      ContactName: ""
-      
+      ContactName: "",
     });
   };
 
   return (
     <div className="flex items-center justify-center h-full p-4">
+      <ToastContainer />
       <div className="bg-white border-2 rounded-lg shadow-lg p-6 w-full max-w-6xl">
         <h2 className="text-2xl text-center font-semibold p-2 mb-2">
           Vendor Master
@@ -194,7 +194,6 @@ const VendorMaster = () => {
                 value={formData.ContactName}
                 onChange={handleInputChange}
               />
-             
             </form>
           </div>
 
@@ -241,14 +240,14 @@ const VendorMaster = () => {
         </div>
       </div>
 
-      {/* DialogBox */}
-      <DialogBox isOpen={isDialogOpen} onClose={handleDialogClose} title="Confirmation">
-        <p>{dialogMessage}</p>
-        <div className="flex justify-end space-x-4 mt-4">
-          <Button onClick={handleDialogClose} label="Close" variant="danger" />
-          <Button onClick={handleDialogConfirm} label="OK" variant="success" />
-        </div>
-      </DialogBox>
+      {/* Custom Dialog */}
+      <CustomDialog
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+        onConfirm={handleDialogConfirm}
+        message={dialogMessage}
+        title="Confirmation"
+      />
     </div>
   );
 };

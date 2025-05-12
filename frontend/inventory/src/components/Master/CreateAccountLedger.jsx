@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "../../reusable inputs/buttons";
-import DialogBox from "../../reusable inputs/DialogBox";
+import CustomDialog from "../../reusable inputs/customeDialog";  // Custom Dialog import
 import { API_URLS } from "../../reusable inputs/config";
 import { toast } from "react-toastify";
 
 function CreateAccountLedger() {
   const [accountType, setAccountType] = useState("Group Account");
   const [groupCode, setGroupCode] = useState("");
-  const [groupAccounts, setGroupAccounts] = useState([]);
+  const [groupAccounts, setGroupAccounts] = useState([]); // just names
   const [selectedGroupType, setSelectedGroupType] = useState("");
   const [formData, setFormData] = useState({
     groupName: "",
@@ -38,11 +38,22 @@ function CreateAccountLedger() {
 
   const fetchGroupAccounts = async () => {
     try {
-      const response = await axios.get(API_URLS.GetGroupAccounts); // should return { GroupCode, GroupName, AccountType }
-      console.log("Fetched group accounts:", response.data); // ✅ Should show array
+      const response = await axios.get(API_URLS.GetGroupAccounts); // should return [ "Sales", "Purchase", ... ]
       setGroupAccounts(response.data);
     } catch (error) {
       toast.error("Failed to load group accounts.");
+    }
+  };
+
+  const fetchAccountType = async (groupName) => {
+    try {
+      const response = await axios.get(API_URLS.GetAccountType, {
+        params: { groupName },
+      });
+      setSelectedGroupType(response.data); // expecting string
+    } catch (error) {
+      toast.error("Failed to fetch account type.");
+      setSelectedGroupType("");
     }
   };
 
@@ -89,52 +100,53 @@ function CreateAccountLedger() {
     setIsDialogOpen(true);
   };
 
-  const handleDialogConfirm = async () => {
-    if (dialogAction === "save") {
-      const payload =
+ const handleDialogConfirm = async () => {
+  if (dialogAction === "save") {
+    const payload =
+      accountType === "Group Account"
+        ? {
+            Acc: groupCode,
+            Acn: formData.groupName,
+            Actype: formData.selectedAccountType,
+          }
+        : {
+            ParentGroupName: formData.selectedGroupAc,  // Send Parent Group Name
+            AccountType: selectedGroupType,  // Send Account Type
+            SubGroupName: formData.ledgerName,  // Send Sub Group Name
+            SubLedgerEnable: formData.subLedgerEnable,
+            IsVat: formData.isVat,
+          };
+
+    try {
+      const apiUrl =
         accountType === "Group Account"
-          ? {
-              type: "group",
-              code: groupCode,
-              name: formData.groupName,
-              accountType: formData.selectedAccountType,
-            }
-          : {
-              type: "ledger",
-              group: formData.selectedGroupAc,
-              name: formData.ledgerName,
-              accountType: selectedGroupType,
-              subLedgerEnable: formData.subLedgerEnable,
-              isVat: formData.isVat,
-            };
+          ? API_URLS.CreateGroupAccount
+          : API_URLS.CreateSubGroupAccount;
 
-      try {
-        const apiUrl =
-          accountType === "Group Account"
-            ? API_URLS.CreateGroupAccount
-            : API_URLS.CreateSubGroupAccount;
+      await axios.post(apiUrl, payload);
+      toast.success("Account saved successfully!");
+      setDialogMessage("Account saved successfully!");
+      fetchNextGroupCode();
 
-        await axios.post(apiUrl, payload);
-        toast.success("Account saved successfully!");
-        setDialogMessage("Account saved successfully!");
-        fetchNextGroupCode();
-
-        setFormData({
-          groupName: "",
-          ledgerName: "",
-          selectedAccountType: "",
-          selectedGroupAc: "",
-          subLedgerEnable: false,
-          isVat: false,
-        });
-        setSelectedGroupType("");
-      } catch (error) {
-        toast.error("Failed to save account.");
-        setDialogMessage("Failed to save. Try again!");
-      }
+      // Reset form after successful save
+      setFormData({
+        groupName: "",
+        ledgerName: "",
+        selectedAccountType: "",
+        selectedGroupAc: "",
+        subLedgerEnable: false,
+        isVat: false,
+      });
+      setSelectedGroupType("");
+    } catch (error) {
+      console.error("Error response:", error.response?.data || error.message);
+      toast.error("Failed to save account.");
+      setDialogMessage("Failed to save. Try again!");
     }
-    setIsDialogOpen(false);
-  };
+  }
+  setIsDialogOpen(false);
+};
+
 
   const handleDialogClose = () => {
     setIsDialogOpen(false);
@@ -229,11 +241,11 @@ function CreateAccountLedger() {
           </div>
         )}
 
+        {/* Sub Group / Ledger Form */}
         {accountType === "Sub Group / Ledger" && (
           <div className="bg-white shadow-md rounded-md p-5 mb-6">
             <h2 className="text-xl font-semibold text-black">Child Account</h2>
             <div className="grid grid-cols-3 gap-6 items-center">
-              {/* Select Group */}
               <label className="text-gray-600 font-medium">
                 Select GroupAc:
               </label>
@@ -241,33 +253,23 @@ function CreateAccountLedger() {
                 name="selectedGroupAc"
                 value={formData.selectedGroupAc}
                 onChange={(e) => {
-                  const selectedName = e.target.value;
-                  console.log("Selected Group Name:", selectedName); // Log selected name
-                  const selectedGroup = groupAccounts.find(
-                    (g) => g.GroupName === selectedName
-                  );
-                  console.log("Selected Group:", selectedGroup); // Log the selected group
-
-                  if (selectedGroup) {
-                    setFormData((prev) => ({
-                      ...prev,
-                      selectedGroupAc: selectedName,
-                    }));
-                    // Now correctly set the AccountType based on the selected group
-                    setSelectedGroupType(selectedGroup.AccountType || "");
-                  }
+                  const selectedGroup = e.target.value;
+                  setFormData((prev) => ({
+                    ...prev,
+                    selectedGroupAc: selectedGroup,
+                  }));
+                  fetchAccountType(selectedGroup);
                 }}
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               >
                 <option value="">Select Group</option>
                 {groupAccounts.map((group, index) => (
-                  <option key={index} value={group.GroupName}>
-                    {group.GroupName}
+                  <option key={index} value={group}>
+                    {group}
                   </option>
                 ))}
               </select>
 
-              {/* Child Name */}
               <label className="text-gray-600 font-medium">
                 Enter Child Name:
               </label>
@@ -280,7 +282,6 @@ function CreateAccountLedger() {
                 className="col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               />
 
-              {/* Account Type (Read-only) */}
               <label className="text-gray-600 font-medium">Account Type:</label>
               <input
                 type="text"
@@ -289,7 +290,6 @@ function CreateAccountLedger() {
                 className="col-span-2 p-3 bg-gray-100 border border-gray-300 rounded-lg"
               />
 
-              {/* Checkboxes */}
               <label className="col-span-1"></label>
               <div className="col-span-2 flex space-x-5">
                 <label className="flex items-center space-x-2">
@@ -337,30 +337,14 @@ function CreateAccountLedger() {
         </div>
       </div>
 
-      {/* DialogBox - Confirmation */}
-      <DialogBox
+      {/* Custom DialogBox */}
+      <CustomDialog
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
+        onConfirm={handleDialogConfirm}
+        message={dialogMessage}
         title="Confirmation"
-      >
-        <p>{dialogMessage}</p>
-        <div className="flex justify-end space-x-4 mt-4">
-          <Button
-            onClick={handleDialogClose}
-            type="cancel"
-            className="px-5 py-3 bg-gray-200"
-          >
-            Close
-          </Button>
-          <Button
-            onClick={handleDialogConfirm}
-            type="save"
-            className="px-5 py-3 bg-purple-600 text-white"
-          >
-            OK
-          </Button>
-        </div>
-      </DialogBox>
+      />
     </div>
   );
 }

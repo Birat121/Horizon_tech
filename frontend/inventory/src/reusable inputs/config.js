@@ -40,6 +40,7 @@ export const API_URLS = {
 
   CreateSubGroupAccount : `${API_BASE_URL}/CreateAccount/createSubGroup`,
   GetGroupAccounts : `${API_BASE_URL}/CreateAccount/getGroupAccounts`,
+  GetAccountType : `${API_BASE_URL}/CreateAccount/getAccountType`,
 
   ChangeAccountType : `${API_BASE_URL}/ChangeAccountType/updateAccountType`,
   GetAccountTypes : `${API_BASE_URL}/ChangeAccountType/getAccountTypes`,
