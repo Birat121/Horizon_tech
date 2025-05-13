@@ -1,118 +1,150 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { API_URLS } from "../../../reusable inputs/config";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const InventoryItemMaster = () => {
   const [activeTab, setActiveTab] = useState("Product Information");
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
-  const [productData, setProductData] = useState({
+  const defaultProductData = {
     productName: "",
-    catName: "",
+    catId: "", // Updated to store catId
+    catName: "", // Existing catName
+    subCatId: "", // Added for Subcategory ID
     subCatName: "",
     unitRate: "",
     saleRate: "",
     wholeSalePcs: "",
     hsCode: "",
-  });
+  };
 
-  const [uomData, setUomData] = useState([
-    {
-      uom: "",
-      uomQty: "",
-      barcode: "",
-      packCost: "",
-      packSale: "",
-      discAmt: "",
-      netSale: "",
-      netProfitPercent: "",
-    },
-  ]);
+  const defaultUomRow = {
+    uom: "",
+    uomQty: "",
+    barcode: "",
+    packCost: "",
+    packSale: "",
+    discAmt: "",
+    netSale: "",
+    netProfitPercent: "",
+  };
 
-  // Handler to update Product data
+  const [productData, setProductData] = useState(defaultProductData);
+  const [uomData, setUomData] = useState([defaultUomRow]);
+
+  const inputClass = "w-full p-2 border border-gray-300 rounded-md";
+
+  // Fetch categories on mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(API_URLS.GET_CATEGORIES);
+        console.log("Categories response:", response.data); // Log the categories response
+        if (Array.isArray(response.data)) {
+          setCategories(response.data);
+        } else {
+          toast.error("Invalid response for categories.");
+          console.warn("Invalid categories format:", response.data);
+          setCategories([]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+        toast.error("Error fetching categories.");
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Fetch subcategories based on selected category
+  const handleCategoryChange = async (e) => {
+    const selectedCatId = e.target.value;
+    const selectedCat = categories.find((c) => c.CatId === selectedCatId);
+
+    if (!selectedCat) return;
+
+    // Update product data with both catId and catName
+    setProductData({
+      ...productData,
+      catId: selectedCat.CatId,
+      catName: selectedCat.CatName,
+      subCatName: "",
+      subCatId: "",
+    });
+
+    try {
+      const response = await fetch(
+        `${API_URLS.GET_SUBCATEGORIES}?categoryName=${encodeURIComponent(
+          selectedCat.CatName
+        )}`
+      );
+
+      const data = await response.json();
+
+      if (Array.isArray(data)) {
+        setSubCategories(data);
+      } else {
+        toast.error("Invalid response for subcategories.");
+        setSubCategories([]);
+        console.warn("Subcategory API response:", data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch subcategories:", err);
+      toast.error("Error fetching subcategories.");
+      setSubCategories([]);
+    }
+  };
+
+  const handleSubCategoryChange = (e) => {
+    const selectedSubCatId = e.target.value;
+    const selectedSubCat = subCategories.find(
+      (sc) => sc.SubCatId === selectedSubCatId
+    );
+
+    if (selectedSubCat) {
+      setProductData({
+        ...productData,
+        subCatName: selectedSubCat.SubCatName,
+        subCatId: selectedSubCat.SubCatId,
+      });
+    }
+  };
+
   const handleProductDataChange = (e) => {
     setProductData({ ...productData, [e.target.name]: e.target.value });
   };
 
-  // Handler to update UOM data for a specific row
   const handleUomChange = (index, e) => {
-    const updatedUomData = [...uomData];
-    updatedUomData[index][e.target.name] = e.target.value;
-    setUomData(updatedUomData);
+    const updatedUoms = [...uomData];
+    updatedUoms[index][e.target.name] = e.target.value;
+    setUomData(updatedUoms);
 
-    // Automatically add a new row when the last field in the last row is changed
-    if (index === uomData.length - 1) {
-      const lastField = Object.keys(uomData[index]);
-      const lastFieldName = lastField[lastField.length - 1];
-      if (e.target.name === lastFieldName) {
-        addUomRow();
-      }
+    if (index === uomData.length - 1 && e.target.name === "netProfitPercent") {
+      addUomRow();
     }
   };
 
-  // Add a new UOM row
   const addUomRow = () => {
-    setUomData([
-      ...uomData,
-      {
-        uom: "",
-        uomQty: "",
-        barcode: "",
-        packCost: "",
-        packSale: "",
-        discAmt: "",
-        netSale: "",
-        netProfitPercent: "",
-      },
-    ]);
+    setUomData([...uomData, { ...defaultUomRow }]);
   };
 
   const handleCancel = () => {
-    setProductData({
-      productName: "",
-      catName: "",
-      subCatName: "",
-      unitRate: "",
-      saleRate: "",
-      wholeSalePcs: "",
-      hsCode: "",
-    });
-
-    setUomData([
-      {
-        uom: "",
-        uomQty: "",
-        barcode: "",
-        packCost: "",
-        packSale: "",
-        discAmt: "",
-        netSale: "",
-        netProfitPercent: "",
-      },
-    ]);
+    setProductData({ ...defaultProductData });
+    setUomData([{ ...defaultUomRow }]);
   };
 
-  // Validate form before submission
   const validateForm = () => {
-    return (
-      productData.productName &&
-      productData.catName &&
-      productData.subCatName &&
-      productData.unitRate &&
-      uomData.every(
-        (uom) =>
-          uom.uom &&
-          uom.uomQty &&
-          uom.barcode &&
-          uom.packCost &&
-          uom.packSale &&
-          uom.discAmt &&
-          uom.netSale &&
-          uom.netProfitPercent
-      )
+    const isProductValid = Object.values(productData).every(
+      (val) => val !== ""
     );
+    const isUomValid = uomData.every((uom) =>
+      Object.values(uom).every((val) => val !== "")
+    );
+    return isProductValid && isUomValid;
   };
 
-  // Handle Save Button Click
   const handleSave = async () => {
     if (!validateForm()) {
       toast.error("Please fill in all required fields.");
@@ -121,18 +153,14 @@ const InventoryItemMaster = () => {
 
     const payload = {
       productMastDTO: {
-        productName: productData.productName,
-        catName: productData.catName,
-        subCatName: productData.subCatName,
+        ...productData,
         unitRate: parseFloat(productData.unitRate),
         saleRate: parseFloat(productData.saleRate),
         wholeSalePcs: parseFloat(productData.wholeSalePcs),
-        hsCode: productData.hsCode,
       },
       productUOMDTOs: uomData.map((uom) => ({
         uom: uom.uom,
         uomQty: parseFloat(uom.uomQty),
-        barcode: uom.barcode,
         unitRate: parseFloat(uom.packCost),
         unitSale: parseFloat(uom.packSale),
         discAmt: parseFloat(uom.discAmt),
@@ -149,13 +177,11 @@ const InventoryItemMaster = () => {
       });
 
       const result = await res.json();
-      if (result === true) {
-        toast.success("Product saved successfully.");
-      } else {
-        toast.error("Failed to save product.");
-      }
+      result === true
+        ? toast.success("Product saved successfully.")
+        : toast.error("Failed to save product.");
     } catch (err) {
-      console.error(err);
+      console.error("Save error:", err);
       toast.error("Failed to save product.");
     }
   };
@@ -171,28 +197,41 @@ const InventoryItemMaster = () => {
               name="productName"
               value={productData.productName}
               onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className={inputClass}
             />
           </div>
           <div>
             <label className="block mb-2 font-medium">Category Name</label>
-            <input
-              type="text"
-              name="catName"
-              value={productData.catName}
-              onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <select
+              name="catId"
+              value={productData.catId} // Bind to catId
+              onChange={handleCategoryChange}
+              className={inputClass}
+            >
+              <option value="">-- Select Category --</option>
+              {categories.map((cat) => (
+                <option key={cat.CatId} value={cat.CatId}>
+                  {cat.CatName}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block mb-2 font-medium">Sub Category Name</label>
-            <input
-              type="text"
-              name="subCatName"
-              value={productData.subCatName}
-              onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
-            />
+            <select
+              name="subCatId"
+              value={productData.subCatId} // Bind to subCatId
+              onChange={handleSubCategoryChange}
+              className={inputClass}
+            >
+              <option value="">-- Select Sub Category --</option>
+              {Array.isArray(subCategories) &&
+                subCategories.map((sub) => (
+                  <option key={sub.SubCatId} value={sub.SubCatId}>
+                    {sub.SubCatName}
+                  </option>
+                ))}
+            </select>
           </div>
           <div>
             <label className="block mb-2 font-medium">Unit Rate</label>
@@ -201,7 +240,7 @@ const InventoryItemMaster = () => {
               name="unitRate"
               value={productData.unitRate}
               onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className={inputClass}
             />
           </div>
           <div>
@@ -211,7 +250,7 @@ const InventoryItemMaster = () => {
               name="saleRate"
               value={productData.saleRate}
               onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className={inputClass}
             />
           </div>
           <div>
@@ -221,7 +260,7 @@ const InventoryItemMaster = () => {
               name="wholeSalePcs"
               value={productData.wholeSalePcs}
               onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className={inputClass}
             />
           </div>
           <div>
@@ -231,111 +270,56 @@ const InventoryItemMaster = () => {
               name="hsCode"
               value={productData.hsCode}
               onChange={handleProductDataChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className={inputClass}
             />
           </div>
         </div>
       );
     }
 
-    if (activeTab === "UOM And Barcode Setting") {
-      return (
-        <div>
-          <table className="table-auto w-full border-collapse border border-gray-300">
-            <thead>
-              <tr>
-                <th className="border px-4 py-2">UOM</th>
-                <th className="border px-4 py-2">UOM Qty</th>
-                <th className="border px-4 py-2">Barcode</th>
-                <th className="border px-4 py-2">Pack Cost</th>
-                <th className="border px-4 py-2">Pack Sale</th>
-                <th className="border px-4 py-2">Discount Amount</th>
-                <th className="border px-4 py-2">Net Sale</th>
-                <th className="border px-4 py-2">Net Profit %</th>
-              </tr>
-            </thead>
-            <tbody>
-              {uomData.map((uom, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="uom"
-                      value={uom.uom}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="uomQty"
-                      value={uom.uomQty}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="barcode"
-                      value={uom.barcode}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="packCost"
-                      value={uom.packCost}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="packSale"
-                      value={uom.packSale}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="discAmt"
-                      value={uom.discAmt}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="netSale"
-                      value={uom.netSale}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="netProfitPercent"
-                      value={uom.netProfitPercent}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className="w-full p-2 border border-gray-300 rounded-md"
-                    />
-                  </td>
-                </tr>
+    return (
+      <div>
+        <table className="table-auto w-full border-collapse border border-gray-300">
+          <thead>
+            <tr>
+              {[
+                "UOM",
+                "UOM Qty",
+                "Barcode",
+                "Pack Cost",
+                "Pack Sale",
+                "Discount Amount",
+                "Net Sale",
+                "Net Profit %",
+              ].map((header) => (
+                <th key={header} className="border px-4 py-2">
+                  {header}
+                </th>
               ))}
-            </tbody>
-          </table>
-        </div>
-      );
-    }
+            </tr>
+          </thead>
+          <tbody>
+            {uomData.map((uom, index) => (
+              <tr key={index}>
+                {Object.keys(defaultUomRow).map((field) => (
+                  <td key={field}>
+                    <input
+                      type={
+                        ["barcode", "uom"].includes(field) ? "text" : "number"
+                      }
+                      name={field}
+                      value={uom[field]}
+                      onChange={(e) => handleUomChange(index, e)}
+                      className={inputClass}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   };
 
   return (

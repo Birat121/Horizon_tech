@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../reusable inputs/buttons";
-import DialogBox from "../../../reusable inputs/DialogBox";
+import CustomDialog from "../../../reusable inputs/customeDialog";
 import { toast } from "react-toastify";
 import { API_URLS } from "../../../reusable inputs/config";
 
@@ -183,32 +183,14 @@ const CategoryMaster = () => {
         </div>
       </div>
 
-      {/* Dialog Box for Confirmation */}
-      <DialogBox
-        isOpen={showDialog}
-        onClose={handleDialogClose}
-        title={`Confirm ${actionType.charAt(0).toUpperCase() + actionType.slice(1)} Category`}
-      >
-        <p>
-          Are you sure you want to {actionType} the category "{categoryName}"?
-        </p>
-        <div className="mt-4 flex justify-between">
-          <Button
-            type="save"
-            onClick={confirmAction}
-            className="px-6 py-3 text-lg"
-          >
-            Confirm
-          </Button>
-          <Button
-            type="cancel"
-            onClick={handleDialogClose}
-            className="px-6 py-3 text-lg"
-          >
-            Cancel
-          </Button>
-        </div>
-      </DialogBox>
+      <CustomDialog
+  isOpen={showDialog}
+  onClose={handleDialogClose}
+  title={`Confirm ${actionType === "save" ? "Save" : "Modify"} Category`}
+  message={`Are you sure you want to ${actionType} the category "${categoryName}"?`}
+  onConfirm={confirmAction}
+/>
+
     </div>
   );
 };

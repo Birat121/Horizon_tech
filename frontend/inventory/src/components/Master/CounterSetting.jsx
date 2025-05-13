@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import DialogBox from "../../reusable inputs/DialogBox";
+import CustomDialog from "../../reusable inputs/customeDialog";
 import { API_URLS } from "../../reusable inputs/config";
 
 const CounterSetting = () => {
@@ -116,23 +116,14 @@ const CounterSetting = () => {
         </div>
       </div>
 
-      <DialogBox isOpen={showDialog} onClose={handleCancelDialog} title="Confirm Save">
-        <p>Are you sure you want to save the changes?</p>
-        <div className="flex justify-between mt-6">
-          <button
-            onClick={handleCancelDialog}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleConfirmSave}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            Confirm
-          </button>
-        </div>
-      </DialogBox>
+      <CustomDialog
+  isOpen={showDialog}
+  onClose={handleCancelDialog}
+  onConfirm={handleConfirmSave}
+  title="Confirm Save"
+  message="Are you sure you want to save the changes?"
+/>
+
     </div>
   );
 };

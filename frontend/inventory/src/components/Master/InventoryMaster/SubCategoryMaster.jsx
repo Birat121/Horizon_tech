@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DialogBox from "../../../reusable inputs/DialogBox";
+import CustomDialog from "../../../reusable inputs/customeDialog";
 import Button from "../../../reusable inputs/buttons";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -193,20 +193,14 @@ const SubCategoryMaster = () => {
         </div>
       </div>
 
-      {/* Confirmation Dialog */}
-      <DialogBox
-        isOpen={showDialog}
-        onClose={handleDialogClose}
-        title={`Confirm ${actionType === "save" ? "Save" : "Modify"} Subcategory`}
-      >
-        <p className="text-center">
-          Are you sure you want to {actionType} the subcategory "{subCategoryName}"?
-        </p>
-        <div className="mt-4 flex justify-between">
-          <Button type="save" onClick={confirmAction} className="px-6 py-3 bg-blue-500 text-white">Confirm</Button>
-          <Button type="cancel" onClick={handleDialogClose} className="px-6 py-3 bg-gray-500 text-white">Cancel</Button>
-        </div>
-      </DialogBox>
+      <CustomDialog
+  isOpen={showDialog}
+  onClose={handleDialogClose}
+  onConfirm={confirmAction}
+  title={`Confirm ${actionType === "save" ? "Save" : "Modify"} Subcategory`}
+  message={`Are you sure you want to ${actionType} the subcategory "${subCategoryName}"?`}
+/>
+
     </div>
   );
 };

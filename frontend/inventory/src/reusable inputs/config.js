@@ -71,6 +71,11 @@ export const API_URLS = {
    IMPORT_OPENING_BALANCE : `${API_BASE_URL}/OpeningBalance/importOpeningBal`,
    IMPORT_STOCK : `${API_BASE_URL}/OpeningStock/importOpeningstk`,
 
+   GET_CATEGORIES : `${API_BASE_URL}/InventoryItemMaster/GetCategories`,
+   GET_SUBCATEGORIES : `${API_BASE_URL}/InventoryItemMaster/GetSubCategories`,
+
+   SAVE_PRODUCT : `${API_BASE_URL}/InventoryItemMaster/create`,
+
   //system security
   
 };

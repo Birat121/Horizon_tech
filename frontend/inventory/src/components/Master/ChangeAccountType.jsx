@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../reusable inputs/buttons";
-import DialogBox from "../../reusable inputs/DialogBox";
+import CustomDialog from "../../reusable inputs/customeDialog";
+
 import axios from "axios";
 import { API_URLS } from "../../reusable inputs/config";
 import { toast } from "react-toastify";
@@ -195,31 +196,14 @@ const ChangeAccountType = () => {
         </div>
       </div>
 
-      {/* DialogBox - Confirmation */}
-      <DialogBox
-        isOpen={isDialogOpen}
-        onClose={handleDialogClose}
-        title="Confirmation"
-      >
-        <p>{dialogMessage}</p>
-        <div className="flex justify-end space-x-4 mt-4">
-          <Button
-            onClick={handleDialogClose}
-            type="cancel"
-            className="px-5 py-3 bg-gray-200"
-          >
-            Close
-          </Button>
-          <Button
-            onClick={handleDialogConfirm}
-            type="save"
-            className="px-5 py-3 bg-purple-600 text-white"
-            disabled={loading}
-          >
-            {loading ? "Saving..." : "OK"}
-          </Button>
-        </div>
-      </DialogBox>
+      <CustomDialog
+  isOpen={isDialogOpen}
+  onClose={handleDialogClose}
+  onConfirm={handleDialogConfirm}
+  message={dialogMessage}
+  title="Confirmation"
+/>
+
     </div>
   );
 };
