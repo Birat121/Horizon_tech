@@ -1,50 +1,48 @@
 import React, { useState, useEffect } from "react";
-import DialogBox from "../../reusable inputs/DialogBox";
-import { API_URLS } from "../../reusable inputs/config"; // Assuming API_URLS is correctly set up for your endpoints
+import CustomDialog from "../../reusable inputs/customeDialog";
+import { API_URLS } from "../../reusable inputs/config";
+import { toast } from "react-toastify";
 
 const BGEntry = () => {
-  const [formData, setFormData] = useState({
-    transactionNo: "",
-    transactionDate: "",
+  const initialFormData = {
+    transNo: "",
+    trDt: "",
     bgNo: "",
     partyName: "",
     remarks: "",
-    bgIssuedDate: "",
-    bgExpiredDate: "",
+    issDt: "",
+    expDt: "",
     bankName: "",
-    bankBranch: "",
+    bankBrName: "",
     bgAmt: "",
     amountInWords: "",
-  });
+  };
 
-  const [dialog, setDialog] = useState({
-    open: false,
-    title: "",
-    message: "",
-  });
-
+  const [formData, setFormData] = useState(initialFormData);
+  const [dialog, setDialog] = useState({ open: false, title: "", message: "" });
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [parties, setParties] = useState([]);
 
-  // Fetch parties from backend API when component mounts
   useEffect(() => {
     const fetchParties = async () => {
       try {
-        const response = await fetch(API_URLS.PARTY_LIST); // Assuming the API endpoint is API_URLS.PARTY_LIST
+        const response = await fetch(API_URLS.PARTY_LIST);
         const data = await response.json();
-        setParties(data); // Set the fetched parties to the state
+        setParties(data);
       } catch (error) {
         console.error("Error fetching parties:", error);
+        toast.error("Failed to fetch party list.");
       }
     };
 
-    // Fetch the transaction number
     const fetchTransactionNo = async () => {
       try {
         const res = await fetch(API_URLS.GET_NEXT_TRANSACTION_NO);
-        const no = await res.text(); // assuming response is plain string
-        setFormData((prev) => ({ ...prev, transactionNo: no }));
+        const no = await res.text();
+        setFormData((prev) => ({ ...prev, transNo: no }));
       } catch (err) {
         console.error("Failed to fetch transaction no:", err);
+        toast.error("Failed to fetch transaction number.");
       }
     };
 
@@ -58,70 +56,74 @@ const BGEntry = () => {
   };
 
   const validateForm = () => {
-    const {
-      transactionDate,
-      bgNo,
-      partyName,
-      bgIssuedDate,
-      bgExpiredDate,
-      bankName,
-      bgAmt,
-    } = formData;
+    const { trDt, bgNo, partyName, issDt, expDt, bankName, bankBrName, bgAmt } =
+      formData;
 
     if (
-      !transactionDate ||
+      !trDt ||
       !bgNo ||
       !partyName ||
-      !bgIssuedDate ||
-      !bgExpiredDate ||
+      !issDt ||
+      !expDt ||
       !bankName ||
+      !bankBrName ||
       !bgAmt
     ) {
-      setDialog({
-        open: true,
-        title: "Validation Error",
-        message: "Please fill all required fields.",
-      });
+      toast.warn("Please fill all required fields.");
       return false;
     }
     return true;
   };
 
-  const handleSave = async () => {
+  const handleConfirmSave = () => {
     if (validateForm()) {
-      try {
-        const response = await fetch(API_URLS.BGEntry, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      setConfirmDialogOpen(true);
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch(API_URLS.BGEntry, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("BG Entry saved successfully!");
+        setDialog({
+          open: true,
+          title: "Success",
+          message: "BG Entry saved successfully!",
         });
-
-        const result = await response.json();
-
-        if (response.ok) {
-          setDialog({
-            open: true,
-            title: "Success",
-            message: "BG Entry saved successfully!",
-          });
-        } else {
-          setDialog({
-            open: true,
-            title: "Error",
-            message:
-              result.message || "An error occurred while saving the BG Entry.",
-          });
-        }
-      } catch (error) {
+        setFormData(initialFormData);
+        // Re-fetch transaction no after clearing
+        const res = await fetch(API_URLS.GET_NEXT_TRANSACTION_NO);
+        const no = await res.text();
+        setFormData((prev) => ({ ...prev, transNo: no }));
+      } else {
+        toast.error(result.message || "Failed to save BG Entry.");
         setDialog({
           open: true,
           title: "Error",
-          message: "An error occurred while saving the BG Entry.",
+          message:
+            result.message || "An error occurred while saving the BG Entry.",
         });
-        console.error("Error saving BG Entry:", error);
       }
+    } catch (error) {
+      toast.error("An error occurred while saving the BG Entry.");
+      setDialog({
+        open: true,
+        title: "Error",
+        message: "An error occurred while saving the BG Entry.",
+      });
+      console.error("Error saving BG Entry:", error);
+    } finally {
+      setConfirmDialogOpen(false);
     }
   };
 
@@ -141,7 +143,6 @@ const BGEntry = () => {
           <h3 className="font-semibold mb-3 text-gray-600 text-lg">
             Party Info
           </h3>
-
           <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -150,7 +151,7 @@ const BGEntry = () => {
               <input
                 type="text"
                 className="w-full p-2 border rounded-md"
-                value={formData.transactionNo}
+                value={formData.transNo}
                 readOnly
               />
             </div>
@@ -160,8 +161,8 @@ const BGEntry = () => {
               <input
                 type="date"
                 className="w-full p-2 border rounded-md"
-                name="transactionDate"
-                value={formData.transactionDate}
+                name="trDt"
+                value={formData.trDt}
                 onChange={handleInputChange}
               />
             </div>
@@ -188,7 +189,7 @@ const BGEntry = () => {
                 <option value="">Select Party</option>
                 {parties.map((party) => (
                   <option key={party.id} value={party.name}>
-                    {party.name} 
+                    {party.name}
                   </option>
                 ))}
               </select>
@@ -212,7 +213,6 @@ const BGEntry = () => {
           <h3 className="font-semibold mb-3 text-gray-600 text-lg">
             Cheque Info
           </h3>
-
           <div className="grid grid-cols-3 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -221,8 +221,8 @@ const BGEntry = () => {
               <input
                 type="date"
                 className="w-full border p-2 rounded"
-                name="bgIssuedDate"
-                value={formData.bgIssuedDate}
+                name="issDt"
+                value={formData.issDt}
                 onChange={handleInputChange}
               />
             </div>
@@ -234,8 +234,8 @@ const BGEntry = () => {
               <input
                 type="date"
                 className="w-full border p-2 rounded"
-                name="bgExpiredDate"
-                value={formData.bgExpiredDate}
+                name="expDt"
+                value={formData.expDt}
                 onChange={handleInputChange}
               />
             </div>
@@ -256,8 +256,8 @@ const BGEntry = () => {
               <input
                 type="text"
                 className="w-full border p-2 rounded"
-                name="bankBranch"
-                value={formData.bankBranch}
+                name="bankBrName"
+                value={formData.bankBrName}
                 onChange={handleInputChange}
               />
             </div>
@@ -289,36 +289,47 @@ const BGEntry = () => {
         {/* Action Buttons */}
         <div className="flex justify-end gap-3 mt-4">
           <button
-            onClick={handleSave}
+            onClick={handleConfirmSave}
             className="bg-blue-500 text-white px-6 py-2 rounded"
           >
             Save
           </button>
-          <button className="bg-gray-500 text-white px-6 py-2 rounded">
+          <button
+            onClick={async () => {
+              setFormData(initialFormData);
+              try {
+                const res = await fetch(API_URLS.GET_NEXT_TRANSACTION_NO);
+                const no = await res.text();
+                setFormData((prev) => ({ ...prev, transNo: no }));
+              } catch (err) {
+                console.error("Failed to fetch transaction no:", err);
+                toast.error("Failed to fetch transaction number.");
+              }
+            }}
+            className="bg-gray-500 text-white px-6 py-2 rounded"
+          >
             Cancel
-          </button>
-          <button className="bg-red-500 text-white px-6 py-2 rounded">
-            Close
           </button>
         </div>
       </div>
 
-      {/* DialogBox for Success/Error */}
-      <DialogBox
+      {/* Success/Error Dialog */}
+      <CustomDialog
         isOpen={dialog.open}
         onClose={handleCloseDialog}
+        onConfirm={handleCloseDialog}
         title={dialog.title}
-      >
-        <div className="text-center mb-4">{dialog.message}</div>
-        <div className="flex justify-center">
-          <button
-            onClick={handleCloseDialog}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-          >
-            OK
-          </button>
-        </div>
-      </DialogBox>
+        message={dialog.message}
+      />
+
+      {/* Confirm Save Dialog */}
+      <CustomDialog
+        isOpen={confirmDialogOpen}
+        onClose={() => setConfirmDialogOpen(false)}
+        onConfirm={handleSave}
+        title="Confirm Save"
+        message="Are you sure you want to save this BG Entry?"
+      />
     </div>
   );
 };

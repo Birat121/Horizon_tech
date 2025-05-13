@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import DialogBox from "../../reusable inputs/DialogBox"; // adjust path as needed
+import CustomDialog from "../../reusable inputs/customeDialog"; // adjusted to your CustomDialog path
 import { API_URLS } from "../../reusable inputs/config"; // adjust if needed
 
 export default function BarcodeLabelPrint() {
@@ -208,14 +208,15 @@ export default function BarcodeLabelPrint() {
         </div>
       </div>
 
-      {/* DialogBox for messages */}
-      <DialogBox
+      {/* Custom Dialog for messages */}
+      <CustomDialog
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         title="Notice"
       >
         <p className="text-center text-gray-700">{dialogMessage}</p>
-      </DialogBox>
+      </CustomDialog>
     </div>
   );
 }
+

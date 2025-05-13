@@ -31,8 +31,14 @@ export const API_URLS = {
   UpdateStockLoc : `${API_BASE_URL}/StockLocationMaster/UpdateStockLoc`,
   GetLatestLocId : `${API_BASE_URL}/StockLocationMaster/GetLatestLocId`,
 
-  CREATE_JOURNAL_VOUCHER: `${API_BASE_URL}/JournalVoucher/CreateJournalVoucher`,
-  CreateReceiptVoucher : `${API_BASE_URL}/ReceiptVoucher/CreateReceiptVoucher`,
+  CREATE_JOURNAL_VOUCHER: `${API_BASE_URL}/JournalVoucher/journalentry`,
+  GET_VOUCHER_NO: `${API_BASE_URL}/JournalVoucher/JournalNo`,
+  GET_ACCOUNT_NAMES: `${API_BASE_URL}/JournalVoucher/AccountName`,
+  CreateReceiptVoucher : `${API_BASE_URL}/JournalVoucher/receipt`,
+  CREATE_PAYMENT_VOUCHER : `${API_BASE_URL}/JournalVoucher/payment`,
+
+  GET_RECEIPT_VOUCHER : `${API_BASE_URL}/JournalVoucher/ReceiptVoucherNo`,
+  GET_PAYMENT_VOUCHER_No : `${API_BASE_URL}/JournalVoucher/PaymentVoucherNo`,
 
   CreateGroupAccount : `${API_BASE_URL}/CreateAccount/createAcc`,
   GetGroupCode : `${API_BASE_URL}/CreateAccount/getNextGroupCode`,

@@ -1,54 +1,156 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import CustomDialog from "../../reusable inputs/customeDialog"; // Adjust path as needed
+import { API_URLS } from "../../reusable inputs/config";
+import { toast } from "react-toastify";
 
 function PaymentVoucher() {
+  const [voucherNo, setVoucherNo] = useState("");
+  const [dateOfPayment, setDateOfPayment] = useState("");
+  const [docNo, setDocNo] = useState("");
+  const [contraAccount, setContraAccount] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [accountEntries, setAccountEntries] = useState([{ sr: 1, accountName: "", amount: "", narration: "" }]);
+  const [accountNameOptions, setAccountNameOptions] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // Fetch voucher number and account names on load
+  useEffect(() => {
+    axios.get(API_URLS.GET_PAYMENT_VOUCHER_No)
+      .then(res => setVoucherNo(res.data.voucherNo))
+      .catch(err => console.error("Error fetching voucher number:", err));
+
+    axios.get(API_URLS.GET_ACCOUNT_NAMES)
+      .then(res => setAccountNameOptions(res.data))
+      .catch(err => console.error("Error fetching account names:", err));
+  }, []);
+
+  const handleInputChange = (index, field, value) => {
+    const updatedEntries = [...accountEntries];
+    updatedEntries[index][field] = value;
+    setAccountEntries(updatedEntries);
+  };
+
+  const addNewRow = () => {
+    const newRow = { sr: accountEntries.length + 1, accountName: "", amount: "", narration: "" };
+    setAccountEntries([...accountEntries, newRow]);
+  };
+
+  const calculateGrandTotal = () => {
+    return accountEntries.reduce((sum, entry) => {
+      const amt = parseFloat(entry.amount);
+      return sum + (isNaN(amt) ? 0 : amt);
+    }, 0).toFixed(2);
+  };
+
+  const handleSave = () => {
+    setDialogOpen(true);
+  };
+
+ const confirmSave = async () => {
+  try {
+    const requests = accountEntries
+      .filter(entry => entry.accountName && entry.amount && entry.narration)
+      .map(entry => {
+        const dto = {
+          Acc: entry.accountName,
+          ContraAcc: contraAccount,
+          Amount: parseFloat(entry.amount),
+          Narration: entry.narration,
+          VoucherRef: voucherNo,
+          TransDate: dateOfPayment,
+          EntryBy: "admin", // Replace with actual user if available
+          DocNo: docNo ? parseInt(docNo) : null
+        };
+
+        return axios.post(`${API_URLS.CREATE_PAYMENT_VOUCHER}?voucherType=PV`, dto);
+      });
+
+    await Promise.all(requests);
+
+    toast.success("Payment voucher saved successfully.");
+    resetForm();
+    setDialogOpen(false);
+  } catch (err) {
+    console.error("Error saving payment voucher:", err);
+    toast.error("Failed to save payment voucher.");
+    setDialogOpen(false);
+  }
+};
+
+
+  const resetForm = () => {
+    setDateOfPayment("");
+    setDocNo("");
+    setContraAccount("");
+    setRemarks("");
+    setAccountEntries([{ sr: 1, accountName: "", amount: "", narration: "" }]);
+  };
+
+  // Check if all fields in the last row are filled, if yes, add a new row
+  useEffect(() => {
+    const lastEntry = accountEntries[accountEntries.length - 1];
+    if (lastEntry.accountName && lastEntry.amount && lastEntry.narration) {
+      addNewRow();
+    }
+  }, [accountEntries]);
+
   return (
     <div className="flex items-center justify-center h-[85vh] ml-14 p-6">
       <div className="max-w-5xl w-full mx-auto bg-white border border-gray-300 rounded-2xl shadow-xl p-8">
-        {/* Title Section */}
         <div className="text-center mb-6">
-          <h2 className=" text-xl font-semibold p-2 rounded-md mb-2">Payment Voucher</h2>
+          <h2 className="text-xl font-semibold p-2 rounded-md mb-2">Payment Voucher</h2>
         </div>
 
-        {/* Form Header */}
+        {/* Form Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
             <label className="block text-lg font-medium text-gray-700">Date of Payment</label>
             <input
               type="date"
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              value={dateOfPayment}
+              onChange={(e) => setDateOfPayment(e.target.value)}
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
             />
           </div>
+
           <div>
             <label className="block text-lg font-medium text-gray-700">Voucher No</label>
-            <select className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
-              <option value="PV81-820001">PV81-820001</option>
-              <option value="PV81-820002">PV81-820002</option>
-              <option value="PV81-820003">PV81-820003</option>
-              <option value="PV81-820004">PV81-820004</option>
-            </select>
+            <input
+              type="text"
+              value={voucherNo}
+              readOnly
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg bg-gray-100"
+            />
           </div>
 
           <div>
             <label className="block text-lg font-medium text-gray-700">DOC No</label>
-            <select className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
-              <option value="DOC001">DOC001</option>
-              <option value="DOC002">DOC002</option>
-              <option value="DOC003">DOC003</option>
-              <option value="DOC004">DOC004</option>
-            </select>
+            <input
+              type="text"
+              value={docNo}
+              onChange={(e) => setDocNo(e.target.value)}
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
+            />
           </div>
 
           <div>
             <label className="block text-lg font-medium text-gray-700">Contra Account</label>
-            <select className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
-              <option>Select</option>
-            </select>
+            <input
+              type="text"
+              value={contraAccount}
+              onChange={(e) => setContraAccount(e.target.value)}
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
+            />
           </div>
+
           <div className="col-span-2">
             <label className="block text-lg font-medium text-gray-700">Remarks</label>
             <input
               type="text"
-              className="w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg"
             />
           </div>
         </div>
@@ -65,12 +167,39 @@ function PaymentVoucher() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-gray-300 px-4 py-3 text-lg text-center">1</td>
-                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
-                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
-                <td className="border border-gray-300 px-4 py-3 text-lg"></td>
-              </tr>
+              {accountEntries.map((entry, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-300 px-4 py-3 text-lg text-center">{entry.sr}</td>
+                  <td className="border border-gray-300 px-4 py-3 text-lg">
+                    <select
+                      value={entry.accountName}
+                      onChange={(e) => handleInputChange(index, "accountName", e.target.value)}
+                      className="w-full border-none outline-none"
+                    >
+                      <option value="">Select Account</option>
+                      {accountNameOptions.map((name, idx) => (
+                        <option key={idx} value={name}>{name}</option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3 text-lg">
+                    <input
+                      type="number"
+                      value={entry.amount}
+                      onChange={(e) => handleInputChange(index, "amount", e.target.value)}
+                      className="w-full border-none outline-none"
+                    />
+                  </td>
+                  <td className="border border-gray-300 px-4 py-3 text-lg">
+                    <input
+                      type="text"
+                      value={entry.narration}
+                      onChange={(e) => handleInputChange(index, "narration", e.target.value)}
+                      className="w-full border-none outline-none"
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -80,25 +209,26 @@ function PaymentVoucher() {
           <div>
             <label className="text-lg font-medium text-gray-700">Grand Total:</label>
             <span className="ml-4 text-xl font-semibold border border-gray-400 px-6 py-3 rounded-lg">
-              0.00
+              {calculateGrandTotal()}
             </span>
           </div>
           <div className="flex gap-4">
-            <button className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-green-600 transition">
-              Save
-            </button>
-            <button className="bg-yellow-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-yellow-600 transition">
-              Modify
-            </button>
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-blue-600 transition">
-              Print
-            </button>
-            <button className="bg-red-500 text-white px-6 py-3 rounded-lg shadow-md text-lg hover:bg-red-600 transition">
-              Cancel
-            </button>
+            <button className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600" onClick={handleSave}>Save</button>
+            <button className="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600">Modify</button>
+            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">Print</button>
+            <button className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600">Cancel</button>
           </div>
         </div>
       </div>
+
+      {/* Custom Confirmation Dialog */}
+      <CustomDialog
+        isOpen={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onConfirm={confirmSave}
+        title="Confirm Save"
+        message="Are you sure you want to save this Payment Voucher?"
+      />
     </div>
   );
 }
