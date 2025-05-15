@@ -7,6 +7,7 @@ const InventoryItemMaster = () => {
   const [activeTab, setActiveTab] = useState("Product Information");
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [availableUoms, setAvailableUoms] = useState([]);
 
   const defaultProductData = {
     productName: "",
@@ -38,15 +39,32 @@ const InventoryItemMaster = () => {
 
   // Fetch categories on mount
   useEffect(() => {
+    const fetchUoms = async () => {
+      try {
+        const res = await axios.get(API_URLS.GET_UOM);
+        if (Array.isArray(res.data)) {
+          setAvailableUoms(res.data);
+        } else {
+          toast.error("Invalid response for UOM.");
+        }
+      } catch (error) {
+        toast.error("Error fetching UOM.");
+        console.error(error);
+      }
+    };
+
+    fetchUoms();
     const fetchCategories = async () => {
       try {
         const response = await axios.get(API_URLS.GET_CATEGORIES);
-        console.log("Categories response:", response.data); // Log the categories response
         if (Array.isArray(response.data)) {
-          setCategories(response.data);
+          // Convert category name strings into option objects
+          const categoryObjects = response.data.map((name) => ({
+            CatName: name,
+          }));
+          setCategories(categoryObjects);
         } else {
           toast.error("Invalid response for categories.");
-          console.warn("Invalid categories format:", response.data);
           setCategories([]);
         }
       } catch (error) {
@@ -60,35 +78,34 @@ const InventoryItemMaster = () => {
 
   // Fetch subcategories based on selected category
   const handleCategoryChange = async (e) => {
-    const selectedCatId = e.target.value;
-    const selectedCat = categories.find((c) => c.CatId === selectedCatId);
+    const selectedCatName = e.target.value;
 
-    if (!selectedCat) return;
-
-    // Update product data with both catId and catName
-    setProductData({
-      ...productData,
-      catId: selectedCat.CatId,
-      catName: selectedCat.CatName,
+    setProductData((prev) => ({
+      ...prev,
+      catName: selectedCatName,
+      catId: "", // Optionally clear if not needed anymore
       subCatName: "",
       subCatId: "",
-    });
+    }));
 
     try {
       const response = await fetch(
         `${API_URLS.GET_SUBCATEGORIES}?categoryName=${encodeURIComponent(
-          selectedCat.CatName
+          selectedCatName
         )}`
       );
 
       const data = await response.json();
 
       if (Array.isArray(data)) {
-        setSubCategories(data);
+        // Convert subcategory names into objects
+        const subCatObjects = data.map((name) => ({
+          SubCatName: name,
+        }));
+        setSubCategories(subCatObjects);
       } else {
         toast.error("Invalid response for subcategories.");
         setSubCategories([]);
-        console.warn("Subcategory API response:", data);
       }
     } catch (err) {
       console.error("Failed to fetch subcategories:", err);
@@ -98,33 +115,73 @@ const InventoryItemMaster = () => {
   };
 
   const handleSubCategoryChange = (e) => {
-    const selectedSubCatId = e.target.value;
-    const selectedSubCat = subCategories.find(
-      (sc) => sc.SubCatId === selectedSubCatId
-    );
-
-    if (selectedSubCat) {
-      setProductData({
-        ...productData,
-        subCatName: selectedSubCat.SubCatName,
-        subCatId: selectedSubCat.SubCatId,
-      });
-    }
+    const selectedName = e.target.value;
+    setProductData((prev) => ({
+      ...prev,
+      subCatName: selectedName,
+      subCatId: "", // optional if you're not using ID anymore
+    }));
   };
 
   const handleProductDataChange = (e) => {
-    setProductData({ ...productData, [e.target.name]: e.target.value });
-  };
+    const { name, value } = e.target;
+    setProductData((prev) => ({ ...prev, [name]: value }));
 
-  const handleUomChange = (index, e) => {
-    const updatedUoms = [...uomData];
-    updatedUoms[index][e.target.name] = e.target.value;
-    setUomData(updatedUoms);
-
-    if (index === uomData.length - 1 && e.target.name === "netProfitPercent") {
-      addUomRow();
+    // If the field affects UOM section, update those too
+    if (["unitRate", "saleRate", "wholeSalePcs"].includes(name)) {
+      const updatedUoms = uomData.map((uom) => ({
+        ...uom,
+        packCost: name === "unitRate" ? value : uom.packCost,
+        packSale: name === "saleRate" ? value : uom.packSale,
+        netSale: name === "saleRate" ? value : uom.netSale,
+      }));
+      setUomData(updatedUoms);
     }
   };
+
+  const handleUomChange = async (index, e) => {
+  const { name, value } = e.target;
+  const updatedUoms = [...uomData];
+  const currentUom = { ...updatedUoms[index], [name]: value };
+
+  // Set readonly values from productData
+  currentUom.packCost = productData.unitRate;
+  currentUom.packSale = productData.saleRate;
+
+  // Auto-calculate netSale
+  const packSale = parseFloat(productData.saleRate || 0);
+  const discAmt = parseFloat(currentUom.discAmt || 0);
+  const packCost = parseFloat(productData.unitRate || 0);
+  currentUom.netSale = packSale - discAmt;
+
+  // Auto-calculate netProfitPercent
+  currentUom.netProfitPercent =
+    packCost > 0 ? (((currentUom.netSale - packCost) / packCost) * 100).toFixed(2) : 0;
+
+  updatedUoms[index] = currentUom;
+  setUomData(updatedUoms);
+
+  if (name === "uom" && value) {
+    try {
+      const res = await axios.get(`${API_URLS.GET_UOM_QTY}?uom=${encodeURIComponent(value)}`);
+      if (res.status === 200 && res.data) {
+        updatedUoms[index].uomQty = res.data.uomQty || "";
+        setUomData([...updatedUoms]);
+      } else {
+        toast.error("UOM Qty not found for selected UOM.");
+      }
+    } catch (error) {
+      toast.error("Failed to fetch UOM Qty.");
+      console.error(error);
+    }
+  }
+
+  // Add new row when netProfitPercent is updated on the last row
+  if (index === uomData.length - 1 && name === "discAmt") {
+    addUomRow();
+  }
+};
+
 
   const addUomRow = () => {
     setUomData([...uomData, { ...defaultUomRow }]);
@@ -203,14 +260,14 @@ const InventoryItemMaster = () => {
           <div>
             <label className="block mb-2 font-medium">Category Name</label>
             <select
-              name="catId"
-              value={productData.catId} // Bind to catId
+              name="catName"
+              value={productData.catName}
               onChange={handleCategoryChange}
               className={inputClass}
             >
               <option value="">-- Select Category --</option>
               {categories.map((cat) => (
-                <option key={cat.CatId} value={cat.CatId}>
+                <option key={cat.CatName} value={cat.CatName}>
                   {cat.CatName}
                 </option>
               ))}
@@ -219,18 +276,17 @@ const InventoryItemMaster = () => {
           <div>
             <label className="block mb-2 font-medium">Sub Category Name</label>
             <select
-              name="subCatId"
-              value={productData.subCatId} // Bind to subCatId
+              name="subCatName"
+              value={productData.subCatName}
               onChange={handleSubCategoryChange}
               className={inputClass}
             >
               <option value="">-- Select Sub Category --</option>
-              {Array.isArray(subCategories) &&
-                subCategories.map((sub) => (
-                  <option key={sub.SubCatId} value={sub.SubCatId}>
-                    {sub.SubCatName}
-                  </option>
-                ))}
+              {subCategories.map((sub) => (
+                <option key={sub.SubCatName} value={sub.SubCatName}>
+                  {sub.SubCatName}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -303,15 +359,41 @@ const InventoryItemMaster = () => {
               <tr key={index}>
                 {Object.keys(defaultUomRow).map((field) => (
                   <td key={field}>
-                    <input
-                      type={
-                        ["barcode", "uom"].includes(field) ? "text" : "number"
-                      }
-                      name={field}
-                      value={uom[field]}
-                      onChange={(e) => handleUomChange(index, e)}
-                      className={inputClass}
-                    />
+                    {field === "uom" ? (
+                      <select
+                        name="uom"
+                        value={uom.uom}
+                        onChange={(e) => handleUomChange(index, e)}
+                        className={inputClass}
+                      >
+                        <option value="">-- Select UOM --</option>
+                        {availableUoms.map((u) => (
+                          <option key={u} value={u}>
+                            {u}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        type={["barcode"].includes(field) ? "text" : "number"}
+                        name={field}
+                        value={
+                          field === "packCost"
+                            ? productData.unitRate
+                            : field === "packSale" || field === "netSale"
+                            ? productData.saleRate
+                            : uom[field]
+                        }
+                        onChange={(e) => handleUomChange(index, e)}
+                        readOnly={!["uom", "barcode", "discAmt"].includes(field)}
+
+                        className={`${inputClass} ${
+                          ["packCost", "packSale", "netSale"].includes(field)
+                            ? "bg-gray-100"
+                            : ""
+                        }`}
+                      />
+                    )}
                   </td>
                 ))}
               </tr>

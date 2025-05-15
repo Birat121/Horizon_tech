@@ -73,8 +73,16 @@ export const API_URLS = {
 
    GET_CATEGORIES : `${API_BASE_URL}/InventoryItemMaster/GetCategories`,
    GET_SUBCATEGORIES : `${API_BASE_URL}/InventoryItemMaster/GetSubCategories`,
+   GET_UOM : `${API_BASE_URL}/InventoryItemMaster/GetUOM`,
+GET_UOM_QTY : `${API_BASE_URL}/InventoryItemMaster/GetUOMQty`,
+   SAVE_PRODUCT : `${API_BASE_URL}/InventoryItemMaster/createProduct`,
 
-   SAVE_PRODUCT : `${API_BASE_URL}/InventoryItemMaster/create`,
+   ISP_LIST : `${API_BASE_URL}/MaterialIssueNote/GenerateISP`,
+   BRANCH_LIST : `${API_BASE_URL}/MaterialIssueNote/GetBranch`,
+   PRODUCT_LIST : `${API_BASE_URL}/MaterialIssueNote/GetProduct`,
+   MATERIAL_ISSUE : `${API_BASE_URL}/MaterialIssueNote/createMaterial`,
+   GET_PRODUCT_DETAILS : `${API_BASE_URL}/MaterialIssueNote/GetDetails`,
+   GET_NEXT_ISSUE_NO : `${API_BASE_URL}/MaterialIssueNote/GenerateISP2`,
 
   //system security
   

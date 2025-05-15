@@ -1,213 +1,324 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { API_URLS } from "../../reusable inputs/config";
+import CustomDialog from "../../reusable inputs/customeDialog";
 
 const GoodsReceiptByProduct = () => {
-  const [formData, setFormData] = useState({
-    issueDate: '',
-    issueNo: '',
-    branch: '',
-  });
+  const initialRow = {
+    productId: "",
+    barcode: "",
+    productName: "",
+    receiptQty: "",
+    uom: "",
+    unitCost: "",
+    totalAmt: "",
+  };
 
-  const [tableData, setTableData] = useState([]);
+  const [file, setFile] = useState(null);
+  const [rows, setRows] = useState([initialRow]);
+  const [receiptDate, setReceiptDate] = useState("");
+  const [branchFrom, setBranchFrom] = useState("");
+  const [isp, setIsp] = useState("");
+  const [branches, setBranches] = useState([]);
+  const [productNames, setProductNames] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [errors, setErrors] = useState({}); // Validation errors
 
-  // Fetch data from backend
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('YOUR_BACKEND_API_URL'); // Replace with actual API URL
-        const data = await response.json();
+        const [branchesRes, productNamesRes, ispRes] = await Promise.all([
+          fetch(API_URLS.BRANCH_LIST),
+          fetch(API_URLS.PRODUCT_LIST),
+          fetch(API_URLS.GET_NEXT_ISSUE_NO),
+        ]);
 
-        setFormData({
-          issueDate: data.issueDate || '',
-          issueNo: data.issueNo || '',
-          branch: data.branch || '',
-        });
+        if (!branchesRes.ok || !productNamesRes.ok || !ispRes.ok) {
+          throw new Error("Error fetching data");
+        }
 
-        setTableData(data.items || []);
+        const [branchesData, productNamesData, ispDataRaw] = await Promise.all([
+          branchesRes.json(),
+          productNamesRes.json(),
+          ispRes.text(),
+        ]);
+
+        setBranches(branchesData);
+        setProductNames(productNamesData);
+        setIsp(ispDataRaw);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Fetch Error:", error);
+        toast.error("Failed to fetch necessary data.");
       }
     };
 
     fetchData();
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleInputChange = (index, field, value) => {
+    const updatedRows = [...rows];
+    updatedRows[index][field] = value;
 
-  const handleTableChange = (index, field, value) => {
-    const newTableData = [...tableData];
-    newTableData[index][field] = value;
-
-    if (field === 'qty' || field === 'rate') {
-      newTableData[index].total = newTableData[index].qty * newTableData[index].rate;
+    if (field === "receiptQty" || field === "unitCost") {
+      const qty = parseFloat(updatedRows[index].receiptQty) || 0;
+      const cost = parseFloat(updatedRows[index].unitCost) || 0;
+      updatedRows[index].totalAmt = (qty * cost).toFixed(2);
     }
 
-    setTableData(newTableData);
+    setRows(updatedRows);
+
+    if (
+      index === rows.length - 1 &&
+      Object.values(updatedRows[index]).every((v) => v !== "")
+    ) {
+      setRows([...updatedRows, { ...initialRow }]);
+    }
+  };
+
+  const handleProductChange = async (index, productName) => {
+    try {
+      const response = await fetch(
+        `${API_URLS.GET_PRODUCT_DETAILS}?productName=${encodeURIComponent(productName)}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        const updatedRows = [...rows];
+        updatedRows[index] = {
+          ...updatedRows[index],
+          productName,
+          productId: data.productId || "",
+          barcode: data.barcode || "",
+          uom: data.uom || "",
+          unitCost: data.unitCost || "",
+          totalAmt: updatedRows[index].receiptQty
+            ? (
+                parseFloat(updatedRows[index].receiptQty) *
+                parseFloat(data.unitCost || 0)
+              ).toFixed(2)
+            : "",
+        };
+        setRows(updatedRows);
+      } else {
+        toast.error("Product details not found");
+      }
+    } catch (error) {
+      toast.error("Failed to fetch product details");
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!receiptDate) newErrors.receiptDate = true;
+    if (!branchFrom) newErrors.branchFrom = true;
+
+    const rowErrors = rows.map((row) => ({
+      productName: !row.productName,
+      receiptQty: !row.receiptQty,
+    }));
+
+    const hasRowError = rowErrors.some(
+      (r) => r.productName || r.receiptQty
+    );
+
+    if (hasRowError) newErrors.rows = rowErrors;
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSave = () => {
+    if (validateForm()) {
+      setShowDialog(true);
+    } else {
+      toast.error("Please fill all required fields.");
+    }
+  };
+
+  const confirmSave = () => {
+    const dataToSave = {
+      receiptDate,
+      branchFrom,
+      isp,
+      rows: rows.filter((r) => r.productName && r.receiptQty),
+    };
+
+    fetch(API_URLS.GOODS_RECEIPT, {
+      method: "POST",
+      body: JSON.stringify(dataToSave),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then(() => {
+        toast.success("Goods receipt data saved successfully!");
+        setShowDialog(false);
+        setRows([initialRow]);
+        setReceiptDate("");
+        setBranchFrom("");
+        setFile(null);
+        setErrors({});
+      })
+      .catch(() => {
+        toast.error("Failed to save goods receipt");
+        setShowDialog(false);
+      });
+  };
+
+  const handleCancel = () => {
+    setRows([initialRow]);
+    setReceiptDate("");
+    setBranchFrom("");
+    setFile(null);
+    setErrors({});
+    toast.info("Form has been cleared.");
   };
 
   return (
-    <div className="flex items-center justify-center h-[85vh] p-4">
-      <div className="w-full max-w-5xl  bg-white border-2 rounded-lg shadow-lg  p-6">
-        {/* Header */}
-        <div className="  text-center text-xl font-semibold p-2 rounded-md mb-4">
-          Material Receipt
-        </div>
+    <div className="h-[85vh] flex items-center justify-center p-6">
+      <div className="w-full max-w-6xl p-8 bg-white border border-gray-300 rounded-2xl shadow-lg flex flex-col">
+        <h2 className="text-center text-xl font-semibold p-2 mb-4">
+          Goods Receipt
+        </h2>
 
-        {/* Form Section */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {/* Issue & Receipt Date */}
-          <div className="flex space-x-4 items-center">
-            <label className="block text-sm font-medium">Issue Date:</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label className="block text-lg font-medium text-gray-700">
+              Receipt Date
+            </label>
             <input
               type="date"
-              name="issueDate"
-              value={formData.issueDate}
-              onChange={handleInputChange}
-              className="border border-gray-300 rounded p-2"
-            />
-
-            
-            <input
-              type="date"
-              name="receiptDate"
-              value={formData.receiptDate}
-              onChange={handleInputChange}
-              className="border border-gray-300 rounded p-2"
+              value={receiptDate}
+              onChange={(e) => setReceiptDate(e.target.value)}
+              className={`w-full mt-2 p-3 border ${
+                errors.receiptDate ? "border-red-500" : "border-gray-300"
+              } rounded-lg text-lg`}
             />
           </div>
-
-          {/* Issue Number */}
           <div>
-            <label className="block text-sm font-medium mb-1">Issue No.:</label>
+            <label className="block text-lg font-medium text-gray-700">
+              Receipt No.
+            </label>
             <input
               type="text"
-              name="issueNo"
-              value={formData.issueNo}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded p-2"
+              value={isp}
+              readOnly
+              className="w-full mt-2 p-3 border border-gray-300 rounded-lg text-lg"
             />
           </div>
-
-          {/* Branch */}
           <div>
-            <label className="block text-sm font-medium mb-1">From Branch:</label>
+            <label className="block text-lg font-medium text-gray-700">
+              Branch From
+            </label>
             <select
-              name="branch"
-              value={formData.branch}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 rounded p-2"
+              value={branchFrom}
+              onChange={(e) => setBranchFrom(e.target.value)}
+              className={`w-full mt-2 p-3 border ${
+                errors.branchFrom ? "border-red-500" : "border-gray-300"
+              } rounded-lg text-lg`}
             >
               <option value="">Select Branch</option>
-              <option value="Branch 1">Branch 1</option>
-              <option value="Branch 2">Branch 2</option>
+              {branches.map((branch, index) => (
+                <option key={index} value={branch}>
+                  {branch}
+                </option>
+              ))}
             </select>
           </div>
         </div>
 
-        {/* Table Section */}
-        <div className="overflow-x-auto">
-          <table className="w-full border border-gray-300">
-            <thead className="bg-gray-100">
+        {/* Product Table */}
+        <div
+          className="overflow-y-auto border border-gray-300 rounded-lg"
+          style={{ maxHeight: "300px" }}
+        >
+          <table className="w-full text-left text-lg min-w-[800px]">
+            <thead className="bg-gray-100 sticky top-0 z-10">
               <tr>
-                <th className="border p-2">Sr.</th>
-                <th className="border p-2">Product ID</th>
-                <th className="border p-2">Product Name</th>
-                <th className="border p-2">Issue Qty.</th>
-                <th className="border p-2">UOM</th>
-                <th className="border p-2">Rate</th>
-                <th className="border p-2">Total Amt</th>
-                <th className="border p-2">Batch No.</th>
+                <th className="border px-4 py-3">Sr.</th>
+                <th className="border px-4 py-3">Product Name</th>
+                <th className="border px-4 py-3">Product ID</th>
+                <th className="border px-4 py-3">Barcode</th>
+                <th className="border px-4 py-3">Receipt Qty</th>
+                <th className="border px-4 py-3">UOM</th>
+                <th className="border px-4 py-3">Unit Cost</th>
+                <th className="border px-4 py-3">Total Amt</th>
               </tr>
             </thead>
-            <tbody> <tr>
-              <td className="border p-2">1</td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-
-              </tr>
-
-              {tableData.map((row, index) => (
-                <tr key={row.id}>
-                  <td className="border p-2">{index + 1}</td>
-                  <td className="border p-2">
-                    <input
-                      type="text"
-                      value={row.productId}
-                      onChange={(e) => handleTableChange(index, 'productId', e.target.value)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                  <td className="border p-2">
-                    <input
-                      type="text"
-                      value={row.productName}
-                      onChange={(e) => handleTableChange(index, 'productName', e.target.value)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                  <td className="border p-2">
-                    <input
-                      type="number"
-                      value={row.qty}
-                      onChange={(e) => handleTableChange(index, 'qty', parseFloat(e.target.value) || 0)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                  <td className="border p-2">
-                    <input
-                      type="text"
-                      value={row.uom}
-                      onChange={(e) => handleTableChange(index, 'uom', e.target.value)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                  <td className="border p-2">
-                    <input
-                      type="number"
-                      value={row.rate}
-                      onChange={(e) => handleTableChange(index, 'rate', parseFloat(e.target.value) || 0)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                  <td className="border p-2">{row.total.toFixed(2)}</td>
-                  <td className="border p-2">
-                    <input
-                      type="text"
-                      value={row.batchNo}
-                      onChange={(e) => handleTableChange(index, 'batchNo', e.target.value)}
-                      className="w-full border border-gray-300 rounded p-1"
-                    />
-                  </td>
-                </tr>
-              ))}
+            <tbody>
+              {rows.map((row, index) => {
+                const rowError = errors.rows?.[index] || {};
+                return (
+                  <tr key={index}>
+                    <td className="border px-4 py-3 text-center">{index + 1}</td>
+                    <td className="border px-4 py-3">
+                      <select
+                        value={row.productName}
+                        onChange={(e) =>
+                          handleProductChange(index, e.target.value)
+                        }
+                        className={`w-full p-3 border rounded-lg ${
+                          rowError.productName ? "border-red-500" : "border-gray-300"
+                        }`}
+                      >
+                        <option value="">Select Product</option>
+                        {productNames.map((productName, idx) => (
+                          <option key={idx} value={productName}>
+                            {productName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="border px-4 py-3">{row.productId}</td>
+                    <td className="border px-4 py-3">{row.barcode}</td>
+                    <td className="border px-4 py-3">
+                      <input
+                        type="number"
+                        value={row.receiptQty}
+                        onChange={(e) =>
+                          handleInputChange(index, "receiptQty", e.target.value)
+                        }
+                        className={`w-full p-3 border rounded-lg ${
+                          rowError.receiptQty ? "border-red-500" : "border-gray-300"
+                        }`}
+                      />
+                    </td>
+                    <td className="border px-4 py-3">{row.uom}</td>
+                    <td className="border px-4 py-3">{row.unitCost}</td>
+                    <td className="border px-4 py-3">{row.totalAmt}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
 
-        {/* Subtotal Section */}
-        <div className="flex justify-end mt-4">
-          <span className="font-medium">Sub Total:</span>
-          <span className="ml-2 bg-teal-100 p-2 rounded">
-            {tableData.reduce((sum, row) => sum + row.total, 0).toFixed(2)}
-          </span>
-        </div>
-
-        {/* Button Section */}
+        {/* Buttons */}
         <div className="flex justify-between mt-6">
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+          <button
+            onClick={handleSave}
+            className="bg-blue-500 text-white p-3 rounded-lg"
+          >
             Save
           </button>
-          <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+          <button
+            onClick={handleCancel}
+            className="bg-red-500 text-white p-3 rounded-lg"
+          >
             Cancel
           </button>
         </div>
+
+        {/* Confirmation Dialog */}
+        <CustomDialog
+          isOpen={showDialog}
+          onClose={() => setShowDialog(false)}
+          onConfirm={confirmSave}
+          title="Confirm Save"
+          message="Are you sure you want to save this Goods Receipt?"
+        />
       </div>
     </div>
   );

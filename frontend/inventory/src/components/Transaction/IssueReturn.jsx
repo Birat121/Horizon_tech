@@ -4,15 +4,76 @@ const ReturnMaterialIssue = () => {
   const [returnDate, setReturnDate] = useState("2025-03-19");
   const [returnNo, setReturnNo] = useState("IssR10081-820001");
   const [branch, setBranch] = useState("Main Store");
+  const [excelFileName, setExcelFileName] = useState("");
+
+  const [rows, setRows] = useState([
+    {
+      productId: "",
+      barcode: "",
+      productName: "",
+      qty: "",
+      uom: "",
+      unitCost: "",
+      totalAmt: 0,
+    },
+  ]);
+
+  const handleRowChange = (index, field, value) => {
+    const newRows = [...rows];
+    newRows[index][field] = value;
+
+    // Calculate Total
+    const qty = parseFloat(newRows[index].qty) || 0;
+    const cost = parseFloat(newRows[index].unitCost) || 0;
+    newRows[index].totalAmt = qty * cost;
+
+    // Auto add new row if last row has some data
+    const isLast = index === rows.length - 1;
+    const hasData = Object.values(newRows[index]).some((v) => v !== "" && v !== 0);
+    if (isLast && hasData) {
+      newRows.push({
+        productId: "",
+        barcode: "",
+        productName: "",
+        qty: "",
+        uom: "",
+        unitCost: "",
+        totalAmt: 0,
+      });
+    }
+
+    setRows(newRows);
+  };
+
+  const handleCancel = () => {
+    setReturnDate("2025-03-19");
+    setReturnNo("IssR10081-820001");
+    setBranch("Main Store");
+    setExcelFileName("");
+    setRows([
+      {
+        productId: "",
+        barcode: "",
+        productName: "",
+        qty: "",
+        uom: "",
+        unitCost: "",
+        totalAmt: 0,
+      },
+    ]);
+  };
+
+  const grandTotal = rows.reduce((sum, row) => sum + (parseFloat(row.totalAmt) || 0), 0);
 
   return (
     <div className="flex items-center justify-center h-[90vh]">
-      <div className="bg-white border-2 shadow-lg rounded-lg p-8 w-full max-w-4xl">
+      <div className="bg-white border-2 shadow-lg rounded-lg p-8 w-full max-w-6xl">
         {/* Header */}
         <div className="text-center mb-6">
-          <h2 className='text-xl font-bold p-2 rounded mb-4 '>Issue Return</h2>
+          <h2 className="text-xl font-bold p-2 rounded mb-4">Issue Return</h2>
         </div>
 
+        {/* Form Fields */}
         <div className="grid grid-cols-3 gap-6">
           <div>
             <label className="block text-sm font-semibold">Return Date:</label>
@@ -34,8 +95,14 @@ const ReturnMaterialIssue = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold">Branch To:</label>
-            <select className="w-full border rounded p-3" value={branch}>
+            <select
+              className="w-full border rounded p-3"
+              value={branch}
+              onChange={(e) => setBranch(e.target.value)}
+            >
               <option>Main Store</option>
+              <option>Branch A</option>
+              <option>Branch B</option>
             </select>
           </div>
         </div>
@@ -46,6 +113,8 @@ const ReturnMaterialIssue = () => {
           <input
             type="text"
             className="flex-grow p-3 border border-gray-300 rounded mr-3"
+            value={excelFileName}
+            onChange={(e) => setExcelFileName(e.target.value)}
           />
           <button className="bg-gray-200 border border-gray-300 rounded px-5 py-3 cursor-pointer">
             Import...
@@ -53,9 +122,9 @@ const ReturnMaterialIssue = () => {
         </div>
 
         {/* Table */}
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300 text-lg">
-            <thead className="bg-gray-100">
+        <div className="mt-6 overflow-x-auto max-h-[300px] overflow-y-auto border rounded">
+          <table className="w-full border-collapse border border-gray-300 text-sm">
+            <thead className="bg-gray-100 sticky top-0 z-10">
               <tr>
                 <th className="p-3 border">Sr.</th>
                 <th className="p-3 border">Product ID</th>
@@ -68,21 +137,71 @@ const ReturnMaterialIssue = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="p-3 border">1</td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-                <td className="p-3 border"></td>
-              </tr>
+              {rows.map((row, idx) => (
+                <tr key={idx}>
+                  <td className="p-3 border text-center">{idx + 1}</td>
+                  <td className="p-2 border">
+                    <input
+                      type="text"
+                      className="w-full border rounded p-1"
+                      value={row.productId}
+                      onChange={(e) => handleRowChange(idx, "productId", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border">
+                    <input
+                      type="text"
+                      className="w-full border rounded p-1"
+                      value={row.barcode}
+                      onChange={(e) => handleRowChange(idx, "barcode", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border">
+                    <input
+                      type="text"
+                      className="w-full border rounded p-1"
+                      value={row.productName}
+                      onChange={(e) => handleRowChange(idx, "productName", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border">
+                    <input
+                      type="number"
+                      className="w-full border rounded p-1"
+                      value={row.qty}
+                      onChange={(e) => handleRowChange(idx, "qty", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border">
+                    <input
+                      type="text"
+                      className="w-full border rounded p-1"
+                      value={row.uom}
+                      onChange={(e) => handleRowChange(idx, "uom", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border">
+                    <input
+                      type="number"
+                      className="w-full border rounded p-1"
+                      value={row.unitCost}
+                      onChange={(e) => handleRowChange(idx, "unitCost", e.target.value)}
+                    />
+                  </td>
+                  <td className="p-2 border text-right">
+                    {parseFloat(row.totalAmt).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
             </tbody>
             <tfoot>
-              <tr>
-                <td colSpan="7" className="border px-4 py-3 font-semibold text-right">Grand Total:</td>
-                <td className="border px-4 py-3 font-semibold"></td>
+              <tr className="bg-gray-50">
+                <td colSpan="7" className="border px-4 py-3 font-semibold text-right">
+                  Grand Total:
+                </td>
+                <td className="border px-4 py-3 font-semibold text-right">
+                  {grandTotal.toFixed(2)}
+                </td>
               </tr>
             </tfoot>
           </table>
@@ -91,8 +210,15 @@ const ReturnMaterialIssue = () => {
         {/* Buttons */}
         <div className="flex justify-between mt-6">
           <button className="bg-blue-500 text-white p-3 rounded text-lg">Save</button>
-          <button className="bg-yellow-500 text-white p-3 rounded text-lg">Cancel</button>
-          <button className="bg-green-500 text-white p-3 rounded text-lg">Get Excel Format</button>
+          <button
+            className="bg-yellow-500 text-white p-3 rounded text-lg"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button className="bg-green-500 text-white p-3 rounded text-lg">
+            Get Excel Format
+          </button>
         </div>
       </div>
     </div>
