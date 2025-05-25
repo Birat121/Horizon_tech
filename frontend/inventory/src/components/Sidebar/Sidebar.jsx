@@ -163,19 +163,7 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/about"
-              className={`px-4 py-3 block rounded-lg text-white ${
-                location.pathname === "/about"
-                  ? "bg-yellow-500"
-                  : "hover:bg-gray-200 hover:text-black"
-              }`}
-            >
-              <LucideIcons.Info className="inline mr-2" size={20} /> About
-              Software
-            </Link>
-          </li>
+          
         </ul>
       </div>
     </>

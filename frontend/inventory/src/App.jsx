@@ -2,7 +2,7 @@ import { Route, Routes,useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./pages/Home";
 import Exit from "./components/Exit/Exit";
-import About from "./components/About Software/About";
+
 import LoginPage from "./pages/Login";
 import Navbar from "./pages/Navbar";
 import ErrorPage from "./pages/Error";
@@ -150,7 +150,7 @@ function App() {
         
         
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+      
         <Route path="/exit" element={<Exit />} />
         
         <Route path="/reports" element={<Reports/>} />

@@ -140,48 +140,51 @@ const InventoryItemMaster = () => {
   };
 
   const handleUomChange = async (index, e) => {
-  const { name, value } = e.target;
-  const updatedUoms = [...uomData];
-  const currentUom = { ...updatedUoms[index], [name]: value };
+    const { name, value } = e.target;
+    const updatedUoms = [...uomData];
+    const currentUom = { ...updatedUoms[index], [name]: value };
 
-  // Set readonly values from productData
-  currentUom.packCost = productData.unitRate;
-  currentUom.packSale = productData.saleRate;
+    // Set readonly values from productData
+    currentUom.packCost = productData.unitRate;
+    currentUom.packSale = productData.saleRate;
 
-  // Auto-calculate netSale
-  const packSale = parseFloat(productData.saleRate || 0);
-  const discAmt = parseFloat(currentUom.discAmt || 0);
-  const packCost = parseFloat(productData.unitRate || 0);
-  currentUom.netSale = packSale - discAmt;
+    // Auto-calculate netSale
+    const packSale = parseFloat(productData.saleRate || 0);
+    const discAmt = parseFloat(currentUom.discAmt || 0);
+    const packCost = parseFloat(productData.unitRate || 0);
+    currentUom.netSale = packSale - discAmt;
 
-  // Auto-calculate netProfitPercent
-  currentUom.netProfitPercent =
-    packCost > 0 ? (((currentUom.netSale - packCost) / packCost) * 100).toFixed(2) : 0;
+    // Auto-calculate netProfitPercent
+    currentUom.netProfitPercent =
+      packCost > 0
+        ? (((currentUom.netSale - packCost) / packCost) * 100).toFixed(2)
+        : 0;
 
-  updatedUoms[index] = currentUom;
-  setUomData(updatedUoms);
+    updatedUoms[index] = currentUom;
+    setUomData(updatedUoms);
 
-  if (name === "uom" && value) {
-    try {
-      const res = await axios.get(`${API_URLS.GET_UOM_QTY}?uom=${encodeURIComponent(value)}`);
-      if (res.status === 200 && res.data) {
-        updatedUoms[index].uomQty = res.data.uomQty || "";
-        setUomData([...updatedUoms]);
-      } else {
-        toast.error("UOM Qty not found for selected UOM.");
+    if (name === "uom" && value) {
+      try {
+        const res = await axios.get(
+          `${API_URLS.GET_UOM_QTY}?uom=${encodeURIComponent(value)}`
+        );
+        if (res.status === 200 && res.data) {
+          updatedUoms[index].uomQty = res.data.uomQty || "";
+          setUomData([...updatedUoms]);
+        } else {
+          toast.error("UOM Qty not found for selected UOM.");
+        }
+      } catch (error) {
+        toast.error("Failed to fetch UOM Qty.");
+        console.error(error);
       }
-    } catch (error) {
-      toast.error("Failed to fetch UOM Qty.");
-      console.error(error);
     }
-  }
 
-  // Add new row when netProfitPercent is updated on the last row
-  if (index === uomData.length - 1 && name === "discAmt") {
-    addUomRow();
-  }
-};
-
+    // Add new row when netProfitPercent is updated on the last row
+    if (index === uomData.length - 1 && name === "discAmt") {
+      addUomRow();
+    }
+  };
 
   const addUomRow = () => {
     setUomData([...uomData, { ...defaultUomRow }]);
@@ -193,18 +196,37 @@ const InventoryItemMaster = () => {
   };
 
   const validateForm = () => {
-    const isProductValid = Object.values(productData).every(
-      (val) => val !== ""
+    // Define required product fields
+    const requiredProductFields = [
+      "productName",
+      "catName",
+      "subCatName",
+      "unitRate",
+      "saleRate",
+    ];
+
+    // Check only required product fields
+    const isProductValid = requiredProductFields.every(
+      (field) => productData[field]?.toString().trim() !== ""
     );
-    const isUomValid = uomData.every((uom) =>
-      Object.values(uom).every((val) => val !== "")
-    );
+
+    // Check UOM rows (at least one complete row)
+    const isUomValid = uomData.some((uom) => {
+      return (
+        uom.uom &&
+        uom.uomQty &&
+        uom.netSale !== "" &&
+        uom.netProfitPercent !== ""
+      );
+    });
+
     return isProductValid && isUomValid;
   };
 
   const handleSave = async () => {
     if (!validateForm()) {
       toast.error("Please fill in all required fields.");
+      console.error("Validation failed: ", { productData, uomData });
       return;
     }
 
@@ -220,11 +242,15 @@ const InventoryItemMaster = () => {
         uomQty: parseFloat(uom.uomQty),
         unitRate: parseFloat(uom.packCost),
         unitSale: parseFloat(uom.packSale),
-        discAmt: parseFloat(uom.discAmt),
+       discAmt: uom.discAmt ? parseFloat(uom.discAmt) : 0,
+
         netSale: parseFloat(uom.netSale),
         netProfitPercent: parseFloat(uom.netProfitPercent),
+        ws: parseInt(productData.wholeSalePcs) || 0,
       })),
     };
+
+    console.log("Submitting payload:", payload);
 
     try {
       const res = await fetch(API_URLS.SAVE_PRODUCT, {
@@ -234,12 +260,17 @@ const InventoryItemMaster = () => {
       });
 
       const result = await res.json();
-      result === true
-        ? toast.success("Product saved successfully.")
-        : toast.error("Failed to save product.");
+      console.log("Server response:", result);
+
+      if (res.ok && result === true) {
+        toast.success("Product saved successfully.");
+      } else {
+        toast.error("Failed to save product.");
+        console.error("Save failed:", result);
+      }
     } catch (err) {
-      console.error("Save error:", err);
-      toast.error("Failed to save product.");
+      console.error("Error during save:", err);
+      toast.error("Failed to save product due to a network/server error.");
     }
   };
 
@@ -385,8 +416,9 @@ const InventoryItemMaster = () => {
                             : uom[field]
                         }
                         onChange={(e) => handleUomChange(index, e)}
-                        readOnly={!["uom", "barcode", "discAmt"].includes(field)}
-
+                        readOnly={
+                          !["uom", "barcode", "discAmt"].includes(field)
+                        }
                         className={`${inputClass} ${
                           ["packCost", "packSale", "netSale"].includes(field)
                             ? "bg-gray-100"
