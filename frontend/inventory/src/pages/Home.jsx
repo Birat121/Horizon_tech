@@ -5,7 +5,7 @@ const Home = () => {
     <div className="h-[85vh] w-full flex flex-col items-center justify-center text-">
       {/* Company Name */}
       <h2 className="text-4xl lg:text-6xl font-bold mb-4 text-center">
-        Horizon Technology Pvt. Ltd.
+        PK Inventory
       </h2>
       
       {/* Tagline */}
